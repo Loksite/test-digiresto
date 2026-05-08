@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiResto — Connexion</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a08;--s1:#121210;--s2:#1a1a17;--border:#2a2a25;--border2:#383830;--text:#f0ede6;--text2:#8a8878;--text3:#4a4a40;--gold:#d4a843;--gold2:#e8c06a;--gold-dim:rgba(212,168,67,.1);--green:#4a9b6f;--red:#c95050;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Outfit",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 70% 20%,rgba(212,168,67,.04) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(29,107,98,.04) 0%,transparent 60%);pointer-events:none;}
+.wrap{width:440px;position:relative;z-index:1;}
+.logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:32px;}
+.logo-icon{width:42px;height:42px;border-radius:11px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#000;font-family:"Outfit",sans-serif;}
+.logo-name{font-family:"Fraunces",serif;font-size:26px;font-weight:300;color:var(--text);}
+.logo-name span{color:var(--gold);}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:18px;padding:36px;}
+.card-title{font-family:"Fraunces",serif;font-size:22px;font-weight:300;margin-bottom:6px;}
+.card-sub{font-size:13px;color:var(--text2);margin-bottom:28px;line-height:1.6;}
+.tabs{display:flex;background:var(--s2);border-radius:10px;padding:3px;margin-bottom:24px;}
+.tab{flex:1;padding:8px;border-radius:8px;border:none;background:none;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;font-family:"Outfit",sans-serif;transition:all .2s;}
+.tab.on{background:var(--s1);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.3);}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:5px;}
+.field input{width:100%;background:var(--s2);border:1px solid var(--border2);border-radius:9px;padding:11px 14px;font-size:13px;color:var(--text);font-family:"Outfit",sans-serif;outline:none;transition:border .2s;}
+.field input:focus{border-color:var(--gold);}
+.field input::placeholder{color:var(--text3);}
+.submit{width:100%;padding:13px;background:var(--gold);border:none;border-radius:10px;font-size:14px;font-weight:600;color:#000;cursor:pointer;font-family:"Outfit",sans-serif;transition:all .2s;margin-top:4px;}
+.submit:hover{background:var(--gold2);}
+.submit:disabled{opacity:.5;cursor:not-allowed;}
+.divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--text3);font-size:12px;}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border);}
+
+
+.error-box{background:rgba(201,80,80,.1);border:1px solid rgba(201,80,80,.2);border-radius:9px;padding:10px 14px;font-size:13px;color:var(--red);margin-top:12px;display:none;}
+.error-box.show{display:block;}
+.success-box{background:rgba(74,155,111,.1);border:1px solid rgba(74,155,111,.2);border-radius:9px;padding:10px 14px;font-size:13px;color:var(--green);margin-top:12px;display:none;}
+.success-box.show{display:block;}
+.footer-note{text-align:center;margin-top:20px;font-size:12px;color:var(--text3);}
+.footer-note span{color:var(--gold);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">
+    <div class="logo-icon">D</div>
+    <div class="logo-name">Digi<span>Resto</span></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Bienvenue</div>
+    <div class="card-sub">Connectez-vous à votre espace DigiResto — admin ou restaurant</div>
+    
+
+    <!-- LOGIN -->
+    <div id="form-login">
+      <div class="field"><label>Email</label><input type="email" id="login-email" placeholder="votre@email.fr" autocomplete="email"></div>
+      <div class="field"><label>Mot de passe</label><input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password"></div>
+      <button class="submit" id="login-btn" onclick="doLogin()">Se connecter →</button>
+      
+      
+    </div>
+
+        <div class="error-box" id="error-box"></div>
+    <div class="success-box" id="success-box"></div>
+  </div>
+  <div class="footer-note">DigiResto — Gestion de sites restaurants · <span>Sécurisé par Supabase</span></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const sb = window.supabase.createClient('https://qhnofvfgutsdgbfwhupg.supabase.co', 'sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY');
+
+function showError(msg) {
+  const e = document.getElementById('error-box');
+  e.textContent = msg; e.classList.add('show');
+  document.getElementById('success-box').classList.remove('show');
+}
+function showSuccess(msg) {
+  const s = document.getElementById('success-box');
+  s.textContent = msg; s.classList.add('show');
+  document.getElementById('error-box').classList.remove('show');
+}
+function hideMsg() {
+  document.getElementById('error-box').classList.remove('show');
+  document.getElementById('success-box').classList.remove('show');
+}
+
+async function getRole(userId) {
+  try {
+    const { data } = await sb.from('profiles').select('role').eq('id', userId).single();
+    return data?.role || 'client';
+  } catch(e) { return 'admin'; } // demo mode
+}
+
+async function routeUser(userId) {
+  const role = await getRole(userId);
+  if (role === 'admin') { window.location.href = 'digiresto-admin.html'; return; }
+  const { data: profile } = await sb.from('profiles').select('espace_url').eq('id', userId).single();
+  if (profile?.espace_url) { window.location.href = profile.espace_url; }
+  else { showError('Espace client introuvable. Contactez Loksite.'); }
+}
+
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-pass').value;
+  if (!email || !pass) { showError('Veuillez remplir tous les champs'); return; }
+  const btn = document.getElementById('login-btn');
+  btn.textContent = 'Connexion...'; btn.disabled = true;
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+  if (error) { showError('Email ou mot de passe incorrect'); btn.textContent = 'Se connecter →'; btn.disabled = false; return; }
+  await routeUser(data.user.id);
+}
+
+// Auto-redirect if already logged in
+window.addEventListener('load', async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) await routeUser(session.user.id);
+});
+
+// Enter key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const tab = document.getElementById('tab-login').classList.contains('on');
+    if (tab) doLogin(); else doSignup();
+  }
+});
+</script>
+</body>
+</html>
