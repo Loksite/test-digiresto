@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mon Espace — DigiResto</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --beige: #e8dcc8;
+      --sand: #d4c4a8;
+      --sage: #7a9478;
+      --sage-dark: #5a7458;
+      --earth: #8b6f47;
+      --brown: #4a3728;
+      --text: #2c2018;
+      --text-light: #6b5740;
+      --white: #ffffff;
+      --danger: #c0392b;
+      --success: #27ae60;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+
+    /* LOGIN */
+    #login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--cream) 0%, var(--beige) 100%); }
+    .login-box { background: var(--white); border-radius: 6px; padding: 3rem 3.5rem; width: 100%; max-width: 420px; box-shadow: 0 20px 60px rgba(74,55,40,0.12); }
+    .login-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--brown); text-align: center; margin-bottom: 0.3rem; }
+    .login-logo em { font-style: italic; color: var(--sage-dark); }
+    .login-subtitle { text-align: center; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light); margin-bottom: 2.5rem; }
+    .login-field { margin-bottom: 1.2rem; }
+    .login-field label { display: block; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.5rem; }
+    .login-field input { width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--sand); border-radius: 3px; background: var(--cream); color: var(--text); font-family: 'Jost', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.3s; }
+    .login-field input:focus { border-color: var(--sage); }
+    .login-btn { width: 100%; padding: 0.95rem; background: var(--sage); color: #fff; border: none; border-radius: 3px; font-family: 'Jost', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.3s; margin-top: 0.5rem; }
+    .login-btn:hover { background: var(--sage-dark); }
+    .login-error { color: var(--danger); font-size: 0.82rem; text-align: center; margin-top: 0.8rem; display: none; }
+
+    /* DASHBOARD */
+    #dashboard { display: none; }
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 260px; background: var(--brown); color: var(--cream); display: flex; flex-direction: column; z-index: 50; }
+    .sidebar-logo { padding: 2rem 1.8rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .sidebar-logo-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--cream); }
+    .sidebar-logo-name em { font-style: italic; color: var(--sand); }
+    .sidebar-logo-sub { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,240,232,0.4); margin-top: 0.2rem; }
+    .sidebar-nav { flex: 1; padding: 1.5rem 0; }
+    .nav-section-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,240,232,0.3); padding: 0.8rem 1.8rem 0.4rem; }
+    .nav-item { display: flex; align-items: center; gap: 0.9rem; padding: 0.75rem 1.8rem; font-size: 0.88rem; color: rgba(245,240,232,0.65); cursor: pointer; border: none; background: none; width: 100%; text-align: left; transition: background 0.2s, color 0.2s; border-left: 3px solid transparent; }
+    .nav-item:hover { background: rgba(255,255,255,0.05); color: var(--cream); }
+    .nav-item.active { background: rgba(122,148,120,0.2); color: var(--cream); border-left-color: var(--sage); }
+    .nav-item-icon { font-size: 1.1rem; width: 1.4rem; text-align: center; }
+    .sidebar-bottom { padding: 1.5rem 1.8rem; border-top: 1px solid rgba(255,255,255,0.08); }
+    .logout-btn { display: flex; align-items: center; gap: 0.7rem; font-size: 0.82rem; color: rgba(245,240,232,0.4); cursor: pointer; background: none; border: none; width: 100%; transition: color 0.2s; }
+    .logout-btn:hover { color: var(--cream); }
+
+    .main { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
+    .topbar { background: var(--white); border-bottom: 1px solid var(--sand); padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+    .topbar-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--brown); }
+    .topbar-title em { font-style: italic; color: var(--sage-dark); }
+    .topbar-user { display: flex; align-items: center; gap: 0.8rem; }
+    .user-avatar { width: 2.2rem; height: 2.2rem; background: var(--sage); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #fff; font-weight: 500; }
+    .user-name { font-size: 0.85rem; color: var(--text-light); }
+
+    .page { display: none; padding: 2.5rem 3rem; flex: 1; }
+    .page.active { display: block; }
+
+    .cards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
+    .stat-card { background: var(--white); border-radius: 4px; padding: 1.5rem 2rem; border-left: 4px solid var(--sage); }
+    .stat-card.orange { border-left-color: var(--earth); }
+    .stat-card.brown { border-left-color: var(--brown); }
+    .stat-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.5rem; }
+    .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--brown); }
+
+    .card { background: var(--white); border-radius: 4px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(74,55,40,0.06); }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--beige); }
+    .card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--brown); }
+    .card-title em { font-style: italic; color: var(--sage-dark); }
+    .btn-add { padding: 0.5rem 1.2rem; background: var(--sage); color: #fff; border: none; border-radius: 3px; font-family: 'Jost', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; cursor: pointer; transition: background 0.2s; }
+    .btn-add:hover { background: var(--sage-dark); }
+
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); padding: 0.6rem 1rem; border-bottom: 1px solid var(--beige); }
+    td { padding: 0.9rem 1rem; font-size: 0.88rem; color: var(--text); border-bottom: 1px solid rgba(232,220,200,0.5); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(245,240,232,0.5); }
+    .badge-pill { display: inline-block; padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.72rem; }
+    .badge-pill.green { background: rgba(122,148,120,0.15); color: var(--sage-dark); }
+    .badge-pill.orange { background: rgba(139,111,71,0.15); color: var(--earth); }
+    .badge-pill.brown { background: rgba(74,55,40,0.1); color: var(--brown); }
+
+    /* MENU */
+    .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    .menu-item { background: var(--cream); border-radius: 4px; padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--sand); transition: border-color 0.2s; }
+    .menu-item:hover { border-color: var(--sage); }
+    .menu-item-left { display: flex; align-items: center; gap: 1rem; }
+    .menu-item-icon { font-size: 1.5rem; }
+    .menu-item-name { font-size: 0.92rem; font-weight: 500; color: var(--brown); }
+    .menu-item-cat { font-size: 0.75rem; color: var(--text-light); margin-top: 0.1rem; }
+    .menu-item-prix { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--sage-dark); }
+
+    /* RDV */
+    .rdv-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .rdv-item { display: flex; align-items: center; gap: 1.5rem; padding: 1rem 1.5rem; background: var(--cream); border-radius: 4px; border: 1px solid var(--sand); }
+    .rdv-date { text-align: center; width: 3.5rem; flex-shrink: 0; }
+    .rdv-date-day { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--brown); line-height: 1; }
+    .rdv-date-month { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); }
+    .rdv-sep { width: 1px; height: 2.5rem; background: var(--sand); }
+    .rdv-info { flex: 1; }
+    .rdv-client { font-size: 0.95rem; font-weight: 500; color: var(--brown); }
+    .rdv-detail { font-size: 0.8rem; color: var(--text-light); margin-top: 0.2rem; }
+    .rdv-time { font-size: 0.82rem; color: var(--sage-dark); font-weight: 500; }
+
+    /* MESSAGES */
+    .messages-container { display: grid; grid-template-columns: 280px 1fr; gap: 0; height: 500px; border: 1px solid var(--beige); border-radius: 4px; overflow: hidden; }
+    .messages-list { background: var(--cream); border-right: 1px solid var(--beige); overflow-y: auto; }
+    .message-thread { padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--beige); cursor: pointer; transition: background 0.2s; }
+    .message-thread:hover, .message-thread.active { background: var(--beige); }
+    .message-thread-title { font-size: 0.88rem; font-weight: 500; color: var(--brown); }
+    .message-thread-preview { font-size: 0.78rem; color: var(--text-light); margin-top: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .message-thread-date { font-size: 0.7rem; color: var(--sand); margin-top: 0.3rem; }
+    .messages-chat { display: flex; flex-direction: column; background: var(--white); }
+    .chat-header { padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--beige); font-size: 0.88rem; font-weight: 500; color: var(--brown); }
+    .chat-messages { flex: 1; padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
+    .chat-bubble { max-width: 70%; padding: 0.8rem 1.2rem; border-radius: 4px; font-size: 0.88rem; line-height: 1.6; }
+    .chat-bubble.received { background: var(--cream); color: var(--text); align-self: flex-start; border: 1px solid var(--beige); }
+    .chat-bubble.sent { background: var(--sage); color: #fff; align-self: flex-end; }
+    .chat-bubble-time { font-size: 0.68rem; margin-top: 0.3rem; color: rgba(0,0,0,0.35); }
+    .chat-input-row { padding: 1rem 1.5rem; border-top: 1px solid var(--beige); display: flex; gap: 0.8rem; }
+    .chat-input { flex: 1; padding: 0.7rem 1rem; border: 1px solid var(--sand); border-radius: 3px; font-family: 'Jost', sans-serif; font-size: 0.88rem; background: var(--cream); color: var(--text); outline: none; }
+    .chat-send { padding: 0.7rem 1.5rem; background: var(--sage); color: #fff; border: none; border-radius: 3px; cursor: pointer; font-size: 0.85rem; transition: background 0.2s; }
+    .chat-send:hover { background: var(--sage-dark); }
+
+    /* FACTURATION */
+    .facture-item { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; border-bottom: 1px solid rgba(232,220,200,0.5); }
+    .facture-item:last-child { border-bottom: none; }
+    .facture-num { font-size: 0.82rem; color: var(--text-light); width: 90px; }
+    .facture-desc { flex: 1; font-size: 0.9rem; color: var(--text); }
+    .facture-date { font-size: 0.82rem; color: var(--text-light); width: 100px; text-align: right; }
+    .facture-montant { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--brown); width: 80px; text-align: right; }
+    .facture-dl { background: none; border: 1px solid var(--sand); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 3px; font-size: 0.75rem; cursor: pointer; margin-left: 1rem; transition: all 0.2s; }
+    .facture-dl:hover { border-color: var(--sage); color: var(--sage-dark); }
+
+    /* MON SITE */
+    .site-card { background: var(--cream); border: 2px dashed var(--sand); border-radius: 6px; padding: 2.5rem; text-align: center; margin-bottom: 1.5rem; }
+    .site-url { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--sage-dark); margin: 0.5rem 0; }
+    .site-actions { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; }
+    .site-btn { padding: 0.6rem 1.5rem; border: 1px solid var(--sage); color: var(--sage-dark); background: none; border-radius: 3px; font-family: 'Jost', sans-serif; font-size: 0.82rem; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+    .site-btn:hover { background: var(--sage); color: #fff; }
+    .site-btn.primary { background: var(--sage); color: #fff; }
+    .site-btn.primary:hover { background: var(--sage-dark); }
+
+    /* GALERIE */
+    .galerie-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .galerie-item { aspect-ratio: 1; background: var(--beige); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 2rem; cursor: pointer; border: 2px dashed var(--sand); transition: border-color 0.2s; }
+    .galerie-item:hover { border-color: var(--sage); }
+
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); }
+      .main { margin-left: 0; }
+      .cards-row { grid-template-columns: 1fr; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .galerie-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Mon <em>Restaurant</em></div>
+    <div class="login-subtitle">Votre espace personnel</div>
+    <div class="login-field">
+      <label>Adresse email</label>
+      <input type="email" id="login-email" placeholder="votre@email.fr" />
+    </div>
+    <div class="login-field">
+      <label>Mot de passe</label>
+      <input type="password" id="login-password" placeholder="••••••••" />
+    </div>
+    <button class="login-btn" onclick="doLogin()">Accéder à mon espace</button>
+    <div class="login-error" id="login-error">Email ou mot de passe incorrect.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-name">Mon <em>Restaurant</em></div>
+      <div class="sidebar-logo-sub" id="sidebar-sub">Espace client</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Principal</div>
+      <button class="nav-item active" onclick="showPage('accueil', this)">
+        <span class="nav-item-icon">🏠</span> Accueil
+      </button>
+      <button class="nav-item" onclick="showPage('menu', this)">
+        <span class="nav-item-icon">🍽️</span> Menu & Carte
+      </button>
+      <button class="nav-item" onclick="showPage('reservations', this)">
+        <span class="nav-item-icon">📅</span> Réservations
+      </button>
+      <div class="nav-section-label">Communication</div>
+      <button class="nav-item" onclick="showPage('galerie', this)">
+        <span class="nav-item-icon">🖼️</span> Ma Galerie
+      </button>
+      <button class="nav-item" onclick="showPage('messages', this)">
+        <span class="nav-item-icon">💬</span> Messages
+      </button>
+      <div class="nav-section-label">Gestion</div>
+      <button class="nav-item" onclick="showPage('facturation', this)">
+        <span class="nav-item-icon">🧾</span> Facturation
+      </button>
+      <button class="nav-item" onclick="showPage('monsite', this)">
+        <span class="nav-item-icon">🌐</span> Mon Site
+      </button>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="logout-btn" onclick="doLogout()">
+        <span>↩</span> Se déconnecter
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="page-title">Bonjour 👋</div>
+      <div class="topbar-user">
+        <div class="user-avatar" id="user-avatar">R</div>
+        <span class="user-name" id="user-name">Mon Restaurant</span>
+      </div>
+    </div>
+
+    <!-- ACCUEIL -->
+    <div class="page active" id="page-accueil">
+      <div class="cards-row">
+        <div class="stat-card">
+          <div class="stat-label">Réservations cette semaine</div>
+          <div class="stat-value">18</div>
+        </div>
+        <div class="stat-card orange">
+          <div class="stat-label">Plats à la carte</div>
+          <div class="stat-value">24</div>
+        </div>
+        <div class="stat-card brown">
+          <div class="stat-label">Photos en galerie</div>
+          <div class="stat-value">16</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Prochaines <em>réservations</em></div>
+          <button class="btn-add" onclick="showPage('reservations', document.querySelectorAll('.nav-item')[2])">Voir tout</button>
+        </div>
+        <div class="rdv-list">
+          <div class="rdv-item">
+            <div class="rdv-date"><div class="rdv-date-day">12</div><div class="rdv-date-month">Mai</div></div>
+            <div class="rdv-sep"></div>
+            <div class="rdv-info"><div class="rdv-client">Famille Martin</div><div class="rdv-detail">4 personnes · Menu du jour</div></div>
+            <div class="rdv-time">19h30</div>
+            <span class="badge-pill green">Confirmé</span>
+          </div>
+          <div class="rdv-item">
+            <div class="rdv-date"><div class="rdv-date-day">13</div><div class="rdv-date-month">Mai</div></div>
+            <div class="rdv-sep"></div>
+            <div class="rdv-info"><div class="rdv-client">Table Dupont</div><div class="rdv-detail">2 personnes · Anniversaire</div></div>
+            <div class="rdv-time">20h00</div>
+            <span class="badge-pill orange">En attente</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Derniers <em>messages</em></div></div>
+        <div class="rdv-list">
+          <div class="rdv-item" style="cursor:pointer" onclick="showPage('messages', document.querySelectorAll('.nav-item')[4])">
+            <div class="rdv-info">
+              <div class="rdv-client">📩 Loksite — Votre facture de Mai</div>
+              <div class="rdv-detail">Votre abonnement Standard est actif. Montant : 49€</div>
+            </div>
+            <div style="font-size:0.75rem; color: var(--text-light)">Aujourd'hui</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENU -->
+    <div class="page" id="page-menu">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Menu & <em>carte</em></div>
+          <button class="btn-add">+ Ajouter un plat</button>
+        </div>
+        <div style="display:flex; gap:0.8rem; margin-bottom:1.5rem; flex-wrap:wrap;">
+          <span class="badge-pill green" style="cursor:pointer; padding:0.4rem 1rem;">Entrées</span>
+          <span class="badge-pill orange" style="cursor:pointer; padding:0.4rem 1rem;">Plats</span>
+          <span class="badge-pill brown" style="cursor:pointer; padding:0.4rem 1rem;">Desserts</span>
+          <span class="badge-pill green" style="cursor:pointer; padding:0.4rem 1rem;">Boissons</span>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-item">
+            <div class="menu-item-left"><div class="menu-item-icon">🥗</div><div><div class="menu-item-name">Salade de saison</div><div class="menu-item-cat">Entrée</div></div></div>
+            <div class="menu-item-prix">9€</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-left"><div class="menu-item-icon">🍲</div><div><div class="menu-item-name">Soupe du jour</div><div class="menu-item-cat">Entrée</div></div></div>
+            <div class="menu-item-prix">7€</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-left"><div class="menu-item-icon">🥩</div><div><div class="menu-item-name">Entrecôte grillée</div><div class="menu-item-cat">Plat</div></div></div>
+            <div class="menu-item-prix">22€</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-left"><div class="menu-item-icon">🐟</div><div><div class="menu-item-name">Filet de cabillaud</div><div class="menu-item-cat">Plat</div></div></div>
+            <div class="menu-item-prix">18€</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-left"><div class="menu-item-icon">🍮</div><div><div class="menu-item-name">Crème brûlée</div><div class="menu-item-cat">Dessert</div></div></div>
+            <div class="menu-item-prix">7€</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-left"><div class="menu-item-icon">🍫</div><div><div class="menu-item-name">Fondant chocolat</div><div class="menu-item-cat">Dessert</div></div></div>
+            <div class="menu-item-prix">8€</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESERVATIONS -->
+    <div class="page" id="page-reservations">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Mes <em>réservations</em></div>
+          <button class="btn-add">+ Nouvelle réservation</button>
+        </div>
+        <table>
+          <thead><tr><th>Date</th><th>Client</th><th>Couverts</th><th>Occasion</th><th>Heure</th><th>Statut</th></tr></thead>
+          <tbody>
+            <tr><td>12 Mai</td><td>Famille Martin</td><td>4</td><td>Menu du jour</td><td>19h30</td><td><span class="badge-pill green">Confirmé</span></td></tr>
+            <tr><td>13 Mai</td><td>Table Dupont</td><td>2</td><td>Anniversaire</td><td>20h00</td><td><span class="badge-pill orange">En attente</span></td></tr>
+            <tr><td>14 Mai</td><td>Groupe Bernard</td><td>8</td><td>Réunion pro</td><td>12h30</td><td><span class="badge-pill green">Confirmé</span></td></tr>
+            <tr><td>15 Mai</td><td>M. Leroy</td><td>2</td><td>—</td><td>19h00</td><td><span class="badge-pill brown">Nouveau</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- GALERIE -->
+    <div class="page" id="page-galerie">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Ma <em>galerie</em></div>
+          <button class="btn-add">+ Ajouter photo</button>
+        </div>
+        <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:1.5rem;">Ces photos s'affichent sur votre site vitrine.</p>
+        <div class="galerie-grid">
+          <div class="galerie-item">🍽️</div>
+          <div class="galerie-item">🥩</div>
+          <div class="galerie-item">🍷</div>
+          <div class="galerie-item">🌿</div>
+          <div class="galerie-item">➕</div>
+          <div class="galerie-item">➕</div>
+          <div class="galerie-item">➕</div>
+          <div class="galerie-item">➕</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div class="page" id="page-messages">
+      <div class="card" style="padding:0; overflow:hidden;">
+        <div class="messages-container">
+          <div class="messages-list">
+            <div class="message-thread active">
+              <div class="message-thread-title">📩 Loksite</div>
+              <div class="message-thread-preview">Votre facture de Mai est disponible</div>
+              <div class="message-thread-date">Aujourd'hui</div>
+            </div>
+            <div class="message-thread">
+              <div class="message-thread-title">💡 Conseil Loksite</div>
+              <div class="message-thread-preview">Pensez à mettre à jour votre menu</div>
+              <div class="message-thread-date">Il y a 3 jours</div>
+            </div>
+          </div>
+          <div class="messages-chat">
+            <div class="chat-header">💬 Loksite — Support</div>
+            <div class="chat-messages">
+              <div><div class="chat-bubble received">Bonjour ! Votre abonnement Standard est actif pour Mai. Votre facture est disponible dans Facturation. 😊<div class="chat-bubble-time">Aujourd'hui · 9h12</div></div></div>
+              <div><div class="chat-bubble sent">Merci ! Pouvez-vous mettre à jour mes horaires d'été ?<div class="chat-bubble-time">Aujourd'hui · 10h30</div></div></div>
+              <div><div class="chat-bubble received">Bien sûr ! Envoyez-moi les nouveaux horaires dans ce chat et je mets à jour votre site rapidement. 🎯<div class="chat-bubble-time">Aujourd'hui · 10h35</div></div></div>
+            </div>
+            <div class="chat-input-row">
+              <input class="chat-input" id="chat-input" placeholder="Écrire un message..." />
+              <button class="chat-send" onclick="sendMessage()">Envoyer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FACTURATION -->
+    <div class="page" id="page-facturation">
+      <div class="cards-row">
+        <div class="stat-card"><div class="stat-label">Abonnement actuel</div><div class="stat-value">Standard</div></div>
+        <div class="stat-card orange"><div class="stat-label">Montant mensuel</div><div class="stat-value">49€</div></div>
+        <div class="stat-card brown"><div class="stat-label">Statut</div><div class="stat-value" style="font-size:1.5rem; color:var(--success)">Actif ✓</div></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Mes <em>factures</em></div></div>
+        <div class="facture-item"><div class="facture-num">#2025-005</div><div class="facture-desc">Abonnement Standard — Mai 2025</div><div class="facture-date">01/05/2025</div><div class="facture-montant">49€</div><button class="facture-dl">⬇ PDF</button></div>
+        <div class="facture-item"><div class="facture-num">#2025-004</div><div class="facture-desc">Abonnement Standard — Avril 2025</div><div class="facture-date">01/04/2025</div><div class="facture-montant">49€</div><button class="facture-dl">⬇ PDF</button></div>
+        <div class="facture-item"><div class="facture-num">#2025-003</div><div class="facture-desc">Abonnement Standard — Mars 2025</div><div class="facture-date">01/03/2025</div><div class="facture-montant">49€</div><button class="facture-dl">⬇ PDF</button></div>
+      </div>
+    </div>
+
+    <!-- MON SITE -->
+    <div class="page" id="page-monsite">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Mon <em>site vitrine</em></div></div>
+        <div class="site-card">
+          <div style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-light)">Votre site est en ligne</div>
+          <div class="site-url" id="site-url-display">—</div>
+          <div class="site-actions">
+            <a id="site-link" href="#" target="_blank" class="site-btn primary">🌐 Voir mon site</a>
+            <button class="site-btn" onclick="showPage('messages', document.querySelectorAll('.nav-item')[4])">✏️ Demander une modif</button>
+          </div>
+        </div>
+        <div class="card-header" style="margin-top:1.5rem;">
+          <div class="card-title">Infos de mon <em>établissement</em></div>
+        </div>
+        <table>
+          <tbody>
+            <tr><td style="color:var(--text-light); width:160px">Nom</td><td id="info-nom">—</td></tr>
+            <tr><td style="color:var(--text-light)">Activité</td><td>Restaurant</td></tr>
+            <tr><td style="color:var(--text-light)">Email</td><td id="info-email">—</td></tr>
+            <tr><td style="color:var(--text-light)">Abonnement</td><td id="info-plan">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://qhnofvfgutsdgbfwhupg.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY';
+  const { createClient } = supabase;
+  const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  async function doLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const errEl = document.getElementById('login-error');
+    errEl.style.display = 'none';
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) { errEl.style.display = 'block'; return; }
+    loadProfile(data.user);
+  }
+
+  document.getElementById('login-password').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+  async function loadProfile(user) {
+    const { data: p } = await sb.from('profiles').select('*').eq('id', user.id).single();
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'flex';
+    const nom = p?.nom || user.email.split('@')[0];
+    document.getElementById('user-name').textContent = nom;
+    document.getElementById('user-avatar').textContent = nom.charAt(0).toUpperCase();
+    document.getElementById('page-title').innerHTML = `Bonjour, <em>${nom}</em> 👋`;
+    document.getElementById('sidebar-sub').textContent = 'Espace restaurant';
+    document.getElementById('info-nom').textContent = nom;
+    document.getElementById('info-email').textContent = user.email;
+    document.getElementById('info-plan').textContent = p?.plan || 'Standard · 49€/mois';
+    if (p?.site_url) {
+      document.getElementById('site-url-display').textContent = p.site_url;
+      document.getElementById('site-link').href = p.site_url;
+    }
+  }
+
+  function doLogout() {
+    sb.auth.signOut();
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('login-password').value = '';
+  }
+
+  function showPage(pageId, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+    if (btn) btn.classList.add('active');
+    const titles = {
+      accueil: 'Bonjour 👋', menu: 'Menu & <em>carte</em>',
+      reservations: 'Mes <em>réservations</em>', galerie: 'Ma <em>galerie</em>',
+      messages: 'Mes <em>messages</em>', facturation: '<em>Facturation</em>',
+      monsite: 'Mon <em>site vitrine</em>'
+    };
+    document.getElementById('page-title').innerHTML = titles[pageId] || '';
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    if (!input.value.trim()) return;
+    const msgs = document.querySelector('.chat-messages');
+    const bubble = document.createElement('div');
+    bubble.innerHTML = `<div class="chat-bubble sent">${input.value}<div class="chat-bubble-time">À l'instant</div></div>`;
+    msgs.appendChild(bubble);
+    msgs.scrollTop = msgs.scrollHeight;
+    input.value = '';
+  }
+
+  sb.auth.getSession().then(({ data }) => {
+    if (data.session) loadProfile(data.session.user);
+  });
+</script>
+</body>
+</html>
