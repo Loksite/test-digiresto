@@ -1893,7 +1893,7 @@ window.addEventListener('load', async function() {
 function fillProfile(p) {
   const nom = p.nom || 'Mon restaurant';
   const plan = p.plan || 'Standard';
-  const siteUrl = p.site_url || '';
+  const siteUrl = p.site_url || p.site_url || '';
 
   document.getElementById('tb-resto').textContent = nom;
   document.getElementById('dash-welcome').textContent = nom;
