@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Petit Bistrot — Restaurant Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf8f3;
+  --s1:#f2ede4;
+  --text:#1a1810;
+  --text2:#6b6456;
+  --gold:#8b6914;
+  --border:#ddd5c4;
+  --red:#8b2020;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  background:rgba(250,248,243,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  z-index:100;
+  padding:0 40px;
+  height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:400;
+  color:var(--text);letter-spacing:0.04em;
+}
+.nav-logo span{color:var(--gold);font-style:italic}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{
+  font-size:13px;font-weight:400;
+  color:var(--text2);text-decoration:none;
+  letter-spacing:0.06em;text-transform:uppercase;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--text)}
+.nav-resa{
+  background:var(--text);color:var(--bg);
+  border:none;border-radius:4px;
+  padding:8px 18px;font-family:'Outfit',sans-serif;
+  font-size:12px;font-weight:500;letter-spacing:0.08em;
+  text-transform:uppercase;cursor:pointer;
+  transition:background .2s;text-decoration:none;
+}
+.nav-resa:hover{background:var(--gold)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:100px 40px 60px;
+  position:relative;
+  background:
+    linear-gradient(180deg,rgba(250,248,243,0) 60%,var(--bg) 100%),
+    var(--s1);
+}
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 40%,rgba(139,105,20,0.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-label{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:15px;
+  color:var(--gold);letter-spacing:0.12em;
+  margin-bottom:16px;
+  animation:fadeUp .8s ease both;
+}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(52px,8vw,96px);
+  font-weight:300;line-height:1.05;
+  color:var(--text);
+  margin-bottom:20px;
+  animation:fadeUp .8s .1s ease both;
+}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{
+  font-size:15px;color:var(--text2);
+  max-width:420px;margin:0 auto 36px;
+  line-height:1.7;
+  animation:fadeUp .8s .2s ease both;
+}
+.hero-btns{
+  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp .8s .3s ease both;
+}
+.btn-primary{
+  background:var(--text);color:var(--bg);
+  border:none;border-radius:4px;
+  padding:13px 28px;font-family:'Outfit',sans-serif;
+  font-size:13px;font-weight:500;letter-spacing:0.08em;
+  text-transform:uppercase;cursor:pointer;
+  text-decoration:none;display:inline-block;
+  transition:background .2s,transform .2s;
+}
+.btn-primary:hover{background:var(--gold);transform:translateY(-2px)}
+.btn-secondary{
+  background:transparent;color:var(--text);
+  border:1px solid var(--border);border-radius:4px;
+  padding:13px 28px;font-family:'Outfit',sans-serif;
+  font-size:13px;font-weight:400;letter-spacing:0.08em;
+  text-transform:uppercase;cursor:pointer;
+  text-decoration:none;display:inline-block;
+  transition:border-color .2s,transform .2s;
+}
+.btn-secondary:hover{border-color:var(--text);transform:translateY(-2px)}
+
+.hero-info{
+  display:flex;gap:40px;justify-content:center;
+  margin-top:60px;padding-top:40px;
+  border-top:1px solid var(--border);
+  flex-wrap:wrap;
+  animation:fadeUp .8s .4s ease both;
+}
+.hero-info-item{text-align:center}
+.hero-info-label{
+  font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--text2);margin-bottom:4px;
+  font-family:'Outfit',sans-serif;
+}
+.hero-info-value{
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px;color:var(--text);
+}
+
+/* ── SECTION ── */
+section{padding:80px 40px}
+.container{max-width:960px;margin:0 auto}
+.section-label{
+  font-size:10px;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--gold);font-family:'Outfit',sans-serif;
+  margin-bottom:10px;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,4vw,48px);font-weight:300;
+  color:var(--text);margin-bottom:12px;line-height:1.2;
+}
+.section-title em{font-style:italic}
+.section-sub{font-size:14px;color:var(--text2);max-width:480px;line-height:1.7;margin-bottom:40px}
+
+/* ── MENU ── */
+.menu-section{background:var(--s1)}
+.menu-cats{
+  display:flex;gap:8px;margin-bottom:36px;flex-wrap:wrap;
+}
+.menu-cat{
+  padding:6px 16px;border-radius:20px;
+  border:1px solid var(--border);
+  font-size:12px;font-weight:400;
+  color:var(--text2);cursor:pointer;
+  background:transparent;font-family:'Outfit',sans-serif;
+  transition:all .2s;letter-spacing:0.04em;
+}
+.menu-cat.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.menu-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--border);border:1px solid var(--border);
+  border-radius:8px;overflow:hidden;
+}
+.menu-item{
+  background:var(--bg);padding:20px 24px;
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:16px;transition:background .2s;
+}
+.menu-item:hover{background:var(--s1)}
+.menu-item-left{flex:1}
+.menu-item-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;font-weight:400;color:var(--text);
+  margin-bottom:4px;
+}
+.menu-item-desc{font-size:12px;color:var(--text2);line-height:1.5}
+.menu-item-price{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;color:var(--gold);
+  white-space:nowrap;font-weight:300;
+}
+
+/* ── HORAIRES ── */
+.horaires-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:20px;
+}
+.horaire-card{
+  background:var(--s1);border:1px solid var(--border);
+  border-radius:8px;padding:24px;
+}
+.horaire-day{
+  font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--text2);margin-bottom:6px;
+}
+.horaire-time{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;color:var(--text);
+}
+.horaire-closed{color:var(--text2);font-style:italic}
+
+/* ── CONTACT ── */
+.contact-section{background:var(--text);color:var(--bg)}
+.contact-section .section-label{color:var(--gold)}
+.contact-section .section-title{color:var(--bg)}
+.contact-section .section-sub{color:rgba(250,248,243,0.6)}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;
+  margin-top:40px;
+}
+.contact-item{text-align:center}
+.contact-icon{
+  width:44px;height:44px;
+  border:1px solid rgba(250,248,243,0.15);
+  border-radius:50%;margin:0 auto 12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+}
+.contact-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(250,248,243,0.4);margin-bottom:6px}
+.contact-value{font-size:14px;color:var(--bg)}
+.contact-value a{color:var(--gold);text-decoration:none}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--text);
+  border-top:1px solid rgba(250,248,243,0.08);
+  padding:24px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+}
+.footer-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;color:rgba(250,248,243,0.5);
+}
+.footer-powered{
+  font-size:11px;color:rgba(250,248,243,0.3);
+  letter-spacing:0.06em;
+}
+.footer-powered a{color:rgba(200,169,110,0.7);text-decoration:none}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hero{padding:80px 24px 40px}
+  section{padding:60px 24px}
+  .menu-grid{grid-template-columns:1fr}
+  .horaires-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  footer{padding:20px 24px;flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Le Petit <span>Bistrot</span></div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#horaires">Horaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:+33320000000" class="nav-resa">Réserver</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <div class="hero-label">Restaurant · Lille</div>
+  <h1>Le Petit<br><em>Bistrot</em></h1>
+  <p class="hero-sub">Cuisine française de saison, dans une ambiance chaleureuse au cœur de Lille.</p>
+  <div class="hero-btns">
+    <a href="tel:+33320000000" class="btn-primary">Réserver une table</a>
+    <a href="#menu" class="btn-secondary">Voir la carte</a>
+  </div>
+  <div class="hero-info">
+    <div class="hero-info-item">
+      <div class="hero-info-label">Ouvert</div>
+      <div class="hero-info-value">Mar — Dim</div>
+    </div>
+    <div class="hero-info-item">
+      <div class="hero-info-label">Service du midi</div>
+      <div class="hero-info-value">12h — 14h30</div>
+    </div>
+    <div class="hero-info-item">
+      <div class="hero-info-label">Service du soir</div>
+      <div class="hero-info-value">19h — 22h30</div>
+    </div>
+    <div class="hero-info-item">
+      <div class="hero-info-label">Adresse</div>
+      <div class="hero-info-value">12 Rue de la Paix, Lille</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="container">
+    <div class="section-label">Notre carte</div>
+    <h2 class="section-title">La <em>cuisine</em> du moment</h2>
+    <p class="section-sub">Des produits frais sélectionnés chaque matin, une cuisine simple et généreuse.</p>
+
+    <div class="menu-cats">
+      <button class="menu-cat on" onclick="filterCat('all',this)">Tout</button>
+      <button class="menu-cat" onclick="filterCat('entree',this)">Entrées</button>
+      <button class="menu-cat" onclick="filterCat('plat',this)">Plats</button>
+      <button class="menu-cat" onclick="filterCat('dessert',this)">Desserts</button>
+    </div>
+
+    <div class="menu-grid">
+      <div class="menu-item" data-cat="entree">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Soupe à l'oignon gratinée</div>
+          <div class="menu-item-desc">Bouillon maison, gruyère fondu, croûton</div>
+        </div>
+        <div class="menu-item-price">9 €</div>
+      </div>
+      <div class="menu-item" data-cat="entree">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Salade de chèvre chaud</div>
+          <div class="menu-item-desc">Mesclun, noix, miel de fleurs, vinaigrette maison</div>
+        </div>
+        <div class="menu-item-price">12 €</div>
+      </div>
+      <div class="menu-item" data-cat="plat">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Bavette à l'échalote</div>
+          <div class="menu-item-desc">Frites maison, sauce échalote au vin rouge</div>
+        </div>
+        <div class="menu-item-price">22 €</div>
+      </div>
+      <div class="menu-item" data-cat="plat">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Saumon grillé</div>
+          <div class="menu-item-desc">Légumes de saison, beurre citronné, aneth</div>
+        </div>
+        <div class="menu-item-price">20 €</div>
+      </div>
+      <div class="menu-item" data-cat="plat">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Poulet rôti du dimanche</div>
+          <div class="menu-item-desc">Pommes de terre grenaille, jus de rôti, herbes</div>
+        </div>
+        <div class="menu-item-price">18 €</div>
+      </div>
+      <div class="menu-item" data-cat="dessert">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Crème brûlée</div>
+          <div class="menu-item-desc">Vanille Bourbon, cassonade caramélisée</div>
+        </div>
+        <div class="menu-item-price">8 €</div>
+      </div>
+      <div class="menu-item" data-cat="dessert">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Tarte Tatin</div>
+          <div class="menu-item-desc">Pommes caramélisées, crème fraîche</div>
+        </div>
+        <div class="menu-item-price">9 €</div>
+      </div>
+      <div class="menu-item" data-cat="entree">
+        <div class="menu-item-left">
+          <div class="menu-item-name">Terrine de campagne</div>
+          <div class="menu-item-desc">Cornichons, pain de campagne grillé</div>
+        </div>
+        <div class="menu-item-price">10 €</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section id="horaires">
+  <div class="container">
+    <div class="section-label">Quand nous retrouver</div>
+    <h2 class="section-title"><em>Horaires</em> d'ouverture</h2>
+    <p class="section-sub">Nous vous accueillons du mardi au dimanche, midi et soir.</p>
+
+    <div class="horaires-grid">
+      <div class="horaire-card">
+        <div class="horaire-day">Lundi</div>
+        <div class="horaire-time horaire-closed">Fermé</div>
+      </div>
+      <div class="horaire-card">
+        <div class="horaire-day">Mardi — Vendredi</div>
+        <div class="horaire-time">12h00 – 14h30<br>19h00 – 22h30</div>
+      </div>
+      <div class="horaire-card">
+        <div class="horaire-day">Samedi</div>
+        <div class="horaire-time">12h00 – 15h00<br>19h00 – 23h00</div>
+      </div>
+      <div class="horaire-card">
+        <div class="horaire-day">Dimanche</div>
+        <div class="horaire-time">12h00 – 15h00<br><span style="color:var(--text2);font-style:italic;font-size:14px">Soir fermé</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="section-label">Nous trouver</div>
+    <h2 class="section-title">Venez nous <em>rendre visite</em></h2>
+    <p class="section-sub">Réservation conseillée le week-end. Nous acceptons les groupes jusqu'à 20 personnes.</p>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-label">Adresse</div>
+        <div class="contact-value">12 Rue de la Paix<br>59000 Lille</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-label">Téléphone</div>
+        <div class="contact-value"><a href="tel:+33320000000">03 20 00 00 00</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value"><a href="mailto:contact@lepetitbistrot.fr">contact@lepetitbistrot.fr</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Le Petit Bistrot — Lille</div>
+  <div class="footer-powered">Site réalisé par <a href="https://loksite.fr">Loksite</a></div>
+</footer>
+
+<script>
+function filterCat(cat, el) {
+  document.querySelectorAll('.menu-cat').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  document.querySelectorAll('.menu-item').forEach(item => {
+    item.style.display = (cat === 'all' || item.dataset.cat === cat) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
