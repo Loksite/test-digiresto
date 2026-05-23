@@ -337,6 +337,32 @@ footer{background:var(--c-forest);color:rgba(255,255,255,.7);padding:4rem 5% 2.5
   .avis-card{min-width:calc(92% - .75rem)}
 }
 </style>
+<!-- Loksite Analytics Tracker -->
+<script>
+(function() {
+  var CLIENT_ID = "itsy-bitsy";
+  var SUPABASE_URL = "https://qhnofvfgutsdgbfwhupg.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY";
+  var sessionId = Math.random().toString(36).slice(2);
+  var start = Date.now();
+  var device = /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : /iPad|Tablet/i.test(navigator.userAgent) ? "tablette" : "desktop";
+  var referrer = document.referrer.includes("google") ? "Organique"
+    : (document.referrer.includes("facebook") || document.referrer.includes("instagram") || document.referrer.includes("tiktok")) ? "Social"
+    : document.referrer === "" ? "Direct" : "Autre";
+  fetch(SUPABASE_URL + "/rest/v1/analytics_events", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY },
+    body: JSON.stringify({ client_id: CLIENT_ID, page: window.location.pathname, referrer: referrer, device: device, session_id: sessionId, duration: 0 })
+  });
+  window.addEventListener("beforeunload", function() {
+    var dur = Math.round((Date.now() - start) / 1000);
+    navigator.sendBeacon(
+      SUPABASE_URL + "/rest/v1/analytics_events?session_id=eq." + sessionId,
+      JSON.stringify({ duration: dur })
+    );
+  });
+})();
+</script>
 </head>
 <body>
 
