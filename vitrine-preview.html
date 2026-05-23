@@ -340,6 +340,8 @@ footer{background:var(--c-forest);color:rgba(255,255,255,.7);padding:4rem 5% 2.5
 <!-- Loksite Analytics Tracker -->
 <script>
 (function() {
+  // Ne pas tracker si chargé dans une iframe (ex: preview espace client)
+  if (window.self !== window.top) return;
   var CLIENT_ID = "test@digiresto.fr";
   var SUPABASE_URL = "https://qhnofvfgutsdgbfwhupg.supabase.co";
   var SUPABASE_KEY = "sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY";
@@ -357,7 +359,14 @@ footer{background:var(--c-forest);color:rgba(255,255,255,.7);padding:4rem 5% 2.5
     body: JSON.stringify({ client_id: CLIENT_ID, page: window.location.pathname, referrer: referrer, device: device, session_id: sessionId, duration: 0 })
   });
 
-  // Mise à jour de la durée toutes les 15 secondes
+  // Tracker de clics sur les sections
+  window.lkTrackClick = function(section) {
+    fetch(SUPABASE_URL + "/rest/v1/click_events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Prefer": "return=minimal" },
+      body: JSON.stringify({ client_id: CLIENT_ID, section: section, session_id: sessionId, created_at: new Date().toISOString() })
+    }).catch(function(){});
+  };
   var ticker = setInterval(function() {
     var dur = Math.round((Date.now() - start) / 1000);
     fetch(SUPABASE_URL + "/rest/v1/analytics_events?session_id=eq." + sessionId, {
@@ -391,13 +400,13 @@ footer{background:var(--c-forest);color:rgba(255,255,255,.7);padding:4rem 5% 2.5
     <span class="logo-name">Itsy Bitsy</span>
   </a>
   <ul class="nav-links" role="list">
-    <li><a href="#presentation">Histoire</a></li>
-    <li><a href="#menu">Carte</a></li>
-    <li><a href="#galerie">Galerie</a></li>
-    <li><a href="#avis">Avis</a></li>
-    <li><a href="#horaires">Horaires</a></li>
-    <li><a href="#localisation">Nous trouver</a></li>
-    <li><a href="#horaires" class="nav-cta">Réserver une table</a></li>
+    <li><a href="#presentation" onclick="lkTrackClick('Histoire')">Histoire</a></li>
+    <li><a href="#menu" onclick="lkTrackClick('Carte')">Carte</a></li>
+    <li><a href="#galerie" onclick="lkTrackClick('Galerie')">Galerie</a></li>
+    <li><a href="#avis" onclick="lkTrackClick('Avis')">Avis</a></li>
+    <li><a href="#horaires" onclick="lkTrackClick('Horaires')">Horaires</a></li>
+    <li><a href="#localisation" onclick="lkTrackClick('Nous trouver')">Nous trouver</a></li>
+    <li><a href="#horaires" class="nav-cta" onclick="lkTrackClick('Réserver une table')">Réserver une table</a></li>
   </ul>
   <button class="hamburger" id="ham" aria-label="Ouvrir le menu" aria-expanded="false">
     <span></span><span></span><span></span>
