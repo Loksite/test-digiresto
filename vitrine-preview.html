@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Le Gourmet</title>
+    <title>Réservation Restaurant</title>
     <style>
         * {
             margin: 0;
@@ -20,8 +20,8 @@
         header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 2rem 0;
             text-align: center;
+            padding: 2rem;
         }
 
         header h1 {
@@ -30,289 +30,183 @@
         }
 
         header p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             opacity: 0.9;
         }
 
-        nav {
-            background-color: #333;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        nav ul li {
-            margin: 0 1.5rem;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: #667eea;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        section {
-            margin-bottom: 3rem;
-        }
-
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: #667eea;
-            text-align: center;
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .menu-item {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-
-        .menu-item h3 {
-            color: #764ba2;
-            margin-bottom: 0.5rem;
-        }
-
-        .menu-item .price {
-            color: #667eea;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-top: 0.5rem;
+        main {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
 
         .reservation-form {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: white;
             padding: 2rem;
             border-radius: 10px;
-            color: white;
-            max-width: 600px;
-            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .form-group {
             margin-bottom: 1.5rem;
         }
 
-        .form-group label {
+        label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 500;
+            font-weight: 600;
+            color: #555;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+        input, select {
             width: 100%;
             padding: 0.75rem;
-            border: none;
+            border: 2px solid #e0e0e0;
             border-radius: 5px;
             font-size: 1rem;
+            transition: border-color 0.3s;
         }
 
-        .btn {
-            background-color: blue;
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: blue;
             color: white;
-            padding: 1rem 2rem;
             border: none;
             border-radius: 5px;
             font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
-            width: 100%;
+            transition: background 0.3s;
         }
 
-        .btn:hover {
-            background-color: #0000cc;
+        button:hover {
+            background: #0000cc;
         }
 
-        .contact-info {
-            text-align: center;
-            background-color: #f4f4f4;
-            padding: 2rem;
+        .info-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
             border-radius: 10px;
         }
 
-        .contact-info p {
-            margin: 0.5rem 0;
-            font-size: 1.1rem;
+        .info-section h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .info-section ul {
+            list-style-position: inside;
+            color: #666;
+        }
+
+        .info-section li {
+            margin-bottom: 0.5rem;
         }
 
         footer {
-            background-color: #333;
-            color: white;
             text-align: center;
-            padding: 2rem 0;
+            padding: 2rem;
+            background: #333;
+            color: white;
             margin-top: 3rem;
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            nav ul li {
-                margin: 0.5rem 0;
-            }
-
-            .menu-grid {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
 <body>
     <header>
         <h1>🍽️ Restaurant Le Gourmet</h1>
-        <p>Une expérience culinaire inoubliable</p>
+        <p>Réservez votre table en ligne</p>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="#accueil">Accueil</a></li>
-            <li><a href="#menu">Notre Menu</a></li>
-            <li><a href="#reservation">Réservation</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <div class="container">
-        <section id="accueil">
-            <h2>Bienvenue au Restaurant Le Gourmet</h2>
-            <p style="text-align: center; font-size: 1.1rem; max-width: 800px; margin: 0 auto;">
-                Découvrez notre cuisine raffinée préparée avec des ingrédients frais et locaux. 
-                Notre chef étoilé vous propose une carte variée qui saura ravir vos papilles.
-            </p>
-        </section>
-
-        <section id="menu">
-            <h2>Notre Menu</h2>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <h3>🥗 Entrées</h3>
-                    <p><strong>Salade de chèvre chaud</strong> - Salade fraîche, toast de chèvre, miel et noix</p>
-                    <p class="price">12€</p>
-                    <hr style="margin: 1rem 0; opacity: 0.3;">
-                    <p><strong>Carpaccio de bœuf</strong> - Fines tranches de bœuf, parmesan et roquette</p>
-                    <p class="price">14€</p>
+    <main>
+        <div class="reservation-form">
+            <h2>Formulaire de réservation</h2>
+            <form id="reservationForm">
+                <div class="form-group">
+                    <label for="name">Nom complet</label>
+                    <input type="text" id="name" name="name" required placeholder="Votre nom">
                 </div>
 
-                <div class="menu-item">
-                    <h3>🍖 Plats</h3>
-                    <p><strong>Magret de canard</strong> - Accompagné de pommes sarladaises</p>
-                    <p class="price">24€</p>
-                    <hr style="margin: 1rem 0; opacity: 0.3;">
-                    <p><strong>Pavé de saumon</strong> - Grillé avec légumes de saison</p>
-                    <p class="price">22€</p>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="votre@email.com">
                 </div>
 
-                <div class="menu-item">
-                    <h3>🍰 Desserts</h3>
-                    <p><strong>Tiramisu maison</strong> - Recette traditionnelle italienne</p>
-                    <p class="price">8€</p>
-                    <hr style="margin: 1rem 0; opacity: 0.3;">
-                    <p><strong>Fondant au chocolat</strong> - Cœur coulant, glace vanille</p>
-                    <p class="price">9€</p>
+                <div class="form-group">
+                    <label for="phone">Téléphone</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="06 12 34 56 78">
                 </div>
-            </div>
-        </section>
 
-        <section id="reservation">
-            <h2>Réservation</h2>
-            <div class="reservation-form">
-                <form>
-                    <div class="form-group">
-                        <label for="nom">Nom complet</label>
-                        <input type="text" id="nom" name="nom" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telephone">Téléphone</label>
-                        <input type="tel" id="telephone" name="telephone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="date">Date</label>
-                        <input type="date" id="date" name="date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="heure">Heure</label>
-                        <input type="time" id="heure" name="heure" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="personnes">Nombre de personnes</label>
-                        <select id="personnes" name="personnes" required>
-                            <option value="">Sélectionnez</option>
-                            <option value="1">1 personne</option>
-                            <option value="2">2 personnes</option>
-                            <option value="3">3 personnes</option>
-                            <option value="4">4 personnes</option>
-                            <option value="5">5 personnes</option>
-                            <option value="6+">6 personnes ou plus</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message (optionnel)</label>
-                        <textarea id="message" name="message" rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="btn">Réserver une table</button>
-                </form>
-            </div>
-        </section>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
 
-        <section id="contact">
-            <h2>Contact</h2>
-            <div class="contact-info">
-                <p><strong>📍 Adresse:</strong> 123 Rue de la Gastronomie, 75001 Paris</p>
-                <p><strong>📞 Téléphone:</strong> 01 23 45 67 89</p>
-                <p><strong>📧 Email:</strong> contact@legourmet.fr</p>
-                <p><strong>🕒 Horaires:</strong> Mardi - Samedi: 12h-14h & 19h-22h</p>
-                <p><strong>Fermé:</strong> Dimanche et Lundi</p>
-            </div>
-        </section>
-    </div>
+                <div class="form-group">
+                    <label for="time">Heure</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="guests">Nombre de personnes</label>
+                    <select id="guests" name="guests" required>
+                        <option value="">Sélectionnez...</option>
+                        <option value="1">1 personne</option>
+                        <option value="2">2 personnes</option>
+                        <option value="3">3 personnes</option>
+                        <option value="4">4 personnes</option>
+                        <option value="5">5 personnes</option>
+                        <option value="6">6 personnes</option>
+                        <option value="7+">7 personnes ou plus</option>
+                    </select>
+                </div>
+
+                <button type="submit">Réserver maintenant</button>
+            </form>
+        </div>
+
+        <div class="info-section">
+            <h2>Informations pratiques</h2>
+            <ul>
+                <li>📍 Adresse : 123 Rue de la Gastronomie, 75001 Paris</li>
+                <li>📞 Téléphone : 01 23 45 67 89</li>
+                <li>🕐 Horaires : 12h-14h30 et 19h-23h</li>
+                <li>🚫 Fermé le dimanche</li>
+            </ul>
+        </div>
+    </main>
 
     <footer>
-        <p>&copy; 2024 Restaurant Le Gourmet. Tous droits réservés.</p>
-        <p>Réalisé avec passion pour la gastronomie française</p>
+        <p>&copy; 2024 Restaurant Le Gourmet - Tous droits réservés</p>
     </footer>
+
+    <script>
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                guests: document.getElementById('guests').value
+            };
+
+            alert(`Merci ${formData.name} !\n\nVotre réservation pour ${formData.guests} personne(s) le ${formData.date} à ${formData.time} a été enregistrée.\n\nNous vous confirmerons par email à ${formData.email}.`);
+            
+            this.reset();
+        });
+
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('min', today);
+    </script>
 </body>
 </html>
