@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commerce Local</title>
+    <title>Commerce Local - Votre commerce de proximité</title>
     <style>
         * {
             margin: 0;
@@ -12,19 +12,21 @@
         }
         
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
+            overflow-x: hidden;
         }
         
         header {
-            background-color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         nav {
@@ -37,8 +39,15 @@
         }
         
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
         
         nav ul {
@@ -50,33 +59,50 @@
         nav a {
             color: white;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 500;
         }
         
         nav a:hover {
-            color: #3498db;
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
         }
         
         .hero {
             margin-top: 60px;
-            height: 500px;
-            background: linear-gradient(135deg, #1a3a52 0%, #2c5f7f 50%, #1a3a52 100%);
+            min-height: 600px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
         
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.2);
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: bgMove 20s linear infinite;
+        }
+        
+        @keyframes bgMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
         
         .hero-content {
@@ -84,86 +110,256 @@
             z-index: 1;
             max-width: 800px;
             padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            animation: titleBounce 2s ease-out;
+        }
+        
+        @keyframes titleBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 2rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+        }
+        
+        .emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: emojiSpin 4s ease-in-out infinite;
+        }
+        
+        @keyframes emojiSpin {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
         }
         
         .btn {
             display: inline-block;
-            padding: 1rem 2rem;
-            background-color: #3498db;
-            color: white;
+            padding: 1rem 2.5rem;
+            background-color: #fff;
+            color: #667eea;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            border-radius: 50px;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin: 0.5rem;
         }
         
         .btn:hover {
-            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background-color: #f0f0f0;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: white;
+            color: #667eea;
         }
         
         section {
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
         
         h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
             text-align: center;
             color: #2c3e50;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
         }
         
         .services {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 2.5rem;
+            margin-top: 3rem;
         }
         
         .service-card {
-            padding: 2rem;
-            background: #f4f4f4;
-            border-radius: 10px;
+            padding: 2.5rem;
+            background: #fff;
+            border-radius: 20px;
             text-align: center;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
         }
         
         .service-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
         }
+        
+        .service-card .icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: iconBounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .service-card:nth-child(1) .icon { animation-delay: 0s; }
+        .service-card:nth-child(2) .icon { animation-delay: 0.2s; }
+        .service-card:nth-child(3) .icon { animation-delay: 0.4s; }
         
         .service-card h3 {
             margin-bottom: 1rem;
             color: #2c3e50;
+            font-size: 1.5rem;
+        }
+        
+        .service-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        #contact {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            margin: 2rem auto;
+        }
+        
+        #contact h2 {
+            color: white;
+        }
+        
+        #contact h2::after {
+            background: white;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+        
+        .contact-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+        
+        .contact-item .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .contact-item p {
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
         }
         
         footer {
-            background-color: #2c3e50;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             color: white;
             text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
+            padding: 3rem 2rem;
+            margin-top: 0;
+        }
+        
+        footer p {
+            font-size: 1rem;
+        }
+        
+        .fun-text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            animation: colorChange 3s ease-in-out infinite;
+        }
+        
+        @keyframes colorChange {
+            0%, 100% { color: #fff; }
+            50% { color: #ffd700; }
         }
         
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
             }
             
             nav ul {
-                flex-direction: column;
                 gap: 1rem;
+            }
+            
+            nav a {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.9rem;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .emoji {
+                font-size: 3rem;
             }
         }
     </style>
@@ -171,7 +367,7 @@
 <body>
     <header>
         <nav>
-            <div class="logo">Commerce Local</div>
+            <div class="logo">🏪 Commerce Local</div>
             <ul>
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#services">Services</a></li>
@@ -182,39 +378,63 @@
 
     <section id="accueil" class="hero">
         <div class="hero-content">
-            <h1>Bienvenue dans notre commerce</h1>
-            <p>Découvrez nos produits et services de qualité</p>
+            <div class="emoji">😂</div>
+            <h1>MDR - Meilleur Distributeur Régional !</h1>
+            <p>On rigole, mais nos produits et services sont super sérieux... enfin presque ! 🎉</p>
             <a href="#services" class="btn">Découvrir nos services</a>
+            <a href="#contact" class="btn btn-secondary">Nous contacter</a>
         </div>
     </section>
 
     <section id="services">
-        <h2>Nos Services</h2>
+        <h2>Nos Services qui déchirent 🚀</h2>
         <div class="services">
             <div class="service-card">
-                <h3>Service 1</h3>
-                <p>Description du premier service offert par notre commerce local.</p>
+                <div class="icon">🎯</div>
+                <h3>Service Premium</h3>
+                <p>Un service de qualité supérieure qui vous fera dire "MDR c'est trop bien !" à tous vos amis. Satisfaction garantie ou remboursé en rires !</p>
             </div>
             <div class="service-card">
-                <h3>Service 2</h3>
-                <p>Description du deuxième service offert par notre commerce local.</p>
+                <div class="icon">⚡</div>
+                <h3>Service Express</h3>
+                <p>Rapide comme l'éclair, efficace comme un champion. On ne rigole pas avec la vitesse... enfin si, on rigole quand même un peu !</p>
             </div>
             <div class="service-card">
-                <h3>Service 3</h3>
-                <p>Description du troisième service offert par notre commerce local.</p>
+                <div class="icon">💎</div>
+                <h3>Service VIP</h3>
+                <p>Le service luxe qui vous fait vous sentir comme une star. Tapis rouge non inclus, mais bonne humeur toujours au rendez-vous !</p>
             </div>
         </div>
     </section>
 
     <section id="contact">
-        <h2>Contactez-nous</h2>
-        <p style="text-align: center;">Adresse: 123 Rue du Commerce, 75000 Paris</p>
-        <p style="text-align: center;">Téléphone: 01 23 45 67 89</p>
-        <p style="text-align: center;">Email: contact@commercelocal.fr</p>
+        <h2>On reste en contact ? 📱</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <span class="icon">📍</span>
+                <p><strong>Notre adresse</strong></p>
+                <p>123 Rue du Commerce</p>
+                <p>75000 Paris</p>
+            </div>
+            <div class="contact-item">
+                <span class="icon">📞</span>
+                <p><strong>Téléphone</strong></p>
+                <p>01 23 45 67 89</p>
+                <p>Du lundi au vendredi</p>
+            </div>
+            <div class="contact-item">
+                <span class="icon">✉️</span>
+                <p><strong>Email</strong></p>
+                <p>contact@commercelocal.fr</p>
+                <p>Réponse rapide garantie !</p>
+            </div>
+        </div>
     </section>
 
     <footer>
-        <p>&copy; 2024 Commerce Local. Tous droits réservés.</p>
+        <p class="fun-text">😄 La vie est trop courte pour ne pas rire ! 😄</p>
+        <p>&copy; 2024 Commerce Local - MDR ! Tous droits réservés.</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">Fait avec ❤️ et beaucoup d'humour</p>
     </footer>
 </body>
 </html>
