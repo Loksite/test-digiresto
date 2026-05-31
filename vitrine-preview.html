@@ -16,7 +16,7 @@
 :root {
   --c-forest:#1c3428;--c-pine:#2a5240;--c-sage:#4e8060;--c-fern:#7aab82;
   --c-mist:#b8d9bc;--c-cream:#f6f1e8;--c-linen:#ede5d4;--c-warm:#e8dfc9;
-  --c-clay:#c4714a;--c-blush:#e0a07a;--c-gold:#c9a55a;
+  --c-clay:#860952;--c-blush:#e0a07a;--c-gold:#c9a55a;
   --c-ink:#18261e;--c-slate:#3d5446;--c-smoke:#7a9480;--c-white:#ffffff;
   --nav-h:68px;--ease:cubic-bezier(0.4,0,0.2,1);--ease-out:cubic-bezier(0,0,0.2,1);
   --r-card:18px;--r-pill:100px;
@@ -406,12 +406,14 @@ footer{background:var(--c-forest);color:rgba(255,255,255,.7);padding:4rem 5% 2.5
     <li><a href="#avis" onclick="lkTrackClick('Avis')">Avis</a></li>
     <li><a href="#horaires" onclick="lkTrackClick('Horaires')">Horaires</a></li>
     <li><a href="#localisation" onclick="lkTrackClick('Nous trouver')">Nous trouver</a></li>
-    <li><a href="#horaires" class="nav-cta" style="background:#860952" onclick="lkTrackClick('Réserver une table')">Réserver une table</a></li>
+    <li><a href="#horaires" class="nav-cta" onclick="lkTrackClick('Réserver une table')">Réserver une table</a></li>
   </ul>
   <button class="hamburger" id="ham" aria-label="Ouvrir le menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
-</nav><nav class="mobile-nav" id="mobileNav" aria-label="Menu mobile">
+</nav>
+
+<nav class="mobile-nav" id="mobileNav" aria-label="Menu mobile">
   <a href="#presentation">Notre histoire</a>
   <a href="#menu">La carte</a>
   <a href="#galerie">Galerie</a>
