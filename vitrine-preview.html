@@ -75,7 +75,7 @@ button{font-family:inherit;cursor:pointer}
 #hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--c-forest)}
 .hero-bg{position:absolute;inset:0;overflow:hidden}
 
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(231,19,93,.85) 0%,rgba(231,19,93,.7) 50%,rgba(231,19,93,.75) 100%)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(28,52,40,.85) 0%,rgba(42,82,64,.7) 50%,rgba(28,52,40,.75) 100%)}
 .hero-blob{position:absolute;bottom:-5%;right:-8%;width:45vw;height:45vw;max-width:600px;max-height:600px;background:radial-gradient(ellipse,rgba(122,171,130,.18) 0%,transparent 70%);border-radius:60% 40% 55% 45%/50% 60% 40% 50%;pointer-events:none}
 .hero-content{position:relative;z-index:2;text-align:center;color:var(--c-white);padding:0 1.5rem;max-width:820px}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--c-mist);margin-bottom:1.6rem;opacity:0;animation:fadeUp .7s .4s var(--ease) forwards}
@@ -400,20 +400,18 @@ footer{background:var(--c-forest);color:rgba(255,255,255,.7);padding:4rem 5% 2.5
     <span class="logo-name">Itsy Bitsy</span>
   </a>
   <ul class="nav-links" role="list">
-    <li><a href="#presentation" onclick="lkTrackClick('Histoire')">Histoire</a></li>
-    <li><a href="#menu" onclick="lkTrackClick('Carte')">Carte</a></li>
-    <li><a href="#galerie" onclick="lkTrackClick('Galerie')">Galerie</a></li>
-    <li><a href="#avis" onclick="lkTrackClick('Avis')">Avis</a></li>
-    <li><a href="#horaires" onclick="lkTrackClick('Horaires')">Horaires</a></li>
-    <li><a href="#localisation" onclick="lkTrackClick('Nous trouver')">Nous trouver</a></li>
-    <li><a href="#horaires" class="nav-cta" onclick="lkTrackClick('Réserver une table')">Réserver une table</a></li>
+    <li><a href="#presentation" onclick="lkTrackClick('Histoire')" style="color: #e7135d;">Histoire</a></li>
+    <li><a href="#menu" onclick="lkTrackClick('Carte')" style="color: #e7135d;">Carte</a></li>
+    <li><a href="#galerie" onclick="lkTrackClick('Galerie')" style="color: #e7135d;">Galerie</a></li>
+    <li><a href="#avis" onclick="lkTrackClick('Avis')" style="color: #e7135d;">Avis</a></li>
+    <li><a href="#horaires" onclick="lkTrackClick('Horaires')" style="color: #e7135d;">Horaires</a></li>
+    <li><a href="#localisation" onclick="lkTrackClick('Nous trouver')" style="color: #e7135d;">Nous trouver</a></li>
+    <li><a href="#horaires" class="nav-cta" onclick="lkTrackClick('Réserver une table')" style="background-color: #e7135d;">Réserver une table</a></li>
   </ul>
   <button class="hamburger" id="ham" aria-label="Ouvrir le menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
-</nav>
-
-<nav class="mobile-nav" id="mobileNav" aria-label="Menu mobile">
+</nav><nav class="mobile-nav" id="mobileNav" aria-label="Menu mobile">
   <a href="#presentation">Notre histoire</a>
   <a href="#menu">La carte</a>
   <a href="#galerie">Galerie</a>
