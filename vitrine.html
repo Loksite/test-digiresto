@@ -522,7 +522,7 @@ footer{background:var(--c-forest);color:rgba(255,255,255,.7);padding:4rem 5% 2.5
   <div class="pres-grid sw">
     <div class="pres-text">
       <p id="lk-pres-label" class="section-label reveal">Notre histoire</p>
-      <h2 id="lk-pres-title" class="section-title reveal d1">Une cuisine <em>végétale</em><br>qui fait du bien</h2>
+      <h2 class="section-title reveal d1">Une cuisine <em>végétale</em><br>qui fait du bien</h2>
       <p class="section-lead reveal d2" id="lk-presentation">Chez Itsy Bitsy, on croit que manger végétalien peut être une explosion de saveurs. Depuis notre ouverture rue Jeanne Maillotte, on cuisine avec passion des recettes colorées, créatives et 100% végétales.</p>
       <p id="lk-pres-text2" class="reveal d3" style="font-family:'Cormorant Garamond',serif;font-size:1.08rem;color:var(--c-slate);line-height:1.9;margin-top:1rem;">Produits de saison soigneusement sélectionnés, associations audacieuses, textures surprenantes — chaque plat est pensé pour régaler les vegans comme les curieux. Notre service traiteur végétalien propose des formules sur mesure pour vos événements.</p>
       <div class="pres-badges reveal d4">
@@ -871,7 +871,7 @@ footer{background:var(--c-forest);color:rgba(255,255,255,.7);padding:4rem 5% 2.5
 <section id="avis" aria-label="Avis clients">
   <div class="avis-header sw reveal">
     <p id="lk-avis-label" class="section-label">Témoignages</p>
-    <h2 id="lk-avis-title" class="section-title">Ce que disent <em>nos clients</em></h2>
+    <h2 class="section-title">Ce que disent <em>nos clients</em></h2>
     <div class="avis-score-row">
       <div id="lk-avis-big-num" class="avis-big-num">100%</div>
       <div class="avis-meta">
@@ -1082,136 +1082,56 @@ document.querySelectorAll('.saison-btn').forEach(btn=>{
 
 <!-- Loksite live editing listener -->
 <script>
-window.addEventListener('message', function(e) {
-  if (!e.data) return;
+window.addEventListener('message', function(ev) {
+  var d = ev.data;
+  if (!d || !d.type) return;
 
-  // Scroll vers une section
-  if (e.data.type === 'loksite-scroll' && e.data.anchor) {
-    var target = document.getElementById(e.data.anchor);
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
-    return;
-  }
-
-  // Live editing
-  if (e.data.type !== 'loksite-live') return;
-  var el = document.getElementById(e.data.id);
-  if (!el) return;
-
-  // Texte
-  if (e.data.value !== undefined) {
-    if (e.data.id === 'lk-hero-titre') {
-      var firstNode = el.childNodes[0];
-      if (firstNode && firstNode.nodeType === 3) firstNode.textContent = e.data.value;
-      else el.insertBefore(document.createTextNode(e.data.value), el.firstChild);
-    } else {
-      el.textContent = e.data.value;
+  if (d.type === 'lke-sync') {
+    var mode = d.mode || '';
+    var val  = String(d.value || '');
+    if (mode === 'live') {
+      var el = document.getElementById(d.target);
+      if (el) el.textContent = val;
+    } else if (mode === 'query') {
+      document.querySelectorAll(d.target).forEach(function(el){ el.textContent = val; });
+    } else if (mode === 'qfirst') {
+      var el2 = document.querySelector(d.target);
+      if (el2) el2.textContent = val;
+    } else if (mode.indexOf('qindex:') === 0) {
+      var idx = parseInt(mode.split(':')[1]) || 0;
+      var all = document.querySelectorAll(d.target);
+      if (all[idx]) all[idx].textContent = val;
     }
   }
-  // Police
-  if (e.data.font) el.style.fontFamily = e.data.font;
-  // Couleur
-  if (e.data.color) el.style.color = e.data.color;
-  // Taille
-  if (e.data.fontSize) el.style.fontSize = e.data.fontSize;
+
+  if (d.type === 'lke-horaire') {
+    var row = document.querySelector('.hours-row[data-day="' + d.day + '"] .hours-time');
+    if (row) row.textContent = d.value;
+  }
+
+  if (d.type === 'lke-style-field') {
+    var targets = [];
+    var sm = d.mode || '';
+    if (sm === 'live') { var s=document.getElementById(d.target); if(s) targets.push(s); }
+    else if (sm === 'query') { targets = Array.from(document.querySelectorAll(d.target)); }
+    else if (sm === 'qfirst') { var s2=document.querySelector(d.target); if(s2) targets.push(s2); }
+    else if (sm.indexOf('qindex:')===0) { var si=parseInt(sm.split(':')[1])||0; var sa=document.querySelectorAll(d.target); if(sa[si]) targets.push(sa[si]); }
+    targets.forEach(function(el) {
+      if (!d.style) return;
+      if (d.style.fontFamily) el.style.fontFamily = d.style.fontFamily;
+      if (d.style.fontSize)   el.style.fontSize   = d.style.fontSize;
+      if (d.style.fontWeight) el.style.fontWeight = d.style.fontWeight;
+      if (d.style.color)      el.style.color      = d.style.color;
+      if (d.style.textAlign)  el.style.textAlign  = d.style.textAlign;
+    });
+  }
+
+  if (d.type === 'lke-scroll') {
+    var map = {hero:'hero',presentation:'presentation',horaires:'horaires',localisation:'localisation',footer:'footer',menu:'menu',avis:'avis',galerie:'galerie'};
+    var anchor = document.getElementById(map[d.anchor] || d.anchor);
+    if (anchor) anchor.scrollIntoView({behavior:'smooth', block:'start'});
+  }
 });
-</script>
-
-<!-- Loksite edit mode ?edit=1 -->
-<script>
-(function() {
-  if (new URLSearchParams(window.location.search).get('edit') !== '1') return;
-
-  // 1. Désactiver animations
-  var s = document.createElement('style');
-  s.textContent = [
-    // Annuler toutes les animations hero
-    '.hero-eyebrow,.hero-title,.hero-tagline,.hero-btns,.hero-badge,.hero-scroll{opacity:1!important;animation:none!important;transform:none!important}',
-    // Forcer tous les éléments reveal visibles immédiatement
-    '.reveal{opacity:1!important;transform:none!important;transition:none!important}',
-    '.reveal.visible{opacity:1!important;transform:none!important}',
-    // Annuler les délais d-animation
-    '.d1,.d2,.d3,.d4,.d5{animation-delay:0s!important;transition-delay:0s!important}',
-    // Style zones éditables
-    '[data-lk-edit]{outline:none!important;cursor:text!important;border-bottom:2px dashed rgba(79,110,247,.6)!important;border-radius:2px 2px 0 0;padding:1px 3px;min-width:20px;transition:background .15s}',
-    '[data-lk-edit]:hover{background:rgba(79,110,247,.12)!important}',
-    '[data-lk-edit]:focus{background:rgba(79,110,247,.2)!important}',
-    // Barre édition
-    '#lk-bar{position:fixed;bottom:0;left:0;right:0;z-index:99999;background:#1e293b;color:#fff;font-family:system-ui,sans-serif;font-size:12px;display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 16px;border-top:2px solid #4f6ef7;pointer-events:none}',
-    '.lk-pulse{width:7px;height:7px;border-radius:50%;background:#22c55e;display:inline-block}',
-  ].join('')
-    + '[data-lk-edit]{outline:none!important;cursor:text!important;border-bottom:2px dashed rgba(79,110,247,.6)!important;border-radius:2px 2px 0 0;padding:1px 3px;min-width:20px;transition:background .15s}'
-    + '[data-lk-edit]:hover{background:rgba(79,110,247,.12)!important}'
-    + '[data-lk-edit]:focus{background:rgba(79,110,247,.2)!important}'
-    + '#lk-bar{position:fixed;bottom:0;left:0;right:0;z-index:99999;background:#1e293b;color:#fff;font-family:system-ui,sans-serif;font-size:12px;display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 16px;border-top:2px solid #4f6ef7;pointer-events:none}'
-    + '.lk-pulse{width:7px;height:7px;border-radius:50%;background:#22c55e;display:inline-block;animation:pulse 2s infinite}';
-  document.head.appendChild(s);
-
-  // 2. Envoyer au parent
-  function send(key, val) {
-    window.parent.postMessage({ type: 'loksite-edit', key: key, value: val }, '*');
-  }
-
-  // 3. Rendre éditable
-  function editable(el, key, getVal) {
-    if (!el) return;
-    el.setAttribute('contenteditable', 'true');
-    el.setAttribute('spellcheck', 'false');
-    el.setAttribute('data-lk-edit', key);
-    el.addEventListener('input', function() { send(key, getVal ? getVal(el) : el.textContent.trim()); });
-    el.addEventListener('keydown', function(e) { if (e.key === 'Enter') e.preventDefault(); });
-    el.title = '✏️ Cliquez pour modifier';
-  }
-
-  // 4. HERO
-  var titre = document.getElementById('lk-hero-titre');
-  if (titre) {
-    var tn = titre.childNodes[0];
-    if (tn && tn.nodeType === 3) {
-      var sp = document.createElement('span');
-      sp.textContent = tn.textContent;
-      titre.insertBefore(sp, tn); titre.removeChild(tn);
-      editable(sp, 'hero_titre');
-    }
-  }
-  editable(document.getElementById('lk-hero-sous-titre'), 'hero_sous_titre');
-  editable(document.getElementById('lk-hero-tagline'),    'hero_tagline');
-  editable(document.getElementById('lk-hero-eyebrow'),    'hero_eyebrow');
-  editable(document.getElementById('lk-btn-resa'),         'bouton_resa_texte');
-  editable(document.getElementById('lk-presentation'),    'presentation_texte');
-
-  // 5. HORAIRES
-  var dayMap = {0:'dim',1:'lun',2:'mar',3:'mer',4:'jeu',5:'ven',6:'sam'};
-  document.querySelectorAll('.hours-row[data-day]').forEach(function(row) {
-    var nom = dayMap[row.getAttribute('data-day')];
-    var el = row.querySelector('.hours-time');
-    if (el && nom) editable(el, 'horaire_' + nom);
-  });
-
-  // 6. CONTACT
-  document.querySelectorAll('.lk-adresse').forEach(function(el) { editable(el, 'adresse'); });
-  document.querySelectorAll('.lk-telephone').forEach(function(el) { editable(el, 'telephone'); });
-
-  // 7. RÉSEAUX
-  document.querySelectorAll('.footer-social a').forEach(function(a) {
-    var lbl = (a.getAttribute('aria-label') || '').toLowerCase();
-    var key = lbl.includes('instagram') ? 'instagram' : lbl.includes('facebook') ? 'facebook' : null;
-    if (!key) return;
-    var orig = a.href || '';
-    a.style.cssText += ';width:auto;height:auto;padding:6px 10px;border-radius:8px;font-size:.75rem;white-space:nowrap;';
-    a.textContent = orig;
-    a.removeAttribute('href');
-    editable(a, key);
-  });
-
-  // 8. Barre édition
-  var bar = document.createElement('div');
-  bar.id = 'lk-bar';
-  bar.innerHTML = '<span class="lk-pulse"></span><span style="color:#94a3b8">Mode édition Loksite</span><span>Cliquez sur n'importe quel texte pour le modifier</span>';
-  document.body.appendChild(bar);
-
-  // 9. Signaler prêt
-  window.parent.postMessage({ type: 'loksite-edit-ready' }, '*');
-})();
 </script>
 </body>
 </html>
