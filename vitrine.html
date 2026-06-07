@@ -562,111 +562,6 @@ footer{background:var(--c-forest);color:rgba(255,255,255,.7);padding:4rem 5% 2.5
 }
 .lk-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;}
 body{padding-bottom:40px!important;}
-</style><style>
-/* Désactiver animations */
-*{animation-play-state:paused!important;transition:none!important}
-.reveal,.d1,.d2,.d3,.d4,.d5{opacity:1!important;transform:none!important}
-.hero-eyebrow,.hero-title,.hero-tagline,.hero-btns,.hero-badge,.hero-scroll{opacity:1!important;animation:none!important;transform:none!important}
-
-/* Éléments éditables */
-[data-lke]{
-  outline:none!important;
-  cursor:text!important;
-  position:relative;
-}
-[data-lke]:not(:focus)::after{
-  content:'';
-  position:absolute;
-  inset:-1px;
-  border:1.5px dashed rgba(79,110,247,.5);
-  border-radius:3px;
-  pointer-events:none;
-  z-index:9990;
-}
-[data-lke]:hover::after{border-color:rgba(79,110,247,.9);}
-[data-lke]:focus{background:rgba(79,110,247,.06)!important;outline:2px solid #4f6ef7!important;outline-offset:2px;}
-[data-lke].lke-selected::after{border-color:#4f6ef7!important;border-style:solid!important;}
-
-/* Drag & drop */
-[data-lk-drag]{cursor:grab!important;position:relative;}
-[data-lk-drag]:hover > .lk-drag-handle{display:flex!important;}
-.lk-drag-handle{
-  position:absolute;top:6px;right:6px;
-  width:24px;height:24px;border-radius:5px;
-  background:rgba(79,110,247,.9);color:#fff;
-  font-size:12px;cursor:grab;z-index:9995;
-  display:none;align-items:center;justify-content:center;
-}
-[data-lk-drag].lke-dragging{opacity:.4;border:2px dashed #4f6ef7!important;}
-[data-lk-drag].lke-drag-over{outline:2px solid #22c55e;outline-offset:3px;}
-
-/* Toolbar flottante */
-#lke-toolbar{
-  position:fixed;z-index:99998;
-  background:#1e293b;border:1px solid #334155;
-  border-radius:10px;padding:6px 8px;
-  display:none;align-items:center;gap:4px;
-  box-shadow:0 8px 32px rgba(0,0,0,.5);
-  font-family:system-ui,sans-serif;
-  pointer-events:auto;
-}
-#lke-toolbar.visible{display:flex;}
-.lkt-sep{width:1px;height:20px;background:#334155;margin:0 2px;}
-.lkt-btn{
-  background:none;border:none;color:#94a3b8;cursor:pointer;
-  border-radius:5px;padding:4px 6px;font-size:12px;line-height:1;
-  transition:background .1s,color .1s;white-space:nowrap;
-}
-.lkt-btn:hover,.lkt-btn.on{background:#4f6ef7;color:#fff;}
-.lkt-color{width:22px;height:22px;border:1px solid #334155;border-radius:4px;padding:1px;background:#0f172a;cursor:pointer;}
-.lkt-num{
-  width:44px;background:#0f172a;border:1px solid #334155;border-radius:5px;
-  color:#e2e8f0;padding:3px 5px;font-size:11px;text-align:center;outline:none;
-}
-.lkt-num:focus{border-color:#4f6ef7;}
-.lkt-sel{
-  background:#0f172a;border:1px solid #334155;border-radius:5px;
-  color:#e2e8f0;padding:3px 5px;font-size:11px;cursor:pointer;outline:none;max-width:110px;
-}
-.lkt-ai{
-  background:linear-gradient(135deg,#4f6ef7,#7c3aed);color:#fff;
-  border:none;border-radius:6px;padding:4px 10px;font-size:11px;
-  font-weight:700;cursor:pointer;white-space:nowrap;
-}
-.lkt-ai:hover{opacity:.85;}
-
-/* IA inline popup */
-#lke-ai-pop{
-  position:fixed;z-index:99999;
-  background:#1e293b;border:1px solid #4f6ef7;border-radius:10px;
-  padding:12px;width:300px;display:none;flex-direction:column;gap:8px;
-  box-shadow:0 12px 40px rgba(0,0,0,.6);font-family:system-ui,sans-serif;
-}
-#lke-ai-pop.visible{display:flex;}
-#lke-ai-prompt{
-  width:100%;background:#0f172a;border:1px solid #334155;border-radius:7px;
-  color:#e2e8f0;padding:8px;font-size:12px;resize:none;outline:none;
-  font-family:inherit;line-height:1.5;box-sizing:border-box;
-}
-#lke-ai-prompt:focus{border-color:#4f6ef7;}
-#lke-ai-send{
-  background:#4f6ef7;color:#fff;border:none;border-radius:7px;
-  padding:7px;font-size:12px;font-weight:600;cursor:pointer;width:100%;
-}
-#lke-ai-send:disabled{opacity:.4;}
-#lke-ai-pgb{height:3px;background:#334155;border-radius:2px;overflow:hidden;display:none;}
-#lke-ai-pgf{height:100%;background:#4f6ef7;width:0%;transition:width .3s;}
-
-/* Barre du bas */
-#lke-bar{
-  position:fixed;bottom:0;left:0;right:0;z-index:99997;
-  background:#0f172a;border-top:2px solid #4f6ef7;
-  display:flex;align-items:center;justify-content:center;gap:12px;
-  padding:7px 16px;font-family:system-ui,sans-serif;font-size:11px;color:#94a3b8;
-  pointer-events:none;
-}
-.lk-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;}
-body{padding-bottom:40px!important;}
 </style></head>
 <body>
 
@@ -1289,21 +1184,7 @@ document.querySelectorAll('.saison-btn').forEach(btn=>{
 
 <!-- Loksite live editing listener -->
 
-<button class="lkt-btn" id="lkt-b" title="Gras"><b>B</b></button>
-  <button class="lkt-btn" id="lkt-i" title="Italique"><i>I</i></button>
-  <div class="lkt-sep"></div>
-  <button class="lkt-btn" id="lkt-al" title="Gauche">⬤ G</button>
-  <button class="lkt-btn" id="lkt-ac" title="Centre">⬤ C</button>
-  <button class="lkt-btn" id="lkt-ar" title="Droite">⬤ D</button>
-  <div class="lkt-sep"></div>
-  <input class="lkt-color" id="lkt-color" type="color" title="Couleur texte">
-  <div class="lkt-sep"></div>
-  <button class="lkt-ai" id="lkt-ai-btn">✨ IA</button>
-  <button class="lkt-btn" id="lkt-close" title="Fermer" style="margin-left:4px;color:#64748b">✕</button>
-</div><textarea id="lke-ai-prompt" rows="2" placeholder="Ex: Rends plus accrocheur, raccourcis à 5 mots..."></textarea>
-  <button id="lke-ai-send">Envoyer</button>
-  <div id="lke-ai-pgb"><div id="lke-ai-pgf"></div></div>
-</div><button class="lkt-btn on" id="lkt-b" title="Gras"><b>B</b></button>
+<button class="lkt-btn on" id="lkt-b" title="Gras"><b>B</b></button>
   <button class="lkt-btn" id="lkt-i" title="Italique"><i>I</i></button>
   <div class="lkt-sep"></div>
   <button class="lkt-btn on" id="lkt-al" title="Gauche">⬤ G</button>
