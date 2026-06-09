@@ -340,10 +340,10 @@ footer{background:var(--c-forest);color:rgba(255,255,255,.7);padding:4rem 5% 2.5
 <!-- Loksite Analytics Tracker -->
 <script>
 (function() {
-  // Ne pas tracker si iframe ou fichier preview
+  // Ne pas tracker si chargé dans une iframe OU si c'est le fichier preview
   if (window.self !== window.top) return;
-  if (window.location.pathname.includes("vitrine-preview")) return;
-  var CLIENT_ID = "itsybitsylille@gmail.com";
+  if (window.location.pathname.includes('vitrine-preview')) return;
+  var CLIENT_ID = "test@digiresto.fr";
   var SUPABASE_URL = "https://qhnofvfgutsdgbfwhupg.supabase.co";
   var SUPABASE_KEY = "sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY";
   var sessionId = Math.random().toString(36).slice(2);
@@ -1084,5 +1084,14 @@ document.querySelectorAll('.saison-btn').forEach(btn=>{
 
 
 <!-- ═══ BOUTON MODE ÉDITION ═══════════════════════════════════ -->
+<div id="lke-edit-toggle" style="position:fixed;top:14px;right:14px;z-index:99999;font-family:system-ui,sans-serif" data-hide-in-iframe>
+  <button id="lke-toggle-btn" onclick="lkeToggleEdit()" style="background:#1e293b;color:#e2e8f0;border:1.5px solid #334155;border-radius:20px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,.4);white-space:nowrap">
+    <span id="lke-toggle-dot" style="width:7px;height:7px;border-radius:50%;background:#64748b;flex-shrink:0"></span>
+    <span id="lke-toggle-label">Mode édition</span>
+  </button>
+</div>
+
+
+
 </body>
 </html>
