@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
+<html lang="fr"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Menu d'Été — Itsy Bitsy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&amp;display=swap" rel="stylesheet">
 <style>
   :root{
     --cream:#f6f1e7;
@@ -266,37 +265,75 @@
   }
   .avail-toggle:hover{border-color:var(--terracotta);color:var(--terracotta)}
 
+  /* ── ÉDITEUR LKE ── */
+  *{animation-play-state:paused!important;transition:none!important}
+  [data-lke]{outline:none!important;cursor:text!important;position:relative}
+  [data-lke]:not(:focus)::after{content:'';position:absolute;inset:-1px;border:1.5px dashed rgba(79,110,247,.5);border-radius:3px;pointer-events:none;z-index:9990}
+  [data-lke]:hover::after{border-color:rgba(79,110,247,.9)}
+  [data-lke]:focus{background:rgba(79,110,247,.06)!important;outline:2px solid #4f6ef7!important;outline-offset:2px}
+  [data-lke].lke-selected::after{border-color:#4f6ef7!important;border-style:solid!important}
+  #lke-toolbar{position:fixed;z-index:99998;background:#1e293b;border:1px solid #334155;border-radius:10px;padding:6px 8px;display:none;align-items:center;gap:4px;box-shadow:0 8px 32px rgba(0,0,0,.5);font-family:system-ui,sans-serif;pointer-events:auto}
+  #lke-toolbar.visible{display:flex}
+  .lkt-sep{width:1px;height:20px;background:#334155;margin:0 2px}
+  .lkt-btn{background:none;border:none;color:#94a3b8;cursor:pointer;border-radius:5px;padding:4px 6px;font-size:12px;line-height:1;white-space:nowrap}
+  .lkt-btn:hover,.lkt-btn.on{background:#4f6ef7;color:#fff}
+  .lkt-color{width:22px;height:22px;border:1px solid #334155;border-radius:4px;padding:1px;background:#0f172a;cursor:pointer}
+  .lkt-num{width:44px;background:#0f172a;border:1px solid #334155;border-radius:5px;color:#e2e8f0;padding:3px 5px;font-size:11px;text-align:center;outline:none}
+  .lkt-sel{background:#0f172a;border:1px solid #334155;border-radius:5px;color:#e2e8f0;padding:3px 5px;font-size:11px;cursor:pointer;outline:none;max-width:110px}
+  .lkt-ai{background:linear-gradient(135deg,#4f6ef7,#7c3aed);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap}
+  .lkt-ai:hover{opacity:.85}
+  #lke-ai-pop{position:fixed;z-index:99999;background:#1e293b;border:1px solid #4f6ef7;border-radius:10px;padding:12px;width:280px;display:none;flex-direction:column;gap:8px;box-shadow:0 12px 40px rgba(0,0,0,.6);font-family:system-ui,sans-serif}
+  #lke-ai-pop.visible{display:flex}
+  #lke-ai-prompt{width:100%;background:#0f172a;border:1px solid #334155;border-radius:7px;color:#e2e8f0;padding:8px;font-size:12px;resize:none;outline:none;font-family:inherit;line-height:1.5;box-sizing:border-box}
+  #lke-ai-prompt:focus{border-color:#4f6ef7}
+  #lke-ai-send{background:#4f6ef7;color:#fff;border:none;border-radius:7px;padding:7px;font-size:12px;font-weight:600;cursor:pointer;width:100%}
+  #lke-ai-send:disabled{opacity:.4}
+  #lke-ai-pgb{height:3px;background:#334155;border-radius:2px;overflow:hidden;display:none}
+  #lke-ai-pgf{height:100%;background:#4f6ef7;width:0%}
+  #lke-bar{position:fixed;bottom:0;left:0;right:0;z-index:99997;background:#0f172a;border-top:2px solid #4f6ef7;display:flex;align-items:center;justify-content:center;gap:12px;padding:7px 16px;font-family:system-ui,sans-serif;font-size:11px;color:#94a3b8}
+  #lke-save{background:#22c55e;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;pointer-events:auto}
+  #lke-save:disabled{opacity:.5;cursor:default}
+  #lke-bg-badge{position:fixed;top:8px;left:8px;z-index:9996;background:rgba(15,23,42,.92);color:#e2e8f0;border:1px solid #334155;border-radius:20px;padding:5px 10px;font-size:10px;font-family:system-ui,sans-serif;display:none;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,.4);pointer-events:auto;white-space:nowrap}
+  #lke-bg-badge.visible{display:flex}
+  #lke-bg-badge .lkbg-lbl{font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8}
+  #lke-bg-badge .lkbg-grp{display:flex;align-items:center;gap:3px}
+  #lke-bg-badge input[type=color]{width:22px;height:22px;border:1px solid #334155;border-radius:4px;padding:1px;background:#0f172a;cursor:pointer}
+  #lke-bg-badge .lkbg-reset{background:none;border:none;color:#64748b;cursor:pointer;font-size:13px;padding:0 2px;line-height:1}
+  #lke-bg-badge .lkbg-reset:hover{color:#ef4444}
+  .lk-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block}
+  body{padding-bottom:42px!important}
+
   @media (max-width:640px){
     .brunch-grid{grid-template-columns:1fr}
     .brunch-footer{flex-direction:column;align-items:flex-start}
   }
 </style>
 </head>
-<body data-lke-bg="page">
+<body>
 
 <div class="wrap">
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow" data-lke="lk-eyebrow">Itsy Bitsy · Cuisine Végétale</div>
-    <div class="hero-title" data-lke="lk-title">Menu d'Été</div>
-    <div class="hero-sub" data-lke="lk-sub">Des recettes fraîches, colorées et 100% végétales — composez votre commande et passez la chercher directement à votre table.</div>
+    <div class="hero-eyebrow">Itsy Bitsy · Cuisine Végétale</div>
+    <div class="hero-title">Menu d'Été</div>
+    <div class="hero-sub">Des recettes fraîches, colorées et 100% végétales — composez votre commande et passez la chercher directement à votre table.</div>
   </div>
 
   <!-- BRUNCH -->
-  <div class="brunch-card" data-item="brunch" data-lke-bg="brunch">
-    <div class="brunch-title" data-lke="lk-brunch-title">Brunch Végétalien de Saison</div>
+  <div class="brunch-card" data-item="brunch" style="background: rgb(21, 122, 147) !important;">
+    <div class="brunch-title">Brunch Végétalien de Saisonnnnnnnnnnnnnn</div>
     <div class="brunch-grid">
-      <div class="brunch-item" data-lke="lk-brunch-item-0"><span class="leaf">🌿</span>Bun cream cheese, petits pois, avocat &amp; roquette</div>
-      <div class="brunch-item" data-lke="lk-brunch-item-1"><span class="leaf">🌿</span>Lentilles citronnées, légumes grillés &amp; roquette</div>
-      <div class="brunch-item" data-lke="lk-brunch-item-2"><span class="leaf">🌿</span>Parfait granola, yaourt vanillé &amp; pommes caramélisées</div>
-      <div class="brunch-item" data-lke="lk-brunch-item-3"><span class="leaf">🌿</span>Pancakes, mousse de cacahuète, banane &amp; caramel</div>
-      <div class="brunch-item" data-lke="lk-brunch-item-4"><span class="leaf">🌿</span>Cookie noix de pécan &amp; chocolat</div>
-      <div class="brunch-item" data-lke="lk-brunch-item-5"><span class="leaf">🌿</span>Pain &amp; confiture maison · Jus de pomme · Thé ou café</div>
+      <div class="brunch-item"><span class="leaf">🌿</span>Bun cream cheese, petits pois, avocat &amp; roquette</div>
+      <div class="brunch-item"><span class="leaf">🌿</span>Lentilles citronnées, légumes grillés &amp; roquette</div>
+      <div class="brunch-item"><span class="leaf">🌿</span>Parfait granola, yaourt vanillé &amp; pommes caramélisées</div>
+      <div class="brunch-item"><span class="leaf">🌿</span>Pancakes, mousse de cacahuète, banane &amp; caramel</div>
+      <div class="brunch-item"><span class="leaf">🌿</span>Cookie noix de pécan &amp; chocolat</div>
+      <div class="brunch-item"><span class="leaf">🌿</span>Pain &amp; confiture maison · Jus de pomme · Thé ou café</div>
     </div>
-    <div class="brunch-note" data-lke="lk-brunch-note">📅 Dimanche uniquement · 11h–13h ou 13h–15h · Sur réservation</div>
+    <div class="brunch-note">📅 Dimanche uniquement · 11h–13h ou 13h–15h · Sur réservation</div>
     <div class="brunch-footer">
-      <div class="brunch-price"><span data-lke="lk-brunch-price">19€</span> <span>/ pers.</span></div>
+      <div class="brunch-price"><span>19€</span> <span>/ pers.</span></div>
       <div class="formule-action" style="margin-top:0;max-width:280px">
         <div class="qty-stepper" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)">
           <button onclick="changeStepper('brunch',-1)" style="background:transparent;border-color:rgba(255,255,255,.25);color:#fff">−</button>
@@ -308,26 +345,26 @@
         </button>
       </div>
     </div>
-  </div>
+  <button class="avail-toggle">👁 Marquer indisponible</button></div>
 
   <!-- FORMULES -->
   <div class="section-label">Nos formules</div>
   <div class="formules-grid">
 
     <!-- BUFFET -->
-    <div class="formule-card" data-item="buffet" data-lke-bg="buffet">
-      <div class="formule-hd mint" data-lke-bg2="buffet-hd">
+    <div class="formule-card" data-item="buffet">
+      <div class="formule-hd mint">
         <span class="formule-icon">🥗</span>
-        <div class="formule-name" data-lke="lk-buffet-name">Formule Buffet</div>
-        <div class="formule-price"><span data-lke="lk-buffet-price">15€</span> <span>/ pers.</span></div>
+        <div class="formule-name">Formule Buffet</div>
+        <div class="formule-price"><span>15€</span> <span>/ pers.</span></div>
       </div>
       <div class="formule-body">
         <ul class="formule-list">
-          <li data-lke="lk-buffet-li-0">Quinoa, pois chiches grillés, courgettes, carotte, pomme &amp; graines de courge</li>
-          <li data-lke="lk-buffet-li-1">Pommes de terre grenailles, pickles, tomates confites, épinards, radis, salicorne &amp; noix</li>
-          <li data-lke="lk-buffet-li-2">Riz noir, chou rouge, carottes rôties, concombre, fèves, roquette, grenade &amp; sarrasin grillé</li>
-          <li data-lke="lk-buffet-li-3">Houmous au curry</li>
-          <li data-lke="lk-buffet-li-4">Cookie tomate &amp; romarin · Foccacia aux légumes d'été</li>
+          <li>Quinoa, pois chiches grillés, courgettes, carotte, pomme &amp; graines de courge</li>
+          <li>Pommes de terre grenailles, pickles, tomates confites, épinards, radis, salicorne &amp; noix</li>
+          <li>Riz noir, chou rouge, carottes rôties, concombre, fèves, roquette, grenade &amp; sarrasin grillé</li>
+          <li>Houmous au curry</li>
+          <li>Cookie tomate &amp; romarin · Foccacia aux légumes d'été</li>
         </ul>
         <div class="formule-action">
           <div class="qty-stepper">
@@ -345,26 +382,26 @@
           <div class="extra-pill">+ Pièces sucrées 1,6€/pièce <button class="extra-add" onclick="addExtra('extra-sucre','Pièces sucrées (Buffet)',1.6)">+</button></div>
         </div>
       </div>
-    </div>
+    <button class="avail-toggle">👁 Marquer indisponible</button></div>
 
     <!-- COCKTAIL -->
-    <div class="formule-card" data-item="cocktail" data-lke-bg="cocktail">
-      <div class="formule-hd peach" data-lke-bg2="cocktail-hd">
+    <div class="formule-card" data-item="cocktail">
+      <div class="formule-hd peach">
         <span class="formule-icon">🍹</span>
-        <div class="formule-name" data-lke="lk-cocktail-name">Formule Cocktail</div>
-        <div class="formule-price"><span data-lke="lk-cocktail-price">14€</span> <span>/ pers.</span></div>
+        <div class="formule-name">Formule Cocktail</div>
+        <div class="formule-price"><span>14€</span> <span>/ pers.</span></div>
       </div>
       <div class="formule-body">
-        <div class="formule-cocktail-tag" data-lke="lk-cocktail-tag">8 pièces cocktail par personne</div>
+        <div class="formule-cocktail-tag">8 pièces cocktail par personne</div>
         <ul class="formule-list">
-          <li data-lke="lk-cocktail-li-0">Roulé de concombre, avocat, pomme &amp; sésame</li>
-          <li data-lke="lk-cocktail-li-1">Mini poivron farci</li>
-          <li data-lke="lk-cocktail-li-2">Falafel de poivron grillé aux cornflakes</li>
-          <li data-lke="lk-cocktail-li-3">Foccacia aux légumes d'été</li>
-          <li data-lke="lk-cocktail-li-4">Aubergine rôtie au sumac &amp; crème aux herbes</li>
-          <li data-lke="lk-cocktail-li-5">Mini financier aux courgettes &amp; pignons de pin</li>
-          <li data-lke="lk-cocktail-li-6">Cookie salé tomate &amp; romarin</li>
-          <li data-lke="lk-cocktail-li-7">Panna cotta de carotte au curry</li>
+          <li>Roulé de concombre, avocat, pomme &amp; sésame</li>
+          <li>Mini poivron farci</li>
+          <li>Falafel de poivron grillé aux cornflakes</li>
+          <li>Foccacia aux légumes d'été</li>
+          <li>Aubergine rôtie au sumac &amp; crème aux herbes</li>
+          <li>Mini financier aux courgettes &amp; pignons de pin</li>
+          <li>Cookie salé tomate &amp; romarin</li>
+          <li>Panna cotta de carotte au curry</li>
         </ul>
         <div class="formule-action">
           <div class="qty-stepper">
@@ -377,20 +414,20 @@
           </button>
         </div>
       </div>
-    </div>
+    <button class="avail-toggle">👁 Marquer indisponible</button></div>
 
     <!-- PLATEAU REPAS -->
-    <div class="formule-card" data-item="plateau" data-lke-bg="plateau">
-      <div class="formule-hd pink" data-lke-bg2="plateau-hd">
+    <div class="formule-card" data-item="plateau">
+      <div class="formule-hd pink">
         <span class="formule-icon">🍱</span>
-        <div class="formule-name" data-lke="lk-plateau-name">Plateau Repas</div>
-        <div class="formule-price"><span data-lke="lk-plateau-price">15€</span> <span>/ pers.</span></div>
+        <div class="formule-name">Plateau Repas</div>
+        <div class="formule-price"><span>15€</span> <span>/ pers.</span></div>
       </div>
       <div class="formule-body">
         <ul class="formule-list">
-          <li data-lke="lk-plateau-li-0"><strong>Entrée :</strong> Tartare de légumes croquants &amp; crème d'avocat</li>
-          <li data-lke="lk-plateau-li-1"><strong>Plat :</strong> Bowl d'été — Quinoa, légumes rôtis, falafels, houmous, crudités &amp; pesto + Pain</li>
-          <li data-lke="lk-plateau-li-2"><strong>Dessert :</strong> Cookie chocolat &amp; cacahuètes <em>ou</em> Financier matcha-framboise (+1€)</li>
+          <li><strong>Entrée :</strong> Tartare de légumes croquants &amp; crème d'avocat</li>
+          <li><strong>Plat :</strong> Bowl d'été — Quinoa, légumes rôtis, falafels, houmous, crudités &amp; pesto + Pain</li>
+          <li><strong>Dessert :</strong> Cookie chocolat &amp; cacahuètes <em>ou</em> Financier matcha-framboise (+1€)</li>
         </ul>
         <div class="formule-action">
           <div class="qty-stepper">
@@ -405,10 +442,10 @@
         <div class="formule-extras">
           <div class="extra-pill">🧃 Jus de pomme 2€/pers. <button class="extra-add" onclick="addExtra('extra-jus','Jus de pomme',2)">+</button></div>
           <div class="extra-pill">Autres softs 3€/pers. <button class="extra-add" onclick="addExtra('extra-softs','Autres softs',3)">+</button></div>
-          <div class="extra-note" data-lke="lk-plateau-note">Alcools sur devis — à demander en salle</div>
+          <div class="extra-note">Alcools sur devis — à demander en salle</div>
         </div>
       </div>
-    </div>
+    <button class="avail-toggle">👁 Marquer indisponible</button></div>
 
   </div>
 
@@ -434,7 +471,7 @@
         <span class="cart-total-label">Total</span>
         <span class="cart-total-val" id="cart-total">0,00 €</span>
       </div>
-      <button class="btn-validate" id="btn-validate" onclick="openTableModal()" disabled>Valider ma commande</button>
+      <button class="btn-validate" id="btn-validate" onclick="openTableModal()" disabled="">Valider ma commande</button>
     </div>
   </div>
 </div>
@@ -452,263 +489,4 @@
   </div>
 </div>
 
-<script>
-// ═══════════════════════════════════════════════════
-//  CONFIG — à adapter selon le client
-// ═══════════════════════════════════════════════════
-const SUPABASE_URL    = 'https://qhnofvfgutsdgbfwhupg.supabase.co';
-const SUPABASE_KEY    = 'sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY';
-const CLIENT_EMAIL    = 'itsybitsylille@gmail.com';
-const PAGE_NAME       = "Menu d'Été";
-const EDIT_MODE       = false; // page publique : pas de toggle de disponibilité
-
-// ═══════════════════════════════════════════════════
-//  PANIER
-// ═══════════════════════════════════════════════════
-let cart = [];
-const steppers = { brunch:1, buffet:1, cocktail:1, plateau:1 };
-
-function changeStepper(key, delta){
-  steppers[key] = Math.max(1, steppers[key] + delta);
-  document.getElementById('qty-'+key).textContent = steppers[key];
-}
-
-// Prix affiché = source de vérité (lit le texte de lk-*-price, ex: "19€" ou "19,50€")
-function getDisplayPrice(lkeKey, fallback){
-  var el = document.querySelector('[data-lke="'+lkeKey+'"]');
-  if (!el) return fallback;
-  var m = (el.textContent||'').replace(',', '.').match(/[\d.]+/);
-  return m ? parseFloat(m[0]) : fallback;
-}
-
-function addFormule(key, name, price){
-  price = getDisplayPrice('lk-'+key+'-price', price);
-  const qty = steppers[key];
-  const existing = cart.find(i => i.id === key);
-  if (existing) {
-    existing.qty += qty;
-  } else {
-    cart.push({ id:key, name:name, price:price, qty:qty, unit:'pers.' });
-  }
-  steppers[key] = 1;
-  document.getElementById('qty-'+key).textContent = 1;
-  flashAdded('btn-add-'+key);
-  renderCart();
-}
-
-function addExtra(id, name, price){
-  const existing = cart.find(i => i.id === id);
-  if (existing) {
-    existing.qty += 1;
-  } else {
-    cart.push({ id:id, name:name, price:price, qty:1, unit:'pièce' });
-  }
-  renderCart();
-  openCart();
-}
-
-function flashAdded(btnId){
-  const btn = document.getElementById(btnId);
-  if (!btn) return;
-  const original = btn.textContent;
-  btn.classList.add('added');
-  btn.textContent = '✓ Ajouté';
-  setTimeout(()=>{ btn.classList.remove('added'); btn.textContent = original; }, 1100);
-}
-
-function changeCartQty(id, delta){
-  const item = cart.find(i => i.id === id);
-  if (!item) return;
-  item.qty += delta;
-  if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
-  renderCart();
-}
-
-function renderCart(){
-  const container = document.getElementById('cart-items');
-  const totalEl = document.getElementById('cart-total');
-  const validateBtn = document.getElementById('btn-validate');
-  const countEl = document.getElementById('cart-count');
-
-  const totalCount = cart.reduce((s,i)=>s+i.qty,0);
-  countEl.textContent = totalCount;
-
-  if (!cart.length) {
-    container.innerHTML = '<div class="cart-empty">Votre panier est vide.<br>Ajoutez une formule pour commencer.</div>';
-    totalEl.textContent = '0,00 €';
-    validateBtn.disabled = true;
-    return;
-  }
-
-  container.innerHTML = cart.map(i => `
-    <div class="cart-item">
-      <div>
-        <div class="cart-item-name">${i.name}</div>
-        <div class="cart-item-sub">${i.price.toFixed(2).replace('.',',')} € / ${i.unit}</div>
-      </div>
-      <div class="cart-item-right">
-        <div class="cart-item-price">${(i.price*i.qty).toFixed(2).replace('.',',')} €</div>
-        <div class="cart-item-qty">
-          <button onclick="changeCartQty('${i.id}',-1)">−</button>
-          <span class="v">${i.qty}</span>
-          <button onclick="changeCartQty('${i.id}',1)">+</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
-
-  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  totalEl.textContent = total.toFixed(2).replace('.',',') + ' €';
-  validateBtn.disabled = false;
-}
-
-function openCart(){ document.getElementById('cart-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeCart(){ document.getElementById('cart-overlay').classList.remove('open'); document.body.style.overflow=''; }
-
-// ═══════════════════════════════════════════════════
-//  MODAL NUMÉRO DE TABLE + ENVOI SUPABASE
-// ═══════════════════════════════════════════════════
-function openTableModal(){
-  document.getElementById('table-modal-ov').classList.add('open');
-  setTimeout(()=>document.getElementById('table-number-input').focus(), 100);
-}
-function closeTableModal(){
-  document.getElementById('table-modal-ov').classList.remove('open');
-}
-
-async function confirmOrder(){
-  const input = document.getElementById('table-number-input');
-  const tableNumber = input.value.trim();
-  if (!tableNumber) { input.focus(); input.style.borderColor = '#dc2626'; return; }
-
-  const btn = document.getElementById('btn-confirm-order');
-  btn.disabled = true;
-  btn.textContent = 'Envoi…';
-
-  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const payload = {
-    client_email: CLIENT_EMAIL,
-    page_name: PAGE_NAME,
-    table_number: tableNumber,
-    items: cart,
-    total: total,
-    status: 'nouvelle'
-  };
-
-  try {
-    const res = await fetch(SUPABASE_URL + '/rest/v1/commandes_internet', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify(payload)
-    });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-
-    // Succès
-    const content = document.getElementById('table-modal-content');
-    content.innerHTML = `
-      <div class="success-box">
-        <div class="success-icon">✓</div>
-        <h3>Commande envoyée !</h3>
-        <p>Votre commande pour la table ${tableNumber} a bien été transmise. On vous l'apporte très vite 🌿</p>
-      </div>
-      <div class="table-modal-actions" style="margin-top:18px">
-        <button class="btn-primary" style="flex:1" onclick="resetAfterOrder()">Fermer</button>
-      </div>
-    `;
-  } catch(err) {
-    btn.disabled = false;
-    btn.textContent = 'Confirmer la commande';
-    alert('Une erreur est survenue. Merci de réessayer ou de demander en salle. (' + err.message + ')');
-  }
-}
-
-function resetAfterOrder(){
-  cart = [];
-  renderCart();
-  closeTableModal();
-  closeCart();
-  // Réinitialise le contenu du modal pour une prochaine commande
-  setTimeout(()=>{
-    document.getElementById('table-modal-content').innerHTML = `
-      <h3>Quelle est votre table ?</h3>
-      <p>Indiquez votre numéro de table pour qu'on vous apporte votre commande.</p>
-      <input type="number" id="table-number-input" placeholder="Ex : 12" min="1" inputmode="numeric">
-      <div class="table-modal-actions">
-        <button class="btn-secondary" onclick="closeTableModal()">Annuler</button>
-        <button class="btn-primary" id="btn-confirm-order" onclick="confirmOrder()">Confirmer la commande</button>
-      </div>
-    `;
-  }, 300);
-}
-
-// ═══════════════════════════════════════════════════
-//  DISPONIBILITÉ DES ARTICLES (grisé / indisponible)
-// ═══════════════════════════════════════════════════
-function applyAvailability(itemKey, available){
-  const card = document.querySelector('[data-item="'+itemKey+'"]');
-  if (!card) return;
-  card.classList.toggle('unavailable', !available);
-  let ribbon = card.querySelector('.unavailable-ribbon');
-  if (!available) {
-    if (!ribbon) {
-      ribbon = document.createElement('div');
-      ribbon.className = 'unavailable-ribbon';
-      ribbon.textContent = 'Indisponible';
-      card.appendChild(ribbon);
-    }
-  } else if (ribbon) {
-    ribbon.remove();
-  }
-}
-
-async function loadAvailability(){
-  try {
-    const url = SUPABASE_URL + '/rest/v1/menu_availability?client_email=eq.' + encodeURIComponent(CLIENT_EMAIL) + '&page_name=eq.' + encodeURIComponent(PAGE_NAME);
-    const res = await fetch(url, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } });
-    if (!res.ok) return;
-    const rows = await res.json();
-    rows.forEach(r => applyAvailability(r.item_key, r.available !== false));
-  } catch(e) { console.error('loadAvailability:', e); }
-}
-
-loadAvailability();
-
-// ═══════════════════════════════════════════════════
-//  CONTENU PERSONNALISÉ (texte/styles modifiés via l'éditeur)
-// ═══════════════════════════════════════════════════
-async function loadLkeContent(){
-  try {
-    var url = SUPABASE_URL + '/rest/v1/menu_content?client_email=eq.' + encodeURIComponent(CLIENT_EMAIL) + '&page_name=eq.' + encodeURIComponent(PAGE_NAME) + '&select=content';
-    var res = await fetch(url, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } });
-    if (!res.ok) return;
-    var rows = await res.json();
-    if (!rows.length || !rows[0].content) return;
-    var content = rows[0].content;
-    Object.keys(content).forEach(function(key){
-      var entry = content[key];
-      if (key.indexOf('lk-bg-') === 0) {
-        var bgKey = key.slice(6);
-        var bgEl = bgKey.indexOf('-hd') !== -1
-          ? document.querySelector('[data-lke-bg2="'+bgKey+'"]')
-          : document.querySelector('[data-lke-bg="'+bgKey+'"]');
-        if (bgEl && entry.bg) bgEl.style.backgroundColor = entry.bg;
-        return;
-      }
-      var el = document.querySelector('[data-lke="'+key+'"]');
-      if (!el) return;
-      if (entry.text != null) el.innerHTML = entry.text;
-      if (entry.style) el.setAttribute('style', entry.style);
-    });
-  } catch(e) { console.error('loadLkeContent:', e); }
-}
-loadLkeContent();
-
-
-</script>
-</body>
-</html>
+<div id="lke-toolbar" class="" style="top: 225px; left: 206.5px;"><select class="lkt-sel" id="lkt-font" title="Police"><option value="">Police</option><option value="'Playfair Display',serif">Playfair Display</option><option value="'Jost',sans-serif">Jost</option><option value="Georgia,serif">Georgia</option><option value="system-ui,sans-serif">System UI</option></select><input class="lkt-num" id="lkt-size" type="number" min="8" max="200" placeholder="px" title="Taille"><div class="lkt-sep"></div><button class="lkt-btn on" id="lkt-b" title="Gras"><b>B</b></button><button class="lkt-btn on" id="lkt-i" title="Italique"><i>I</i></button><div class="lkt-sep"></div><button class="lkt-btn on" id="lkt-al" title="Gauche">⬤ G</button><button class="lkt-btn" id="lkt-ac" title="Centre">⬤ C</button><button class="lkt-btn" id="lkt-ar" title="Droite">⬤ D</button><div class="lkt-sep"></div><input class="lkt-color" id="lkt-color" type="color" title="Couleur texte"><div class="lkt-sep"></div><button class="lkt-ai" id="lkt-ai-btn">✨ IA</button><button class="lkt-btn" id="lkt-close" title="Fermer" style="margin-left:4px;color:#64748b">✕</button></div><textarea id="lke-ai-prompt" rows="2" placeholder="Ex: Rends plus accrocheur, raccourcis à 5 mots..."></textarea><button id="lke-ai-send">Envoyer</button><div id="lke-ai-pgb"><div id="lke-ai-pgf"></div></div></div></body></html>
