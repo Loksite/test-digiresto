@@ -294,12 +294,17 @@
   .avail-toggle:hover{border-color:var(--terracotta);color:var(--terracotta)}
 
   /* ── ÉDITEUR LKE ── */
-  *{animation-play-state:paused!important;transition:none!important}
-  [data-lke]{outline:none!important;cursor:text!important;position:relative}
-  [data-lke]:not(:focus)::after{content:'';position:absolute;inset:-1px;border:1.5px dashed rgba(79,110,247,.5);border-radius:3px;pointer-events:none;z-index:9990}
-  [data-lke]:hover::after{border-color:rgba(79,110,247,.9)}
-  [data-lke]:focus{background:rgba(79,110,247,.06)!important;outline:2px solid #4f6ef7!important;outline-offset:2px}
-  [data-lke].lke-selected::after{border-color:#4f6ef7!important;border-style:solid!important}
+  /* Tout ce bloc ne s'applique que si EDIT_MODE est actif (classe ajoutée en JS).
+     Avant ce correctif, ces règles s'appliquaient à TOUS les visiteurs en
+     permanence (pointillés bleus autour des textes, curseur texte, animations
+     coupées sur toute la page) car elles ne ciblaient que [data-lke], un
+     attribut présent dans le HTML qu'on soit en mode édition ou non. */
+  body.lk-edit-mode *{animation-play-state:paused!important;transition:none!important}
+  body.lk-edit-mode [data-lke]{outline:none!important;cursor:text!important;position:relative}
+  body.lk-edit-mode [data-lke]:not(:focus)::after{content:'';position:absolute;inset:-1px;border:1.5px dashed rgba(79,110,247,.5);border-radius:3px;pointer-events:none;z-index:9990}
+  body.lk-edit-mode [data-lke]:hover::after{border-color:rgba(79,110,247,.9)}
+  body.lk-edit-mode [data-lke]:focus{background:rgba(79,110,247,.06)!important;outline:2px solid #4f6ef7!important;outline-offset:2px}
+  body.lk-edit-mode [data-lke].lke-selected::after{border-color:#4f6ef7!important;border-style:solid!important}
   #lke-toolbar{position:fixed;z-index:99998;background:#1e293b;border:1px solid #334155;border-radius:10px;padding:6px 8px;display:none;align-items:center;gap:4px;box-shadow:0 8px 32px rgba(0,0,0,.5);font-family:system-ui,sans-serif;pointer-events:auto}
   #lke-toolbar.visible{display:flex}
   .lkt-sep{width:1px;height:20px;background:#334155;margin:0 2px}
@@ -373,7 +378,7 @@
         </button>
       </div>
     </div>
-  <button class="avail-toggle">👁 Marquer indisponible</button></div>
+  </div>
 
   <!-- FORMULES -->
   <div class="section-label">Nos formules</div>
@@ -410,7 +415,7 @@
           <div class="extra-pill">+ Pièces sucrées 1,6€/pièce <button class="extra-add" onclick="addExtra('extra-sucre','Pièces sucrées (Buffet)',1.6)">+</button></div>
         </div>
       </div>
-    <button class="avail-toggle">👁 Marquer indisponible</button></div>
+    </div>
 
     <!-- COCKTAIL -->
     <div class="formule-card" data-item="cocktail" data-lke-bg="cocktail">
@@ -442,7 +447,7 @@
           </button>
         </div>
       </div>
-    <button class="avail-toggle">👁 Marquer indisponible</button></div>
+    </div>
 
     <!-- PLATEAU REPAS -->
     <div class="formule-card" data-item="plateau" data-lke-bg="plateau">
@@ -473,7 +478,7 @@
           <div class="extra-note" data-lke="lk-plateau-note" contenteditable="true" spellcheck="false">Alcools sur devis — à demander en salle</div>
         </div>
       </div>
-    <button class="avail-toggle">👁 Marquer indisponible</button></div>
+    </div>
 
   </div>
 
@@ -552,7 +557,7 @@ const SUPABASE_URL    = 'https://qhnofvfgutsdgbfwhupg.supabase.co';
 const SUPABASE_KEY    = 'sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY';
 const CLIENT_EMAIL    = 'axel.merlot59@gmail.com';
 const PAGE_NAME       = "Menu d'Été";
-const EDIT_MODE       = true; // true = fichier preview (toggles disponibilité + édition visuelle)
+const EDIT_MODE       = false; // true = fichier preview (toggles disponibilité + édition visuelle)
 const N8N_BASE_URL    = 'https://sox-grace-treatment-screensavers.trycloudflare.com'; // ⚠️ à mettre à jour si le tunnel change
 const N8N_AI_URL      = N8N_BASE_URL + '/webhook/loksite-ai';
 const N8N_SAVE_URL    = N8N_BASE_URL + '/webhook/save-page-content';
@@ -1071,6 +1076,7 @@ loadAvailability().then(initAvailabilityToggles);
 // ═══════════════════════════════════════════════════
 (function(){
   if (!EDIT_MODE) return;
+  document.body.classList.add('lk-edit-mode');
 
   // Nettoyage défensif : si une sauvegarde précédente a figé les éléments
   // d'interface LKE dans le HTML statique, on les retire avant de recréer
@@ -1414,6 +1420,11 @@ loadAvailability().then(initAvailabilityToggles);
       // Les annotations de conversion de devise sont un affichage transitoire
       // côté visiteur : elles ne doivent jamais être figées dans le HTML publié.
       docClone.querySelectorAll('[data-fx-target]').forEach(function(el){ el.remove(); });
+      // La classe lk-edit-mode est ajoutée dynamiquement par le JS selon EDIT_MODE
+      // au chargement de page — elle ne doit jamais être écrite en dur dans le HTML
+      // statique, sinon le CSS d'édition s'appliquerait même quand EDIT_MODE=false.
+      var bodyClone = docClone.querySelector('body');
+      if (bodyClone) bodyClone.classList.remove('lk-edit-mode');
       var htmlFull = '<!DOCTYPE html>\n' + docClone.outerHTML;
       var resp = await fetch(N8N_SAVE_URL, {
         method: 'POST',
