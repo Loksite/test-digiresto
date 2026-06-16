@@ -258,7 +258,7 @@
     box-shadow:0 4px 10px rgba(220,38,38,.3);
   }
   .avail-toggle{
-    position:absolute;top:14px;left:14px;z-index:9;
+    position:absolute;top:56px;left:14px;z-index:9;
     background:rgba(255,255,255,.95);border:1px solid var(--border);border-radius:20px;
     padding:6px 13px;font-size:11px;font-weight:700;color:var(--text);cursor:pointer;
     box-shadow:var(--shadow);display:flex;align-items:center;gap:6px;
@@ -266,37 +266,75 @@
   }
   .avail-toggle:hover{border-color:var(--terracotta);color:var(--terracotta)}
 
+  /* ── ÉDITEUR LKE ── */
+  *{animation-play-state:paused!important;transition:none!important}
+  [data-lke]{outline:none!important;cursor:text!important;position:relative}
+  [data-lke]:not(:focus)::after{content:'';position:absolute;inset:-1px;border:1.5px dashed rgba(79,110,247,.5);border-radius:3px;pointer-events:none;z-index:9990}
+  [data-lke]:hover::after{border-color:rgba(79,110,247,.9)}
+  [data-lke]:focus{background:rgba(79,110,247,.06)!important;outline:2px solid #4f6ef7!important;outline-offset:2px}
+  [data-lke].lke-selected::after{border-color:#4f6ef7!important;border-style:solid!important}
+  #lke-toolbar{position:fixed;z-index:99998;background:#1e293b;border:1px solid #334155;border-radius:10px;padding:6px 8px;display:none;align-items:center;gap:4px;box-shadow:0 8px 32px rgba(0,0,0,.5);font-family:system-ui,sans-serif;pointer-events:auto}
+  #lke-toolbar.visible{display:flex}
+  .lkt-sep{width:1px;height:20px;background:#334155;margin:0 2px}
+  .lkt-btn{background:none;border:none;color:#94a3b8;cursor:pointer;border-radius:5px;padding:4px 6px;font-size:12px;line-height:1;white-space:nowrap}
+  .lkt-btn:hover,.lkt-btn.on{background:#4f6ef7;color:#fff}
+  .lkt-color{width:22px;height:22px;border:1px solid #334155;border-radius:4px;padding:1px;background:#0f172a;cursor:pointer}
+  .lkt-num{width:44px;background:#0f172a;border:1px solid #334155;border-radius:5px;color:#e2e8f0;padding:3px 5px;font-size:11px;text-align:center;outline:none}
+  .lkt-sel{background:#0f172a;border:1px solid #334155;border-radius:5px;color:#e2e8f0;padding:3px 5px;font-size:11px;cursor:pointer;outline:none;max-width:110px}
+  .lkt-ai{background:linear-gradient(135deg,#4f6ef7,#7c3aed);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap}
+  .lkt-ai:hover{opacity:.85}
+  #lke-ai-pop{position:fixed;z-index:99999;background:#1e293b;border:1px solid #4f6ef7;border-radius:10px;padding:12px;width:280px;display:none;flex-direction:column;gap:8px;box-shadow:0 12px 40px rgba(0,0,0,.6);font-family:system-ui,sans-serif}
+  #lke-ai-pop.visible{display:flex}
+  #lke-ai-prompt{width:100%;background:#0f172a;border:1px solid #334155;border-radius:7px;color:#e2e8f0;padding:8px;font-size:12px;resize:none;outline:none;font-family:inherit;line-height:1.5;box-sizing:border-box}
+  #lke-ai-prompt:focus{border-color:#4f6ef7}
+  #lke-ai-send{background:#4f6ef7;color:#fff;border:none;border-radius:7px;padding:7px;font-size:12px;font-weight:600;cursor:pointer;width:100%}
+  #lke-ai-send:disabled{opacity:.4}
+  #lke-ai-pgb{height:3px;background:#334155;border-radius:2px;overflow:hidden;display:none}
+  #lke-ai-pgf{height:100%;background:#4f6ef7;width:0%}
+  #lke-bar{position:fixed;bottom:0;left:0;right:0;z-index:99997;background:#0f172a;border-top:2px solid #4f6ef7;display:flex;align-items:center;justify-content:center;gap:12px;padding:7px 16px;font-family:system-ui,sans-serif;font-size:11px;color:#94a3b8}
+  #lke-save{background:#22c55e;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;pointer-events:auto}
+  #lke-save:disabled{opacity:.5;cursor:default}
+  #lke-bg-badge{position:fixed;top:8px;left:8px;z-index:9996;background:rgba(15,23,42,.92);color:#e2e8f0;border:1px solid #334155;border-radius:20px;padding:5px 10px;font-size:10px;font-family:system-ui,sans-serif;display:none;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,.4);pointer-events:auto;white-space:nowrap}
+  #lke-bg-badge.visible{display:flex}
+  #lke-bg-badge .lkbg-lbl{font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8}
+  #lke-bg-badge .lkbg-grp{display:flex;align-items:center;gap:3px}
+  #lke-bg-badge input[type=color]{width:22px;height:22px;border:1px solid #334155;border-radius:4px;padding:1px;background:#0f172a;cursor:pointer}
+  #lke-bg-badge .lkbg-reset{background:none;border:none;color:#64748b;cursor:pointer;font-size:13px;padding:0 2px;line-height:1}
+  #lke-bg-badge .lkbg-reset:hover{color:#ef4444}
+  .lk-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block}
+  body{padding-bottom:42px!important}
+
   @media (max-width:640px){
     .brunch-grid{grid-template-columns:1fr}
     .brunch-footer{flex-direction:column;align-items:flex-start}
   }
 </style>
 </head>
-<body data-lke-bg="page">
+<body>
 
 <div class="wrap">
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-eyebrow" data-lke="lk-eyebrow">Itsy Bitsy · Cuisine Végétale</div>
-    <div class="hero-title" data-lke="lk-title">Menu d'Été</div>
-    <div class="hero-sub" data-lke="lk-sub">Des recettes fraîches, colorées et 100% végétales — composez votre commande et passez la chercher directement à votre table.</div>
+    <div class="hero-eyebrow">Itsy Bitsy · Cuisine Végétale</div>
+    <div class="hero-title">Menu d'Été</div>
+    <div class="hero-sub">Des recettes fraîches, colorées et 100% végétales — composez votre commande et passez la chercher directement à votre table.</div>
   </div>
 
   <!-- BRUNCH -->
-  <div class="brunch-card" data-item="brunch" data-lke-bg="brunch">
-    <div class="brunch-title" data-lke="lk-brunch-title">Brunch Végétalien de Saison</div>
+  <div class="brunch-card" data-item="brunch">
+    <div class="brunch-title">Brunch Végétalien de Saison</div>
     <div class="brunch-grid">
-      <div class="brunch-item" data-lke="lk-brunch-item-0"><span class="leaf">🌿</span>Bun cream cheese, petits pois, avocat &amp; roquette</div>
-      <div class="brunch-item" data-lke="lk-brunch-item-1"><span class="leaf">🌿</span>Lentilles citronnées, légumes grillés &amp; roquette</div>
-      <div class="brunch-item" data-lke="lk-brunch-item-2"><span class="leaf">🌿</span>Parfait granola, yaourt vanillé &amp; pommes caramélisées</div>
-      <div class="brunch-item" data-lke="lk-brunch-item-3"><span class="leaf">🌿</span>Pancakes, mousse de cacahuète, banane &amp; caramel</div>
-      <div class="brunch-item" data-lke="lk-brunch-item-4"><span class="leaf">🌿</span>Cookie noix de pécan &amp; chocolat</div>
-      <div class="brunch-item" data-lke="lk-brunch-item-5"><span class="leaf">🌿</span>Pain &amp; confiture maison · Jus de pomme · Thé ou café</div>
+      <div class="brunch-item"><span class="leaf">🌿</span>Bun cream cheese, petits pois, avocat &amp; roquette</div>
+      <div class="brunch-item"><span class="leaf">🌿</span>Lentilles citronnées, légumes grillés &amp; roquette</div>
+      <div class="brunch-item"><span class="leaf">🌿</span>Parfait granola, yaourt vanillé &amp; pommes caramélisées</div>
+      <div class="brunch-item"><span class="leaf">🌿</span>Pancakes, mousse de cacahuète, banane &amp; caramel</div>
+      <div class="brunch-item"><span class="leaf">🌿</span>Cookie noix de pécan &amp; chocolat</div>
+      <div class="brunch-item"><span class="leaf">🌿</span>Pain &amp; confiture maison · Jus de pomme · Thé ou café</div>
     </div>
-    <div class="brunch-note" data-lke="lk-brunch-note">📅 Dimanche uniquement · 11h–13h ou 13h–15h · Sur réservation</div>
+    <div class="brunch-note">📅 Dimanche uniquement · 11h–13h ou 13h–15h · Sur réservation</div>
     <div class="brunch-footer">
-      <div class="brunch-price"><span data-lke="lk-brunch-price">19€</span> <span>/ pers.</span></div>
+      <div class="brunch-price"><span>19€</span> <span>/ pers.</span></div>
       <div class="formule-action" style="margin-top:0;max-width:280px">
         <div class="qty-stepper" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)">
           <button onclick="changeStepper('brunch',-1)" style="background:transparent;border-color:rgba(255,255,255,.25);color:#fff">−</button>
@@ -315,19 +353,19 @@
   <div class="formules-grid">
 
     <!-- BUFFET -->
-    <div class="formule-card" data-item="buffet" data-lke-bg="buffet">
-      <div class="formule-hd mint" data-lke-bg2="buffet-hd">
+    <div class="formule-card" data-item="buffet">
+      <div class="formule-hd mint">
         <span class="formule-icon">🥗</span>
-        <div class="formule-name" data-lke="lk-buffet-name">Formule Buffet</div>
-        <div class="formule-price"><span data-lke="lk-buffet-price">15€</span> <span>/ pers.</span></div>
+        <div class="formule-name">Formule Buffet</div>
+        <div class="formule-price"><span>15€</span> <span>/ pers.</span></div>
       </div>
       <div class="formule-body">
         <ul class="formule-list">
-          <li data-lke="lk-buffet-li-0">Quinoa, pois chiches grillés, courgettes, carotte, pomme &amp; graines de courge</li>
-          <li data-lke="lk-buffet-li-1">Pommes de terre grenailles, pickles, tomates confites, épinards, radis, salicorne &amp; noix</li>
-          <li data-lke="lk-buffet-li-2">Riz noir, chou rouge, carottes rôties, concombre, fèves, roquette, grenade &amp; sarrasin grillé</li>
-          <li data-lke="lk-buffet-li-3">Houmous au curry</li>
-          <li data-lke="lk-buffet-li-4">Cookie tomate &amp; romarin · Foccacia aux légumes d'été</li>
+          <li>Quinoa, pois chiches grillés, courgettes, carotte, pomme &amp; graines de courge</li>
+          <li>Pommes de terre grenailles, pickles, tomates confites, épinards, radis, salicorne &amp; noix</li>
+          <li>Riz noir, chou rouge, carottes rôties, concombre, fèves, roquette, grenade &amp; sarrasin grillé</li>
+          <li>Houmous au curry</li>
+          <li>Cookie tomate &amp; romarin · Foccacia aux légumes d'été</li>
         </ul>
         <div class="formule-action">
           <div class="qty-stepper">
@@ -348,23 +386,23 @@
     </div>
 
     <!-- COCKTAIL -->
-    <div class="formule-card" data-item="cocktail" data-lke-bg="cocktail">
-      <div class="formule-hd peach" data-lke-bg2="cocktail-hd">
+    <div class="formule-card" data-item="cocktail">
+      <div class="formule-hd peach">
         <span class="formule-icon">🍹</span>
-        <div class="formule-name" data-lke="lk-cocktail-name">Formule Cocktail</div>
-        <div class="formule-price"><span data-lke="lk-cocktail-price">14€</span> <span>/ pers.</span></div>
+        <div class="formule-name">Formule Cocktail</div>
+        <div class="formule-price"><span>14€</span> <span>/ pers.</span></div>
       </div>
       <div class="formule-body">
-        <div class="formule-cocktail-tag" data-lke="lk-cocktail-tag">8 pièces cocktail par personne</div>
+        <div class="formule-cocktail-tag">8 pièces cocktail par personne</div>
         <ul class="formule-list">
-          <li data-lke="lk-cocktail-li-0">Roulé de concombre, avocat, pomme &amp; sésame</li>
-          <li data-lke="lk-cocktail-li-1">Mini poivron farci</li>
-          <li data-lke="lk-cocktail-li-2">Falafel de poivron grillé aux cornflakes</li>
-          <li data-lke="lk-cocktail-li-3">Foccacia aux légumes d'été</li>
-          <li data-lke="lk-cocktail-li-4">Aubergine rôtie au sumac &amp; crème aux herbes</li>
-          <li data-lke="lk-cocktail-li-5">Mini financier aux courgettes &amp; pignons de pin</li>
-          <li data-lke="lk-cocktail-li-6">Cookie salé tomate &amp; romarin</li>
-          <li data-lke="lk-cocktail-li-7">Panna cotta de carotte au curry</li>
+          <li>Roulé de concombre, avocat, pomme &amp; sésame</li>
+          <li>Mini poivron farci</li>
+          <li>Falafel de poivron grillé aux cornflakes</li>
+          <li>Foccacia aux légumes d'été</li>
+          <li>Aubergine rôtie au sumac &amp; crème aux herbes</li>
+          <li>Mini financier aux courgettes &amp; pignons de pin</li>
+          <li>Cookie salé tomate &amp; romarin</li>
+          <li>Panna cotta de carotte au curry</li>
         </ul>
         <div class="formule-action">
           <div class="qty-stepper">
@@ -380,17 +418,17 @@
     </div>
 
     <!-- PLATEAU REPAS -->
-    <div class="formule-card" data-item="plateau" data-lke-bg="plateau">
-      <div class="formule-hd pink" data-lke-bg2="plateau-hd">
+    <div class="formule-card" data-item="plateau">
+      <div class="formule-hd pink">
         <span class="formule-icon">🍱</span>
-        <div class="formule-name" data-lke="lk-plateau-name">Plateau Repas</div>
-        <div class="formule-price"><span data-lke="lk-plateau-price">15€</span> <span>/ pers.</span></div>
+        <div class="formule-name">Plateau Repas</div>
+        <div class="formule-price"><span>15€</span> <span>/ pers.</span></div>
       </div>
       <div class="formule-body">
         <ul class="formule-list">
-          <li data-lke="lk-plateau-li-0"><strong>Entrée :</strong> Tartare de légumes croquants &amp; crème d'avocat</li>
-          <li data-lke="lk-plateau-li-1"><strong>Plat :</strong> Bowl d'été — Quinoa, légumes rôtis, falafels, houmous, crudités &amp; pesto + Pain</li>
-          <li data-lke="lk-plateau-li-2"><strong>Dessert :</strong> Cookie chocolat &amp; cacahuètes <em>ou</em> Financier matcha-framboise (+1€)</li>
+          <li><strong>Entrée :</strong> Tartare de légumes croquants &amp; crème d'avocat</li>
+          <li><strong>Plat :</strong> Bowl d'été — Quinoa, légumes rôtis, falafels, houmous, crudités &amp; pesto + Pain</li>
+          <li><strong>Dessert :</strong> Cookie chocolat &amp; cacahuètes <em>ou</em> Financier matcha-framboise (+1€)</li>
         </ul>
         <div class="formule-action">
           <div class="qty-stepper">
@@ -405,7 +443,7 @@
         <div class="formule-extras">
           <div class="extra-pill">🧃 Jus de pomme 2€/pers. <button class="extra-add" onclick="addExtra('extra-jus','Jus de pomme',2)">+</button></div>
           <div class="extra-pill">Autres softs 3€/pers. <button class="extra-add" onclick="addExtra('extra-softs','Autres softs',3)">+</button></div>
-          <div class="extra-note" data-lke="lk-plateau-note">Alcools sur devis — à demander en salle</div>
+          <div class="extra-note">Alcools sur devis — à demander en salle</div>
         </div>
       </div>
     </div>
@@ -458,9 +496,12 @@
 // ═══════════════════════════════════════════════════
 const SUPABASE_URL    = 'https://qhnofvfgutsdgbfwhupg.supabase.co';
 const SUPABASE_KEY    = 'sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY';
-const CLIENT_EMAIL    = 'itsybitsylille@gmail.com';
+const CLIENT_EMAIL    = 'axel.merlot59@gmail.com';
 const PAGE_NAME       = "Menu d'Été";
-const EDIT_MODE       = false; // page publique : pas de toggle de disponibilité
+const EDIT_MODE = false; // true = fichier preview (toggles disponibilité + édition visuelle)
+const N8N_BASE_URL    = 'https://sox-grace-treatment-screensavers.trycloudflare.com'; // ⚠️ à mettre à jour si le tunnel change
+const N8N_AI_URL      = N8N_BASE_URL + '/webhook/loksite-ai';
+const N8N_SAVE_URL    = N8N_BASE_URL + '/webhook/save-page-content';
 
 // ═══════════════════════════════════════════════════
 //  PANIER
@@ -649,10 +690,18 @@ function resetAfterOrder(){
 // ═══════════════════════════════════════════════════
 //  DISPONIBILITÉ DES ARTICLES (grisé / indisponible)
 // ═══════════════════════════════════════════════════
+const MENU_ITEM_LABELS = {
+  brunch:  'Brunch Végétalien de Saison',
+  buffet:  'Formule Buffet',
+  cocktail:'Formule Cocktail',
+  plateau: 'Plateau Repas'
+};
+
 function applyAvailability(itemKey, available){
   const card = document.querySelector('[data-item="'+itemKey+'"]');
   if (!card) return;
   card.classList.toggle('unavailable', !available);
+
   let ribbon = card.querySelector('.unavailable-ribbon');
   if (!available) {
     if (!ribbon) {
@@ -663,6 +712,11 @@ function applyAvailability(itemKey, available){
     }
   } else if (ribbon) {
     ribbon.remove();
+  }
+
+  const toggle = card.querySelector('.avail-toggle');
+  if (toggle) {
+    toggle.textContent = available ? '👁 Marquer indisponible' : '✓ Marquer disponible';
   }
 }
 
@@ -676,11 +730,385 @@ async function loadAvailability(){
   } catch(e) { console.error('loadAvailability:', e); }
 }
 
-loadAvailability();
+async function toggleAvailability(itemKey){
+  const card = document.querySelector('[data-item="'+itemKey+'"]');
+  if (!card) return;
+  const newAvailable = card.classList.contains('unavailable'); // était indispo -> devient dispo
+  applyAvailability(itemKey, newAvailable);
+  try {
+    await fetch(SUPABASE_URL + '/rest/v1/menu_availability?on_conflict=client_email,page_name,item_key', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'resolution=merge-duplicates,return=minimal'
+      },
+      body: JSON.stringify({
+        client_email: CLIENT_EMAIL, page_name: PAGE_NAME,
+        item_key: itemKey, available: newAvailable, updated_at: new Date().toISOString()
+      })
+    });
+  } catch(e) { console.error('toggleAvailability:', e); }
+}
+
+function initAvailabilityToggles(){
+  if (!EDIT_MODE) return;
+  Object.keys(MENU_ITEM_LABELS).forEach(key => {
+    const card = document.querySelector('[data-item="'+key+'"]');
+    if (!card) return;
+    const btn = document.createElement('button');
+    btn.className = 'avail-toggle';
+    btn.textContent = card.classList.contains('unavailable') ? '✓ Marquer disponible' : '👁 Marquer indisponible';
+    btn.onclick = () => toggleAvailability(key);
+    card.appendChild(btn);
+  });
+}
+
+// Init
+loadAvailability().then(initAvailabilityToggles);
 
 // ═══════════════════════════════════════════════════
-//  CONTENU PERSONNALISÉ (texte/styles modifiés via l'éditeur)
+//  ÉDITEUR LKE — texte, couleur, taille, police, IA
 // ═══════════════════════════════════════════════════
+(function(){
+  if (!EDIT_MODE) return;
+
+  var E = { sel: null, selId: null };
+
+  // Toolbar
+  var toolbar = document.createElement('div');
+  toolbar.id = 'lke-toolbar';
+  toolbar.innerHTML =
+    '' +
+    '' +
+    '' +
+    '' +
+    '' +
+    '' +
+    '' +
+    '' +
+    '' +
+    '' +
+    '' +
+    '' +
+    '' +
+    '';
+  document.body.appendChild(toolbar);
+
+  var aiPop = document.createElement('div');
+  aiPop.id = 'lke-ai-pop';
+  aiPop.innerHTML =
+    '<div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em">✨ Réécrire avec l\'IA</div>' +
+    '' +
+    '' +
+    '';
+  document.body.appendChild(aiPop);
+
+  var bar = document.createElement('div');
+  bar.id = 'lke-bar';
+  bar.innerHTML = '<span class="lk-dot"></span><span style="color:#e2e8f0">Mode édition — cliquez sur un texte pour le modifier, survolez une carte pour sa couleur. Utilisez le bouton Enregistrer en haut à gauche.</span>';
+  document.body.appendChild(bar);
+
+  // Badge couleur de fond flottant — réutilisé pour chaque section survolée
+  var bgBadge = document.createElement('div');
+  bgBadge.id = 'lke-bg-badge';
+  document.body.appendChild(bgBadge);
+
+  function rgbToHex(rgb){
+    var m = (rgb||'').match(/(\d+),\s*(\d+),\s*(\d+)/);
+    if (!m) return '#000000';
+    return '#' + [m[1],m[2],m[3]].map(function(n){ return (+n).toString(16).padStart(2,'0'); }).join('');
+  }
+
+  function positionToolbar(el){
+    var r = el.getBoundingClientRect();
+    var tw = 460, th = 44;
+    var top = r.top - th - 8;
+    var left = r.left;
+    if (top < 8) top = r.bottom + 8;
+    if (left + tw > window.innerWidth - 8) left = window.innerWidth - tw - 8;
+    if (left < 8) left = 8;
+    toolbar.style.top = top + 'px';
+    toolbar.style.left = left + 'px';
+  }
+
+  function syncToolbarToEl(el){
+    var cs = window.getComputedStyle(el);
+    document.getElementById('lkt-font').value = '';
+    document.getElementById('lkt-size').value = Math.round(parseFloat(cs.fontSize)) || '';
+    document.getElementById('lkt-color').value = rgbToHex(cs.color);
+    document.getElementById('lkt-b').classList.toggle('on', parseInt(cs.fontWeight) >= 600);
+    document.getElementById('lkt-i').classList.toggle('on', cs.fontStyle === 'italic');
+    ['al','ac','ar'].forEach(function(id){ document.getElementById('lkt-'+id).classList.remove('on'); });
+    var ta = cs.textAlign;
+    if (ta === 'left' || ta === 'start') document.getElementById('lkt-al').classList.add('on');
+    else if (ta === 'center') document.getElementById('lkt-ac').classList.add('on');
+    else if (ta === 'right') document.getElementById('lkt-ar').classList.add('on');
+    // Masquer le bouton IA pour les prix (rewrite non pertinent)
+    document.getElementById('lkt-ai-btn').style.display = (E.selId && E.selId.indexOf('price') !== -1) ? 'none' : '';
+  }
+
+  function notifyDirty(){
+    try { window.parent.postMessage({ type:'lke-dirty' }, '*'); } catch(e){}
+  }
+
+  function applyStyle(prop, val){
+    if (!E.sel) return;
+    E.sel.style[prop] = val;
+    notifyDirty();
+  }
+
+  function selectEl(el){
+    if (E.sel && E.sel !== el) E.sel.classList.remove('lke-selected');
+    E.sel = el;
+    E.selId = el.getAttribute('data-lke');
+    el.classList.add('lke-selected');
+    syncToolbarToEl(el);
+    positionToolbar(el);
+    toolbar.classList.add('visible');
+  }
+  function deselect(){
+    if (E.sel) { E.sel.classList.remove('lke-selected'); E.sel = null; E.selId = null; }
+    toolbar.classList.remove('visible');
+    aiPop.classList.remove('visible');
+  }
+
+  function mkEditable(el){
+    el.setAttribute('contenteditable', 'true');
+    el.setAttribute('spellcheck', 'false');
+    el.addEventListener('click', function(e){ e.stopPropagation(); selectEl(el); });
+    el.addEventListener('focus', function(){ selectEl(el); });
+    el.addEventListener('mousedown', function(e){ e.stopPropagation(); });
+    el.addEventListener('input', notifyDirty);
+    el.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' && el.tagName !== 'LI') e.preventDefault();
+      if (e.key === 'Escape') { el.blur(); deselect(); }
+    });
+  }
+
+  document.querySelectorAll('[data-lke]').forEach(mkEditable);
+
+  // ── COULEURS DE FOND PAR SECTION (badge au survol) ──────────────
+  var bgLabels = { page:'Page', brunch:'Carte Brunch', buffet:'En-tête Buffet / Carte', cocktail:'En-tête Cocktail / Carte', plateau:'En-tête Plateau / Carte' };
+
+  function rgbToHexBg(rgb){
+    var m = (rgb||'').match(/(\d+),\s*(\d+),\s*(\d+)/);
+    if (!m) return '';
+    return '#' + [m[1],m[2],m[3]].map(function(n){ return (+n).toString(16).padStart(2,'0'); }).join('');
+  }
+  function currentHex(el){
+    var cur = el.style.backgroundColor || window.getComputedStyle(el).backgroundColor;
+    return rgbToHexBg(cur) || '#ffffff';
+  }
+  function colorGroup(el, label){
+    var grp = document.createElement('span');
+    grp.className = 'lkbg-grp';
+    var lbl = document.createElement('span');
+    lbl.className = 'lkbg-lbl';
+    lbl.textContent = label;
+    var input = document.createElement('input');
+    input.type = 'color';
+    input.value = currentHex(el);
+    input.addEventListener('input', function(){ el.style.setProperty('background', this.value, 'important'); notifyDirty(); });
+    var reset = document.createElement('button');
+    reset.className = 'lkbg-reset';
+    reset.title = 'Réinitialiser';
+    reset.textContent = '✕';
+    reset.addEventListener('click', function(e){
+      e.stopPropagation();
+      el.style.removeProperty('background');
+      input.value = currentHex(el);
+      notifyDirty();
+    });
+    grp.appendChild(lbl);
+    grp.appendChild(input);
+    grp.appendChild(reset);
+    return grp;
+  }
+
+  var hideTO = null;
+  function showBadge(sec){
+    clearTimeout(hideTO);
+    var key = sec.getAttribute('data-lke-bg');
+    bgBadge.innerHTML = '';
+    bgBadge.appendChild(colorGroup(sec, bgLabels[key] || 'Fond'));
+
+    var sep2 = sec.querySelector('[data-lke-bg2]');
+    if (sep2) {
+      var sepEl = document.createElement('span');
+      sepEl.style.cssText = 'width:1px;height:14px;background:#334155;display:inline-block';
+      bgBadge.appendChild(sepEl);
+      bgBadge.appendChild(colorGroup(sep2, 'Bandeau'));
+    }
+
+    var r = sec.getBoundingClientRect();
+    var top = r.top + 8;
+    var left = r.left + 8;
+    if (top < 4) top = 4;
+    if (left < 4) left = 4;
+    bgBadge.style.top  = top + 'px';
+    bgBadge.style.left = left + 'px';
+    bgBadge.classList.add('visible');
+  }
+  function hideBadge(){ hideTO = setTimeout(function(){ bgBadge.classList.remove('visible'); }, 220); }
+
+  document.querySelectorAll('[data-lke-bg]').forEach(function(sec){
+    sec.addEventListener('mouseenter', function(){ showBadge(sec); });
+    sec.addEventListener('mouseleave', hideBadge);
+  });
+  bgBadge.addEventListener('mouseenter', function(){ clearTimeout(hideTO); });
+  bgBadge.addEventListener('mouseleave', hideBadge);
+  bgBadge.addEventListener('mousedown', function(e){ e.stopPropagation(); clearTimeout(hideTO); });
+  bgBadge.addEventListener('click', function(e){ e.stopPropagation(); clearTimeout(hideTO); });
+
+  document.getElementById('lkt-font').addEventListener('change', function(){ applyStyle('fontFamily', this.value); });
+  document.getElementById('lkt-size').addEventListener('input', function(){ if(this.value) applyStyle('fontSize', this.value+'px'); });
+  document.getElementById('lkt-color').addEventListener('input', function(){ applyStyle('color', this.value); });
+  document.getElementById('lkt-b').addEventListener('click', function(e){
+    e.stopPropagation(); if(!E.sel) return;
+    var isBold = parseInt(window.getComputedStyle(E.sel).fontWeight) >= 600;
+    applyStyle('fontWeight', isBold ? '400':'700');
+    this.classList.toggle('on', !isBold);
+  });
+  document.getElementById('lkt-i').addEventListener('click', function(e){
+    e.stopPropagation(); if(!E.sel) return;
+    var isItalic = window.getComputedStyle(E.sel).fontStyle === 'italic';
+    applyStyle('fontStyle', isItalic ? 'normal':'italic');
+    this.classList.toggle('on', !isItalic);
+  });
+  ['al','ac','ar'].forEach(function(id,i){
+    var aligns = ['left','center','right'];
+    document.getElementById('lkt-'+id).addEventListener('click', function(e){
+      e.stopPropagation(); applyStyle('textAlign', aligns[i]);
+      ['lkt-al','lkt-ac','lkt-ar'].forEach(function(b){ document.getElementById(b).classList.remove('on'); });
+      this.classList.add('on');
+    });
+  });
+  document.getElementById('lkt-close').addEventListener('click', function(e){ e.stopPropagation(); deselect(); });
+  toolbar.addEventListener('mousedown', function(e){ e.stopPropagation(); });
+  toolbar.addEventListener('click', function(e){ e.stopPropagation(); });
+
+  document.getElementById('lkt-ai-btn').addEventListener('click', function(e){
+    e.stopPropagation(); if(!E.sel) return;
+    var r = toolbar.getBoundingClientRect();
+    aiPop.style.top = (r.bottom+8)+'px';
+    aiPop.style.left = r.left+'px';
+    aiPop.classList.toggle('visible');
+    if (aiPop.classList.contains('visible')) setTimeout(function(){ document.getElementById('lke-ai-prompt').focus(); }, 50);
+  });
+
+  document.getElementById('lke-ai-send').addEventListener('click', async function(e){
+    e.stopPropagation(); if(!E.sel) return;
+    var prompt = document.getElementById('lke-ai-prompt').value.trim();
+    if (!prompt) { document.getElementById('lke-ai-prompt').focus(); return; }
+    var original = E.sel.textContent.trim();
+    var btn = this, pgb = document.getElementById('lke-ai-pgb'), pgf = document.getElementById('lke-ai-pgf');
+    var savedSel = E.sel;
+    var type = 'default';
+    if (E.selId && (E.selId.indexOf('title') !== -1 || E.selId.indexOf('name') !== -1 || E.selId.indexOf('eyebrow') !== -1)) type = 'titre';
+    else if (E.selId && (E.selId.indexOf('sub') !== -1 || E.selId.indexOf('note') !== -1 || E.selId.indexOf('tag') !== -1)) type = 'description';
+    else if (E.selId && (E.selId.indexOf('item') !== -1 || E.selId.indexOf('li') !== -1)) type = 'plat';
+
+    btn.disabled = true;
+    if (pgb) pgb.style.display = 'block';
+    if (pgf) pgf.style.width = '10%';
+    try {
+      var resp = await fetch(N8N_AI_URL, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ prompt: prompt, context: original, type: type })
+      });
+      if (!resp.ok) throw new Error('n8n HTTP '+resp.status);
+      var result = await resp.json();
+      if (!result.success) throw new Error(result.error || 'Erreur IA');
+      if (pgf) pgf.style.width = '100%';
+      var generated = result.text || '';
+      if (generated && savedSel) { savedSel.textContent = generated; notifyDirty(); }
+      document.getElementById('lke-ai-prompt').value = '';
+      setTimeout(function(){
+        aiPop.classList.remove('visible');
+        if (pgb) pgb.style.display = 'none';
+        if (pgf) pgf.style.width = '0%';
+      }, 800);
+    } catch(err){
+      if (pgf) { pgf.style.background = '#ef4444'; pgf.style.width = '100%'; }
+      console.error('[AI]', err);
+      document.getElementById('lke-ai-prompt').placeholder = '❌ ' + err.message;
+      setTimeout(function(){
+        if (pgb) pgb.style.display = 'none';
+        if (pgf) { pgf.style.width = '0%'; pgf.style.background = '#4f6ef7'; }
+        document.getElementById('lke-ai-prompt').placeholder = 'Ex: Rends plus accrocheur, raccourcis à 5 mots...';
+      }, 2500);
+    }
+    btn.disabled = false;
+  });
+  aiPop.addEventListener('mousedown', function(e){ e.stopPropagation(); });
+  aiPop.addEventListener('click', function(e){ e.stopPropagation(); });
+
+  document.addEventListener('click', function(e){
+    if (toolbar.contains(e.target) || aiPop.contains(e.target)) return;
+    if (e.target.closest('[data-lke]')) return;
+    deselect();
+  });
+
+  // ── SAUVEGARDE / CHARGEMENT DU CONTENU ──────────────────────
+  function collectContent(){
+    var content = {};
+    document.querySelectorAll('[data-lke]').forEach(function(el){
+      content[el.getAttribute('data-lke')] = {
+        text: el.innerHTML,
+        style: el.getAttribute('style') || ''
+      };
+    });
+    document.querySelectorAll('[data-lke-bg]').forEach(function(el){
+      var bg = el.style.backgroundColor || '';
+      content['lk-bg-' + el.getAttribute('data-lke-bg')] = { bg: bg };
+    });
+    document.querySelectorAll('[data-lke-bg2]').forEach(function(el){
+      var bg = el.style.backgroundColor || '';
+      content['lk-bg-' + el.getAttribute('data-lke-bg2')] = { bg: bg };
+    });
+    return content;
+  }
+
+  async function saveMenuContent(repo, filename){
+    try {
+      var htmlFull = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      var resp = await fetch(N8N_SAVE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify({
+          action: 'save',
+          filename: filename || 'menu-ete-preview.html',
+          repo: repo,
+          html: htmlFull
+        })
+      });
+      if (!resp.ok) throw new Error('n8n HTTP ' + resp.status);
+      var result = await resp.json();
+      if (!result || result.success !== true) throw new Error((result && result.error) || 'Réponse invalide');
+      return true;
+    } catch(err){
+      console.error('[LKE save]', err);
+      return false;
+    }
+  }
+
+  // Permet à espace.html (bouton "Enregistrer" en haut à gauche) de
+  // déclencher la sauvegarde du contenu de cette page personnalisée.
+  // espace.html transmet repo + filename dans le message (cf mvtSave).
+  window.addEventListener('message', function(ev){
+    if (ev && ev.data && ev.data.type === 'lke-save-menu') {
+      saveMenuContent(ev.data.repo, ev.data.filename).then(function(ok){
+        try { window.parent.postMessage({ type:'lke-save-menu-result', ok: ok }, '*'); } catch(e){}
+      });
+    }
+  });
+
+  window._lkeSaveMenuContent = saveMenuContent;
+  window._lkeLoadContent = loadLkeContent;
+})();
+
 async function loadLkeContent(){
   try {
     var url = SUPABASE_URL + '/rest/v1/menu_content?client_email=eq.' + encodeURIComponent(CLIENT_EMAIL) + '&page_name=eq.' + encodeURIComponent(PAGE_NAME) + '&select=content';
@@ -706,7 +1134,10 @@ async function loadLkeContent(){
     });
   } catch(e) { console.error('loadLkeContent:', e); }
 }
-loadLkeContent();
+// ⚠️ DÉSACTIVÉ : le système ne sauvegarde plus dans Supabase menu_content,
+// le HTML complet (avec son contenu) est poussé directement sur GitHub via saveMenuContent().
+// Réactiver loadLkeContent() écraserait le contenu à jour avec l'ancien contenu Supabase figé.
+// loadLkeContent();
 
 
 </script>
