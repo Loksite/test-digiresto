@@ -1,0 +1,3748 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<script>
+// ── Loksite Client ID (utilisé par analytics ET réservations) ──
+window.LOKSITE_CLIENT_ID = "axel.merlot59@gmail.com";
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Itsy Bitsy — Cuisine Végétale · Lille</title>
+<meta name="description" content="Restaurant et traiteur 100% végétalien au cœur de Lille. Cuisine végétale créative, brunch du dimanche sur réservation. 10 rue Jeanne Maillotte, Lille.">
+<meta property="og:title" content="Itsy Bitsy — Cuisine Végétale · Lille">
+<meta property="og:description" content="Restaurant et traiteur 100% végétalien à Lille. Cuisine de saison, brunch dominical, produits frais et locaux.">
+<meta property="og:type" content="restaurant">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --c-forest:#1c3428;--c-pine:#2a5240;--c-sage:#4e8060;--c-fern:#7aab82;
+  --c-mist:#b8d9bc;--c-cream:#f6f1e8;--c-linen:#ede5d4;--c-warm:#e8dfc9;
+  --c-clay:#c4714a;--c-blush:#e0a07a;--c-gold:#c9a55a;
+  --c-ink:#18261e;--c-slate:#3d5446;--c-smoke:#7a9480;--c-white:#ffffff;
+  --nav-h:68px;--ease:cubic-bezier(0.4,0,0.2,1);--ease-out:cubic-bezier(0,0,0.2,1);
+  --r-card:18px;--r-pill:100px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Jost',sans-serif;color:var(--c-ink);background:var(--c-cream);overflow-x:hidden;line-height:1.6}
+img{display:block;max-width:100%}
+a{text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--c-warm)}
+::-webkit-scrollbar-thumb{background:var(--c-sage);border-radius:3px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slowZoom{from{transform:scale(1.06)}to{transform:scale(1)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease-out,transform .6s ease-out}
+.reveal.visible:not([data-custom-pos]){opacity:1!important;transform:translateY(0)!important}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LOKSITE — POSITIONS PERSONNALISÉES (glisser-déposer de l'éditeur)
+   ═══════════════════════════════════════════════════════════════════
+   Ces règles font partie du CSS DE BASE (pas du <style id="lke-edit-style">
+   retiré à la publication) : elles doivent donc s'appliquer À L'IDENTIQUE
+   dans l'éditeur ET sur le site publié.
+
+   Sans elles, un élément déplacé revenait à son ancienne position, car :
+   - « .reveal.visible { transform:translateY(0)!important } » écrase le
+     transform inline posé par le glisser-déposer (un !important d'une
+     feuille de style bat toujours un style inline sans !important) ;
+   - les animations d'apparition (fadeUp ... forwards) du hero
+     réappliquent elles aussi transform:translateY(0) en fin d'animation,
+     ce qui écrase également le style inline.
+
+   On neutralise donc animation + transition dès qu'un élément porte
+   data-custom-pos (attribut posé UNIQUEMENT lors d'un déplacement /
+   redimensionnement réel, et conservé à la publication), et on force
+   opacity:1 puisque ces animations étaient aussi chargées de rendre
+   l'élément visible.                                                   */
+[data-custom-pos]{
+  opacity:1!important;
+  animation:none!important;
+  transition:none!important;
+}
+
+/* NAV */
+#nav{position:fixed;inset:0 0 auto;height:var(--nav-h);z-index:900;display:flex;align-items:center;justify-content:space-between;padding:0 5%;transition:background .45s var(--ease),box-shadow .45s}
+#nav.scrolled{background:rgba(246,241,232,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 1px 0 rgba(28,52,40,.08)}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.logo-mark{width:46px;height:46px;background:var(--c-pine);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-style:italic;font-size:10px;color:var(--c-cream);text-align:center;line-height:1.2;padding:6px;transition:transform .4s var(--ease);flex-shrink:0}
+#nav:not(.scrolled) .logo-mark{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35)}
+.nav-logo:hover .logo-mark{transform:rotate(-8deg) scale(1.07)}
+.logo-name{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--c-white);transition:color .35s}
+#nav.scrolled .logo-name{color:var(--c-forest)}
+.nav-links{display:flex;align-items:center;gap:1.8rem;list-style:none}
+.nav-links a{font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.82);transition:color .3s,opacity .3s}
+#nav.scrolled .nav-links a{color:var(--c-slate)}
+.nav-links a:hover{color:var(--c-white)!important;opacity:1}
+#nav.scrolled .nav-links a:hover{color:var(--c-sage)!important}
+.nav-cta{background:var(--c-clay)!important;color:var(--c-white)!important;padding:.5rem 1.25rem;border-radius:var(--r-pill);font-weight:600!important;letter-spacing:.05em!important;transition:background .3s,transform .2s,box-shadow .3s!important;opacity:1!important}
+.nav-cta:hover{background:var(--c-blush)!important;transform:translateY(-2px);box-shadow:0 6px 20px rgba(196,113,74,.35)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--c-white);border-radius:2px;transition:all .3s}
+#nav.scrolled .hamburger span{background:var(--c-forest)}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0;width:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-nav{display:none;position:fixed;top:var(--nav-h);inset-inline:0;background:var(--c-cream);z-index:899;padding:2rem 5% 2.5rem;flex-direction:column;gap:0;box-shadow:0 12px 40px rgba(28,52,40,.12)}
+.mobile-nav.open{display:flex}
+.mobile-nav a{padding:1rem 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;color:var(--c-forest);border-bottom:1px solid var(--c-warm);transition:color .25s,padding-left .25s}
+.mobile-nav a:hover{color:var(--c-sage);padding-left:8px}
+.mob-cta{margin-top:1.5rem;background:var(--c-clay);color:var(--c-white)!important;text-align:center;border-radius:var(--r-pill);padding:.9rem!important;font-family:'Jost',sans-serif!important;font-style:normal!important;font-size:.9rem!important;border-bottom:none!important}
+
+/* HERO */
+#hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--c-forest)}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(28,52,40,.85) 0%,rgba(42,82,64,.7) 50%,rgba(28,52,40,.75) 100%)}
+.hero-blob{position:absolute;bottom:-5%;right:-8%;width:45vw;height:45vw;max-width:600px;max-height:600px;background:radial-gradient(ellipse,rgba(122,171,130,.18) 0%,transparent 70%);border-radius:60% 40% 55% 45%/50% 60% 40% 50%;pointer-events:none}
+.hero-content{position:relative;z-index:2;text-align:center;color:var(--c-white);padding:0 1.5rem;max-width:820px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--c-mist);margin-bottom:1.6rem;opacity:0;animation:fadeUp .7s .4s var(--ease) forwards}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:32px;height:1px;background:rgba(184,217,188,.5)}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3.8rem,10vw,7.5rem);font-weight:700;line-height:.95;margin-bottom:.4rem;opacity:0;animation:fadeUp .85s .55s var(--ease) forwards;letter-spacing:-.02em}
+.hero-title em{font-style:italic;color:var(--c-mist);display:block;font-size:clamp(1.2rem,3vw,1.9rem);letter-spacing:.06em;margin-top:.5rem}
+.hero-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.05rem,2vw,1.4rem);color:rgba(255,255,255,.8);margin:1.8rem auto 2.6rem;max-width:520px;line-height:1.7;opacity:0;animation:fadeUp .8s .75s var(--ease) forwards}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .95s var(--ease) forwards}
+.btn-primary{background:var(--c-clay);color:var(--c-white);padding:.9rem 2.2rem;border-radius:var(--r-pill);font-weight:600;font-size:.9rem;letter-spacing:.04em;transition:background .3s,transform .25s,box-shadow .3s;border:2px solid transparent}
+.btn-primary:hover{background:var(--c-blush);transform:translateY(-3px);box-shadow:0 12px 30px rgba(196,113,74,.4)}
+.btn-ghost{background:transparent;color:var(--c-white);padding:.9rem 2.2rem;border-radius:var(--r-pill);font-weight:500;font-size:.9rem;letter-spacing:.04em;border:1.5px solid rgba(255,255,255,.45);transition:border-color .3s,background .3s,transform .25s}
+.btn-ghost:hover{border-color:var(--c-white);background:rgba(255,255,255,.1);transform:translateY(-3px)}
+.hero-badge{position:absolute;bottom:8rem;right:5%;background:rgba(255,255,255,.1);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:1rem 1.4rem;text-align:center;color:var(--c-white);animation:fadeIn .8s 1.3s var(--ease) forwards;opacity:0}
+.badge-stars{font-size:.85rem;letter-spacing:3px;color:var(--c-gold)}
+.badge-score{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;line-height:1.1}
+.badge-label{font-size:.7rem;opacity:.7;letter-spacing:.08em}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;animation:fadeIn 1s 1.8s ease forwards;opacity:0}
+.scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,rgba(255,255,255,.5),transparent);animation:scrollAnim 2s 2s ease infinite}
+
+/* SECTIONS */
+.sw{max-width:1240px;margin:0 auto}
+.section-label{display:inline-block;font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--c-clay);margin-bottom:.7rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:700;color:var(--c-forest);line-height:1.12;margin-bottom:1rem}
+.section-title em{font-style:italic;color:var(--c-sage)}
+.section-lead{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--c-smoke);line-height:1.8}
+
+/* EVENEMENTS */
+#evenements{background:var(--c-linen);padding:6rem 5%}
+.evt-header{max-width:1240px;margin:0 auto 3rem;text-align:center}
+.evt-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem}
+.evt-card{position:relative;background:var(--c-white);border-radius:var(--r-card);overflow:hidden;border:1px solid var(--c-mist);transition:transform .3s,box-shadow .3s}
+.evt-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(28,52,40,.1)}
+.evt-badge{position:absolute;top:1rem;left:1rem;background:var(--c-clay);color:var(--c-white);font-size:.72rem;font-weight:700;letter-spacing:.04em;padding:.35rem .8rem;border-radius:var(--r-pill);z-index:2}
+.evt-body{padding:3.1rem 1.6rem 1.8rem}
+.evt-date{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sage);margin-bottom:.5rem}
+.evt-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--c-forest);margin-bottom:.6rem}
+.evt-desc{font-size:.88rem;color:var(--c-smoke);line-height:1.6;margin-bottom:1.1rem}
+.evt-cta{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:600;color:var(--c-clay);transition:gap .25s}
+.evt-cta:hover{gap:10px}
+/* — Mise en page selon le nombre de blocs réellement affichés —
+   `data-evt-visible` est posé par initEvtCards(). Aucune colonne
+   fantôme ne subsiste quand une carte est masquée : la grille est
+   recalculée sur le nombre exact de cartes visibles. */
+.evt-card[hidden],.evt-card[data-evt-hidden]{display:none !important}
+.evt-grid[data-evt-visible="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.evt-grid[data-evt-visible="2"]{grid-template-columns:repeat(2,minmax(0,1fr));max-width:880px}
+.evt-grid[data-evt-visible="1"]{grid-template-columns:minmax(0,460px);justify-content:center;max-width:460px}
+.evt-grid[data-evt-visible="0"]{display:none}
+@media(max-width:1024px){
+  .evt-grid[data-evt-visible="3"]{grid-template-columns:repeat(2,minmax(0,1fr));max-width:880px}
+  .evt-grid[data-evt-visible="3"] .evt-card:last-child{grid-column:1/-1;max-width:460px;justify-self:center;width:100%}
+}
+
+/* PRESENTATION */
+#presentation{background:var(--c-white);padding:8rem 5%}
+.pres-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.pres-text p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--c-slate);line-height:1.9;margin-top:1rem}
+.pres-badges{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.badge-pill{display:inline-flex;align-items:center;gap:6px;background:var(--c-cream);border:1px solid var(--c-mist);color:var(--c-pine);padding:.45rem 1rem;border-radius:var(--r-pill);font-size:.82rem;font-weight:500;transition:border-color .3s,background .3s}
+.badge-pill:hover{border-color:var(--c-sage);background:#eaf3ec}
+.pres-img-wrap{position:relative}
+.pres-img-frame{position:absolute;top:-18px;right:-18px;bottom:18px;left:18px;border:2px solid var(--c-mist);border-radius:22px;z-index:0;pointer-events:none}
+.pres-img{position:relative;z-index:1;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:20px;transition:transform .6s var(--ease)}
+.pres-img-wrap:hover .pres-img{transform:scale(1.02) translateY(-4px)}
+.pres-stat{position:absolute;left:-28px;bottom:40px;z-index:2;background:var(--c-forest);color:var(--c-white);padding:1.2rem 1.5rem;border-radius:16px;box-shadow:0 20px 50px rgba(28,52,40,.3);animation:float 4s ease-in-out infinite}
+.pres-stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--c-gold);line-height:1}
+.pres-stat-label{font-size:.75rem;color:rgba(255,255,255,.7);margin-top:2px;letter-spacing:.06em}
+
+/* MENU */
+#menu{background:var(--c-cream);padding:8rem 5%}
+.menu-header{text-align:center;max-width:620px;margin:0 auto 3rem}
+.brunch-card{max-width:1240px;margin:0 auto 3.5rem;background:linear-gradient(135deg,var(--c-forest) 0%,var(--c-pine) 100%);border-radius:24px;padding:2.8rem 3rem;display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:center;position:relative;overflow:hidden}
+.brunch-card::before{content:'';position:absolute;right:-40px;top:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(122,171,130,.2),transparent 70%);pointer-events:none}
+.brunch-price-block{text-align:center}
+.brunch-price-label{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--c-mist);margin-bottom:.4rem}
+.brunch-price{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;color:var(--c-gold);line-height:1}
+.brunch-price-sub{font-size:.78rem;color:rgba(255,255,255,.5);margin-top:3px}
+.brunch-divider{width:1px;background:rgba(255,255,255,.15);align-self:stretch}
+.brunch-info h3{font-family:'Playfair Display',serif;font-style:italic;font-size:1.5rem;color:var(--c-white);margin-bottom:.8rem}
+.brunch-items{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem 1.4rem}
+.brunch-items li{color:rgba(255,255,255,.78);font-size:.88rem;display:flex;align-items:center;gap:6px}
+.brunch-items li::before{content:'🌿';font-size:.7rem}
+.brunch-note{margin-top:1.2rem;font-size:.78rem;color:var(--c-mist);display:flex;align-items:center;gap:8px}
+.menu-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem}
+.tab-btn{background:none;border:1.5px solid var(--c-mist);color:var(--c-slate);padding:.55rem 1.4rem;border-radius:var(--r-pill);font-size:.84rem;font-weight:500;letter-spacing:.04em;transition:all .3s}
+.tab-btn:hover{border-color:var(--c-sage);color:var(--c-pine)}
+.tab-btn.active{background:var(--c-forest);border-color:var(--c-forest);color:var(--c-white)}
+.tab-panel{display:none}
+.tab-panel.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;max-width:1240px;margin:0 auto}
+.menu-card{background:var(--c-white);border-radius:var(--r-card);border:1px solid transparent;transition:border-color .3s,box-shadow .3s,transform .3s;overflow:hidden}
+.menu-card:hover{border-color:var(--c-mist);transform:translateY(-4px);box-shadow:0 14px 40px rgba(28,52,40,.08)}
+.menu-card-img{width:100%;height:160px;object-fit:cover;display:block}
+.menu-card-body{padding:1.4rem 1.6rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.menu-card-info{flex:1}
+.menu-card-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--c-forest);margin-bottom:.35rem}
+.menu-card-desc{font-size:.84rem;color:var(--c-smoke);line-height:1.55}
+.menu-card-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.6rem}
+.tag{font-size:.66rem;background:var(--c-cream);color:var(--c-pine);padding:.18rem .6rem;border-radius:100px;font-weight:500}
+.menu-card-price{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--c-clay);white-space:nowrap}
+.menu-card-no-img .menu-card-body{padding:1.5rem 1.6rem}
+
+/* GALERIE */
+#galerie{background:var(--c-forest);padding:8rem 5%}
+.galerie-header{max-width:1240px;margin:0 auto 3rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.galerie-header .section-label{color:var(--c-mist)}
+.galerie-header .section-title{color:var(--c-white)}
+.galerie-insta{color:var(--c-fern);font-size:.85rem;font-weight:500;display:flex;align-items:center;gap:6px;transition:color .3s}
+.galerie-insta:hover{color:var(--c-white)}
+.gallery-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:240px 240px;gap:10px}
+.g-item{border-radius:14px;overflow:hidden;cursor:pointer;position:relative;background:var(--c-pine)}
+.g-item:nth-child(1){grid-column:span 2;grid-row:span 2}
+.g-item:nth-child(5){grid-column:span 2}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.g-item:hover img{transform:scale(1.09)}
+.g-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,52,40,.78) 0%,transparent 55%);opacity:0;transition:opacity .35s;display:flex;align-items:flex-end;padding:1.2rem}
+.g-item:hover .g-item-overlay{opacity:1}
+.g-item-overlay span{color:rgba(255,255,255,.92);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+#lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(10,20,14,.96);align-items:center;justify-content:center;padding:2rem}
+#lightbox.open{display:flex;animation:fadeIn .25s ease}
+#lightbox img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:12px}
+#lightbox-close{position:fixed;top:1.5rem;right:1.5rem;background:rgba(255,255,255,.1);border:none;color:var(--c-white);width:44px;height:44px;border-radius:50%;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:background .3s}
+#lightbox-close:hover{background:rgba(255,255,255,.22)}
+
+/* AVIS */
+#avis{background:var(--c-linen);padding:8rem 5%}
+.avis-header{text-align:center;margin-bottom:3.5rem}
+.avis-score-row{display:flex;align-items:center;justify-content:center;gap:1.4rem;margin-top:1.2rem}
+.avis-big-num{font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:700;color:var(--c-forest);line-height:1}
+.avis-meta{text-align:left}
+.avis-stars{color:var(--c-gold);font-size:1.1rem;letter-spacing:3px}
+.avis-count{font-size:.82rem;color:var(--c-smoke);margin-top:4px}
+.avis-track-wrap{max-width:1200px;margin:0 auto;overflow:hidden;position:relative}
+.avis-track{display:flex;gap:1.5rem;transition:transform .5s var(--ease)}
+.avis-card{width:calc(33.333% - 1rem);flex-shrink:0;background:var(--c-white);border-radius:20px;padding:2rem 2.2rem;box-shadow:0 4px 24px rgba(28,52,40,.06);transition:box-shadow .3s}
+.avis-card:hover{box-shadow:0 10px 40px rgba(28,52,40,.1)}
+.avis-card-stars{color:var(--c-gold);font-size:.85rem;letter-spacing:3px;margin-bottom:1rem}
+.avis-card-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.08rem;color:var(--c-slate);line-height:1.75;margin-bottom:1.2rem}
+.avis-card-author{display:flex;align-items:center;gap:.6rem;font-size:.8rem;font-weight:600;color:var(--c-smoke)}
+.avis-card-author::before{content:'';display:block;width:20px;height:1.5px;background:var(--c-fern)}
+.avis-dots{display:flex;justify-content:center;gap:8px;margin-top:2.5rem}
+.avis-dot{width:8px;height:8px;border-radius:4px;border:none;background:var(--c-mist);cursor:pointer;transition:all .3s}
+.avis-dot.active{background:var(--c-pine);width:22px}
+
+/* HORAIRES */
+#horaires{background:var(--c-white);padding:8rem 5%}
+.horaires-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;max-width:1100px;margin:0 auto;align-items:start}
+.status-pill{display:inline-flex;align-items:center;gap:8px;padding:.4rem 1rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:600;margin-bottom:1.8rem}
+.status-pill.open{background:#e6f4ea;color:#1e6b2e}
+.status-pill.closed{background:#fce8e8;color:#b71c1c}
+.status-dot{width:8px;height:8px;border-radius:50%}
+.status-pill.open .status-dot{background:#34a853;animation:pulse 2s infinite}
+.status-pill.closed .status-dot{background:#ea4335}
+.hours-table{width:100%}
+.hours-row{display:flex;justify-content:space-between;align-items:center;padding:.85rem .8rem;border-radius:10px;transition:background .2s}
+.hours-row:hover{background:var(--c-cream)}
+.hours-row.today{background:var(--c-cream);font-weight:600}
+.hours-day{font-size:.9rem;color:var(--c-slate)}
+.hours-row.today .hours-day{color:var(--c-forest)}
+.hours-time{font-size:.9rem;color:var(--c-pine);font-weight:500}
+.hours-time.closed{color:var(--c-smoke);font-style:italic}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-field{display:flex;flex-direction:column;gap:5px}
+.form-field.full{grid-column:span 2}
+label{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--c-smoke)}
+input,select,textarea{padding:.8rem 1rem;border:1.5px solid var(--c-warm);border-radius:10px;font-family:'Jost',sans-serif;font-size:.9rem;color:var(--c-ink);background:var(--c-cream);outline:none;appearance:none;transition:border-color .3s,box-shadow .3s,background .3s}
+input:focus,select:focus,textarea:focus{border-color:var(--c-sage);box-shadow:0 0 0 3px rgba(78,128,96,.14);background:var(--c-white)}
+textarea{resize:vertical;min-height:90px}
+.btn-submit{grid-column:span 2;width:100%;background:var(--c-forest);color:var(--c-white);border:none;padding:1rem 2rem;border-radius:12px;font-size:.92rem;font-weight:600;letter-spacing:.04em;margin-top:.5rem;transition:background .3s,transform .25s,box-shadow .3s}
+.btn-submit:hover{background:var(--c-pine);transform:translateY(-2px);box-shadow:0 10px 28px rgba(28,52,40,.22)}
+
+/* LOCALISATION */
+#localisation{background:var(--c-cream);padding:8rem 5%}
+.loc-grid{display:grid;grid-template-columns:380px 1fr;gap:4rem;max-width:1100px;margin:0 auto;align-items:center}
+.loc-info{display:flex;flex-direction:column;gap:1.6rem}
+.loc-block{display:flex;gap:1rem;align-items:flex-start}
+.loc-icon{width:46px;height:46px;background:var(--c-white);border:1px solid var(--c-mist);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.loc-block-text strong{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--c-smoke);font-weight:600;margin-bottom:3px}
+.loc-block-text span,.loc-block-text a{font-size:.92rem;color:var(--c-ink)}
+.loc-block-text a{color:var(--c-pine);transition:color .3s}
+.loc-block-text a:hover{color:var(--c-clay)}
+.loc-btn{display:inline-flex;align-items:center;gap:8px;background:var(--c-clay);color:var(--c-white);padding:.75rem 1.5rem;border-radius:var(--r-pill);font-size:.85rem;font-weight:600;margin-top:.5rem;transition:background .3s,transform .25s}
+.loc-btn:hover{background:var(--c-blush);transform:translateY(-2px)}
+.map-wrap{border-radius:22px;overflow:hidden;aspect-ratio:4/3;box-shadow:0 20px 60px rgba(28,52,40,.12)}
+.map-wrap iframe{width:100%;height:100%;border:none}
+
+/* FOOTER */
+footer{background:var(--c-forest);color:rgba(255,255,255,.7);padding:4rem 5% 2.5rem}
+.footer-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:3rem;max-width:1100px;margin:0 auto;align-items:start}
+.logo-mark-f{width:52px;height:52px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-style:italic;font-size:10px;color:var(--c-cream);margin-bottom:1rem;padding:6px;text-align:center;line-height:1.2}
+.footer-brand h4{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--c-white)}
+.footer-brand p{font-size:.82rem;margin-top:.4rem}
+.footer-social{display:flex;gap:.8rem;margin-top:1.2rem}
+.footer-social a{width:36px;height:36px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:rgba(255,255,255,.7);transition:all .3s}
+.footer-social a:hover{background:var(--c-clay);color:var(--c-white);border-color:var(--c-clay)}
+.footer-nav-col h5,.footer-center h5{font-size:.72rem;text-transform:uppercase;letter-spacing:.18em;font-weight:600;color:var(--c-fern);margin-bottom:1rem}
+.footer-nav-col ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.footer-nav-col li a{font-size:.86rem;color:rgba(255,255,255,.65);transition:color .3s}
+.footer-nav-col li a:hover{color:var(--c-white)}
+.footer-center{text-align:center}
+.footer-center address{font-style:normal;font-size:.86rem;line-height:1.7}
+.ft-tel{display:block;margin-top:.6rem;font-size:1rem;font-weight:600;color:var(--c-white)}
+.footer-bottom{max-width:1100px;margin:3rem auto 0;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:.75rem}
+.footer-bottom a{color:rgba(255,255,255,.5);transition:color .3s}
+.footer-bottom a:hover{color:var(--c-white)}
+
+/* SAISON SWITCHER */
+.saison-switcher{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;margin:0 auto 3rem;max-width:1240px;padding:0 5%}
+.saison-btn{background:none;border:1.5px solid var(--c-mist);color:var(--c-slate);padding:.65rem 1.8rem;border-radius:var(--r-pill);font-size:.88rem;font-weight:600;letter-spacing:.04em;transition:all .3s;cursor:pointer}
+.saison-btn:hover{border-color:var(--c-sage);color:var(--c-pine);background:#eaf3ec}
+.saison-btn.active{background:var(--c-forest);border-color:var(--c-forest);color:var(--c-white);box-shadow:0 6px 20px rgba(28,52,40,.2)}
+
+/* SAISON PANELS */
+.saison-panel{display:none;max-width:1240px;margin:0 auto;padding:0 5%}
+.saison-panel.active{display:block}
+
+/* SAISON HEADER */
+.saison-header{text-align:center;margin-bottom:2.5rem}
+.saison-badge{display:inline-block;padding:.6rem 1.8rem;border-radius:var(--r-pill);font-size:.85rem;font-weight:600;letter-spacing:.06em}
+.saison-badge.ete{background:linear-gradient(135deg,#f97316,#f59e0b);color:var(--c-white)}
+.saison-badge.printemps{background:linear-gradient(135deg,#10b981,#34d399);color:var(--c-white)}
+
+/* FORMULES GRID */
+.formules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.formule-card{background:var(--c-white);border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(28,52,40,.07);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
+.formule-card:hover{transform:translateY(-5px);box-shadow:0 16px 45px rgba(28,52,40,.12)}
+.formule-header{display:flex;align-items:center;gap:1rem;padding:1.4rem 1.6rem;border-bottom:1px solid var(--c-warm)}
+.formule-header.buffet{background:linear-gradient(135deg,#e8f5e9,#f1f8f2)}
+.formule-header.cocktail{background:linear-gradient(135deg,#fff3e0,#fef9f0)}
+.formule-header.plateau{background:linear-gradient(135deg,#fce4ec,#fdf0f4)}
+.formule-icon{font-size:2rem;line-height:1}
+.formule-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--c-forest)}
+.formule-price{font-size:1.3rem;font-weight:700;color:var(--c-clay);font-family:'Playfair Display',serif;margin-top:2px}
+.formule-subtitle{font-size:.8rem;font-weight:600;color:var(--c-sage);text-transform:uppercase;letter-spacing:.1em;padding:.7rem 1.6rem 0}
+.formule-items{list-style:none;padding:1rem 1.6rem;flex:1;display:flex;flex-direction:column;gap:.55rem}
+.formule-items li{font-size:.87rem;color:var(--c-slate);line-height:1.5;padding-left:1rem;position:relative}
+.formule-items li::before{content:'·';position:absolute;left:0;color:var(--c-sage);font-weight:700}
+.formule-items li strong{color:var(--c-forest)}
+.formule-extras{display:flex;flex-wrap:wrap;gap:.4rem;padding:1rem 1.6rem 1.4rem;border-top:1px solid var(--c-cream)}
+.formule-extras span{font-size:.75rem;background:var(--c-cream);color:var(--c-pine);padding:.25rem .7rem;border-radius:100px;font-weight:500}
+
+/* MODALITÉS */
+.modalites-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:1240px;margin:0 auto;padding:0 5%}
+.modalite-card{background:var(--c-white);border-radius:16px;padding:1.6rem;display:flex;gap:1rem;align-items:flex-start;box-shadow:0 3px 15px rgba(28,52,40,.06);transition:transform .3s,box-shadow .3s}
+.modalite-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(28,52,40,.1)}
+.modalite-card.alert{background:linear-gradient(135deg,#e8f5e9,#f1f8f2);border:1px solid var(--c-mist)}
+.modalite-icon{font-size:1.8rem;line-height:1;flex-shrink:0}
+.modalite-text{display:flex;flex-direction:column;gap:4px}
+.modalite-text strong{font-size:.88rem;font-weight:700;color:var(--c-forest);text-transform:uppercase;letter-spacing:.06em}
+.modalite-text span{font-size:.85rem;color:var(--c-slate);line-height:1.55}
+.modalite-text a{color:var(--c-pine);font-weight:600;transition:color .3s}
+.modalite-text a:hover{color:var(--c-clay)}
+.modalites-cta{text-align:center;margin-top:3rem;padding:2.5rem;background:var(--c-forest);border-radius:20px;max-width:1240px;margin:2.5rem auto 0;padding:2.5rem 5%}
+.modalites-cta p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;color:rgba(255,255,255,.85);margin-bottom:1.5rem}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .formules-grid{grid-template-columns:1fr}
+  .modalites-grid{grid-template-columns:1fr 1fr}
+
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .evt-grid,
+  .evt-grid[data-evt-visible="1"],
+  .evt-grid[data-evt-visible="2"],
+  .evt-grid[data-evt-visible="3"]{grid-template-columns:minmax(0,1fr);max-width:520px;justify-content:stretch}
+  .evt-grid[data-evt-visible="3"] .evt-card:last-child{grid-column:auto;max-width:none;justify-self:auto}
+  .pres-grid{grid-template-columns:1fr;gap:3rem}
+  .pres-img-wrap{order:-1}
+  .pres-stat{left:auto;right:1rem;bottom:1rem}
+  .brunch-card{grid-template-columns:1fr;gap:1.5rem}
+  .brunch-divider{display:none}
+  .avis-card{width:calc(80% - .75rem)}
+  .horaires-grid{grid-template-columns:1fr;gap:4rem}
+  .loc-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,200px)}
+  .g-item:nth-child(1){grid-column:span 2;grid-row:span 1}
+  .g-item:nth-child(5){grid-column:span 2}
+  .footer-grid{grid-template-columns:1fr;gap:2.5rem}
+  .footer-center{text-align:left}
+}
+@media(max-width:560px){
+  .formules-grid,.modalites-grid{grid-template-columns:1fr}
+  .saison-btn{padding:.55rem 1rem;font-size:.8rem}
+
+  #presentation,#menu,#galerie,#avis,#horaires,#localisation,#evenements{padding:5rem 5%}
+  .form-grid{grid-template-columns:1fr}
+  .form-field.full,.btn-submit{grid-column:span 1}
+  .hero-badge{display:none}
+  .avis-card{width:calc(92% - .75rem)}
+}
+</style>
+<!-- Loksite Cookie Consent -->
+<script>
+(function(){
+  if (window.self !== window.top) return;
+  if (window.location.pathname.includes('vitrine-preview')) return;
+
+  var consent = localStorage.getItem('lk_cookie_consent');
+  if (consent) return; // choix déjà fait (accepted ou declined)
+
+  function showBanner() {
+    var overlay = document.createElement('div');
+    overlay.id = 'lk-cookie-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;font-family:-apple-system,Segoe UI,Roboto,sans-serif';
+    overlay.innerHTML =
+      '<div style="background:#fff;border-radius:16px;max-width:380px;width:100%;padding:28px;box-shadow:0 24px 64px rgba(15,23,42,.3)">' +
+      '<div style="font-size:16px;font-weight:800;color:#0f172a;margin-bottom:10px">Cookies & vie privée</div>' +
+      '<div style="font-size:13.5px;line-height:1.6;color:#475569;margin-bottom:20px">Ce site utilise des cookies de mesure d\'audience pour comprendre comment il est utilisé. Vous pouvez accepter ou refuser ce suivi. <a href="politique-confidentialite.html" style="color:#0f172a;font-weight:600;text-decoration:underline">En savoir plus</a></div>' +
+      '<div style="display:flex;gap:10px">' +
+      '<button id="lk-cookie-refuse" style="flex:1;background:#f1f5f9;border:none;color:#475569;border-radius:10px;padding:11px 0;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit">Refuser</button>' +
+      '<button id="lk-cookie-accept" style="flex:1;background:#0f172a;border:none;color:#fff;border-radius:10px;padding:11px 0;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit">Accepter</button>' +
+      '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    document.getElementById('lk-cookie-accept').onclick = function(){
+      localStorage.setItem('lk_cookie_consent', 'accepted');
+      overlay.remove();
+      window.dispatchEvent(new Event('lkConsentAccepted'));
+    };
+    document.getElementById('lk-cookie-refuse').onclick = function(){
+      localStorage.setItem('lk_cookie_consent', 'declined');
+      overlay.remove();
+    };
+  }
+
+  if (document.body) showBanner();
+  else document.addEventListener('DOMContentLoaded', showBanner);
+})();
+</script>
+
+<!-- Loksite Analytics Tracker -->
+<script>
+(function() {
+  // Ne pas tracker si chargé dans une iframe OU si c'est le fichier preview
+  if (window.self !== window.top) return;
+  if (window.location.pathname.includes('vitrine-preview')) return;
+
+  // No-op par défaut tant que le consentement cookies n'est pas donné
+  window.lkTrackClick = window.lkTrackClick || function(){};
+
+  function lkRunTracker() {
+  var CLIENT_ID = "b6a7672d-74d3-452d-97e2-6ff020bea7db";
+  var SUPABASE_URL = "https://qhnofvfgutsdgbfwhupg.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY";
+  var sessionId = Math.random().toString(36).slice(2);
+
+  // Visiteur unique persistant (même appareil/navigateur => même visitor_id)
+  var visitorId = localStorage.getItem('lk_visitor_id');
+  if (!visitorId) {
+    visitorId = 'v_' + Date.now().toString(36) + Math.random().toString(36).slice(2);
+    localStorage.setItem('lk_visitor_id', visitorId);
+  }
+
+  var start = Date.now();
+  var device = /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : /iPad|Tablet/i.test(navigator.userAgent) ? "tablette" : "desktop";
+  var referrer = document.referrer.includes("google") ? "Organique"
+    : (document.referrer.includes("facebook") || document.referrer.includes("instagram") || document.referrer.includes("tiktok")) ? "Social"
+    : document.referrer === "" ? "Direct" : "Autre";
+
+  function lkTrackPage(page) {
+    fetch(SUPABASE_URL + "/rest/v1/analytics_events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Prefer": "return=minimal" },
+      body: JSON.stringify({ client_id: CLIENT_ID, page: page, referrer: referrer, device: device, session_id: sessionId, visitor_id: visitorId, duration: 0 })
+    }).catch(function(){});
+  }
+
+  // Enregistrement de la visite (page principale)
+  lkTrackPage(window.location.pathname);
+
+  // Tracking des sections vues au scroll (= "pages vues" supplémentaires)
+  if ('IntersectionObserver' in window) {
+    var seenSections = {};
+    var sectionObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && entry.target.id && !seenSections[entry.target.id]) {
+          seenSections[entry.target.id] = true;
+          lkTrackPage(window.location.pathname + '#' + entry.target.id);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('section[id]').forEach(function(s) {
+      if (s.id !== 'hero') sectionObserver.observe(s);
+    });
+  }
+
+  // Tracker de clics sur les sections
+  window.lkTrackClick = function(section) {
+    fetch(SUPABASE_URL + "/rest/v1/click_events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Prefer": "return=minimal" },
+      body: JSON.stringify({ client_id: CLIENT_ID, section: section, session_id: sessionId, created_at: new Date().toISOString() })
+    }).catch(function(){});
+  };
+  var ticker = setInterval(function() {
+    var dur = Math.round((Date.now() - start) / 1000);
+    fetch(SUPABASE_URL + "/rest/v1/analytics_events?session_id=eq." + sessionId, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Prefer": "return=minimal" },
+      body: JSON.stringify({ duration: dur }),
+      keepalive: true
+    });
+  }, 15000);
+
+  // Mise à jour finale à la fermeture
+  // keepalive:true permet à cette requête de se terminer même si l'onglet
+  // se ferme juste après — sans ça, le navigateur l'annule souvent avant
+  // qu'elle n'atteigne Supabase, et la durée reste figée à 0.
+  window.addEventListener("visibilitychange", function() {
+    if (document.visibilityState === "hidden") {
+      clearInterval(ticker);
+      var dur = Math.round((Date.now() - start) / 1000);
+      fetch(SUPABASE_URL + "/rest/v1/analytics_events?session_id=eq." + sessionId, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Prefer": "return=minimal" },
+        body: JSON.stringify({ duration: dur }),
+        keepalive: true
+      });
+    }
+  });
+  } // fin lkRunTracker
+
+  var consent = localStorage.getItem('lk_cookie_consent');
+  if (consent === 'accepted') {
+    lkRunTracker();
+  } else if (!consent) {
+    window.addEventListener('lkConsentAccepted', lkRunTracker, { once: true });
+  }
+})();
+</script>
+
+<!-- Loksite site_config loader -->
+<script>
+(function() {
+  var SUPABASE_URL = "https://qhnofvfgutsdgbfwhupg.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY";
+  var CLIENT_ID = "b6a7672d-74d3-452d-97e2-6ff020bea7db";
+
+  function applySiteConfig(cfg) {
+    if (!cfg) return;
+    // Hero
+    var eyebrow = document.getElementById("lk-hero-eyebrow");
+    var titre = document.getElementById("lk-hero-titre");
+    var sousTitre = document.getElementById("lk-hero-sous-titre");
+    var tagline = document.getElementById("lk-hero-tagline");
+    var btnResa = document.getElementById("lk-btn-resa");
+    var presentation = document.getElementById("lk-presentation");
+
+    if (eyebrow && cfg.hero_eyebrow) eyebrow.textContent = cfg.hero_eyebrow;
+    if (titre && cfg.hero_titre) {
+      titre.childNodes[0].textContent = cfg.hero_titre;
+    }
+    if (sousTitre && cfg.hero_sous_titre) sousTitre.textContent = cfg.hero_sous_titre;
+    if (tagline && cfg.hero_tagline) tagline.textContent = cfg.hero_tagline;
+    if (btnResa && cfg.bouton_resa_texte) btnResa.textContent = cfg.bouton_resa_texte;
+    if (presentation && cfg.presentation_texte) presentation.textContent = cfg.presentation_texte;
+
+    // Horaires
+    if (cfg.horaires) {
+      var jours = {lun:1, mar:2, mer:3, jeu:4, ven:5, sam:6, dim:0};
+      Object.keys(jours).forEach(function(j) {
+        if (cfg.horaires[j] !== undefined) {
+          var row = document.querySelector(".hours-row[data-day='" + jours[j] + "'] .hours-time");
+          if (row) {
+            row.textContent = cfg.horaires[j] || "Fermé";
+            if (!cfg.horaires[j] || cfg.horaires[j] === "Fermé") {
+              row.classList.add("closed");
+            } else {
+              row.classList.remove("closed");
+            }
+          }
+        }
+      });
+    }
+
+    // Contact info
+    if (cfg.telephone) {
+      document.querySelectorAll(".lk-telephone").forEach(function(el) { el.textContent = cfg.telephone; });
+    }
+    if (cfg.adresse) {
+      document.querySelectorAll(".lk-adresse").forEach(function(el) { el.textContent = cfg.adresse; });
+    }
+    if (cfg.email) {
+      document.querySelectorAll(".lk-email").forEach(function(el) { el.textContent = cfg.email; });
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    fetch(SUPABASE_URL + "/rest/v1/profiles_public?email=eq." + encodeURIComponent(CLIENT_ID) + "&select=site_config", {
+      headers: { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data && data[0] && data[0].site_config) {
+        applySiteConfig(data[0].site_config);
+      }
+    })
+    .catch(function(e) { console.log("site_config non chargé:", e); });
+  });
+})();
+</script>
+
+<!-- ═══ LOKSITE — upload d'images vers Supabase Storage ═══════════════════
+     Remplace le FileReader/data-URL qui inlinait chaque photo en base64
+     directement dans le HTML publie. Une photo de smartphone de 4 Mo devenait
+     5,3 Mo de base64 dans la page — puis transitait 2x vers n8n, 2x vers
+     GitHub et 1x vers Supabase a CHAQUE enregistrement. Ici on n'ecrit qu'une
+     URL (~110 octets), et le navigateur du visiteur peut enfin mettre l'image
+     en cache independamment du HTML.
+     L'interface imite exactement celle de FileReader (onload / onerror /
+     readAsDataURL) : le reste du code de l'editeur est inchange, et en cas
+     d'echec d'upload on retombe automatiquement sur l'ancien comportement.
+═══════════════════════════════════════════════════════════════════════════ -->
+<script>
+(function(){
+  var SB_URL    = "https://qhnofvfgutsdgbfwhupg.supabase.co";
+  var SB_KEY    = "sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY";
+  var BUCKET    = "site-assets";
+  var CLIENT_ID = "b6a7672d-74d3-452d-97e2-6ff020bea7db";
+  var MAX_EDGE  = 1600;   // px — au-dela, aucun gain visuel sur une vitrine
+  var QUALITY   = 0.82;
+
+  // Redimensionne + reencode avant envoi. Une photo 4000x3000 de 4 Mo
+  // ressort typiquement autour de 150-250 Ko.
+  function compress(file) {
+    return new Promise(function(resolve){
+      if (!window.createImageBitmap || !document.createElement('canvas').toBlob) {
+        resolve(file); return;
+      }
+      createImageBitmap(file).then(function(bmp){
+        var scale = Math.min(1, MAX_EDGE / Math.max(bmp.width, bmp.height));
+        if (scale === 1 && file.size < 300 * 1024) { resolve(file); return; }
+        var cv = document.createElement('canvas');
+        cv.width  = Math.round(bmp.width  * scale);
+        cv.height = Math.round(bmp.height * scale);
+        cv.getContext('2d').drawImage(bmp, 0, 0, cv.width, cv.height);
+        cv.toBlob(function(b){ resolve(b || file); }, 'image/jpeg', QUALITY);
+      }).catch(function(){ resolve(file); });
+    });
+  }
+
+  function uploadToStorage(blob, ext) {
+    var path = 'sites/' + CLIENT_ID + '/' + Date.now() + '-' +
+               Math.random().toString(36).slice(2,7) + '.' + ext;
+    return fetch(SB_URL + '/storage/v1/object/' + BUCKET + '/' + path, {
+      method: 'POST',
+      headers: {
+        apikey: SB_KEY,
+        Authorization: 'Bearer ' + SB_KEY,
+        'Content-Type': blob.type || 'image/jpeg',
+        'x-upsert': 'true'
+      },
+      body: blob
+    }).then(function(r){
+      if (!r.ok) return r.text().then(function(t){ throw new Error(t); });
+      return SB_URL + '/storage/v1/object/public/' + BUCKET + '/' + path;
+    });
+  }
+
+  // Meme API que FileReader, mais readAsDataURL() renvoie une URL Storage.
+  function LKImageReader() {
+    this.onload = null; this.onerror = null; this.error = null; this.result = null;
+  }
+  LKImageReader.prototype.readAsDataURL = function(file) {
+    var self = this;
+    function fallback(reason) {
+      console.warn('[LKE] upload Storage indisponible, repli base64 :', reason);
+      var fr = new FileReader();
+      fr.onload  = function(ev){ self.result = ev.target.result; if (self.onload) self.onload(ev); };
+      fr.onerror = function(){ self.error = fr.error; if (self.onerror) self.onerror(); };
+      fr.readAsDataURL(file);
+    }
+    compress(file).then(function(blob){
+      var ext = (blob.type === 'image/png') ? 'png'
+              : (blob.type === 'image/webp') ? 'webp' : 'jpg';
+      return uploadToStorage(blob, ext).then(function(url){
+        console.log('[LKE] image envoyee sur Storage (' +
+                    Math.round(file.size/1024) + ' Ko -> ' + Math.round(blob.size/1024) + ' Ko)');
+        self.result = url;
+        if (self.onload) self.onload({ target: { result: url } });
+      });
+    }).catch(fallback);
+  };
+
+  window.LKImageReader = LKImageReader;
+})();
+</script>
+</head>
+<body>
+<!-- Loksite : blocage si compte suspendu -->
+<script>
+(function(){
+  var SB = "https://qhnofvfgutsdgbfwhupg.supabase.co";
+  var K = "sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY";
+  // Trouver l'email du client (utilisé comme identifiant dans profiles)
+  var cid = window.LOKSITE_CLIENT_ID || "";
+  if (!cid) return;
+  // Vérifier le statut actif du client (via la vue publique restreinte)
+  fetch(SB + "/rest/v1/profiles_public?email=eq." + encodeURIComponent(cid) + "&select=actif", {
+    headers: { apikey: K, Authorization: "Bearer " + K }
+  }).then(function(r){ return r.json(); }).then(function(data){
+    if (data && data[0] && data[0].actif === false) {
+      document.body.innerHTML = '<div id="lk-site-blocked" style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f172a,#1e293b);font-family:-apple-system,Segoe UI,sans-serif">' +
+        '<div style="text-align:center;color:#fff;max-width:400px;padding:40px">' +
+        '<div style="font-size:48px;margin-bottom:20px">🔒</div>' +
+        '<h1 style="font-size:24px;font-weight:800;margin:0 0 12px">Site temporairement indisponible</h1>' +
+        '<p style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;margin:0">Ce site est actuellement en maintenance. Veuillez réessayer ultérieurement.</p>' +
+        '</div></div>';
+      document.title = 'Site en maintenance';
+    }
+  }).catch(function(){});
+})();
+</script>
+
+
+<!-- NAV -->
+<nav id="nav" role="navigation" aria-label="Navigation principale">
+  <a href="#hero" class="nav-logo" aria-label="Itsy Bitsy accueil">
+    <div class="logo-mark" aria-hidden="true">itsy<br>bitsy<br><small>lille</small></div>
+    <span class="logo-name">Itsy Bitsy</span>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="#presentation" onclick="lkTrackClick('Histoire')">Histoire</a></li>
+    <li><a href="#menu" onclick="lkTrackClick('Carte')">Carte</a></li>
+    <li><a href="#galerie" onclick="lkTrackClick('Galerie')">Galerie</a></li>
+    <li><a href="#avis" onclick="lkTrackClick('Avis')">Avis</a></li>
+    <li><a href="#horaires" onclick="lkTrackClick('Horaires')">Horaires</a></li>
+    <li><a href="#localisation" onclick="lkTrackClick('Nous trouver')">Nous trouver</a></li>
+    <li><a href="#horaires" class="nav-cta" onclick="lkTrackClick('Réserver une table')">Réserver une table</a></li>
+  </ul>
+  <button class="hamburger" id="ham" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<nav class="mobile-nav" id="mobileNav" aria-label="Menu mobile">
+  <a href="#presentation">Notre histoire</a>
+  <a href="#menu">La carte</a>
+  <a href="#galerie">Galerie</a>
+  <a href="#avis">Avis clients</a>
+  <a href="#horaires">Horaires</a>
+  <a href="#localisation">Nous trouver</a>
+  <a href="#horaires" class="mob-cta">Réserver une table</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero" data-lke-section="hero" aria-label="Bienvenue Itsy Bitsy Cuisine Végétale Lille">
+  <div class="hero-bg" data-lke-wrap="hero-bg" aria-hidden="true" style="background-image:url('assets/hero-plat.jpg');background-size:cover;background-position:center;">
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-blob" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow" id="lk-hero-eyebrow">Restaurant &amp; Traiteur · 100% Végétalien · Lille</p>
+    <h1 class="hero-title" id="lk-hero-titre"><span id="lk-hero-titre-span">Itsy Bitsy</span><em id="lk-hero-sous-titre">Cuisine Végétale</em></h1>
+    <p class="hero-tagline" id="lk-hero-tagline">De la terre à l'assiette — une cuisine vivante, colorée et généreuse, sans compromis sur le goût.</p>
+    <div class="hero-btns">
+      <a href="#menu" id="lk-btn-carte" class="btn-primary">Voir la carte</a>
+      <a href="#horaires" class="btn-ghost" id="lk-btn-resa">Réserver maintenant</a>
+    </div>
+  </div>
+  <div class="hero-badge" aria-label="Note 100% recommandé">
+    <div class="badge-stars">★★★★★</div>
+    <div id="lk-hero-badge-score" class="badge-score">100%</div>
+    <div id="lk-hero-badge-label" class="badge-label">56 avis recommandés</div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Découvrir</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- EVENEMENTS -->
+<section id="evenements" data-lke-section="evenements" aria-label="Événements et offres spéciales" style="display:none" data-lke-hidden="true">
+  <div class="evt-header">
+    <p id="lk-evt-label" class="section-label reveal">Ne manquez rien</p>
+    <h2 id="lk-evt-title" class="section-title reveal d1">Événements <em>&amp; offres</em></h2>
+    <p class="section-lead reveal d2" id="lk-evt-lead">Nos temps forts, soirées à thème et offres du moment.</p>
+  </div>
+  <div class="evt-grid">
+    <div class="evt-card reveal d1">
+      <span id="lk-evt-1-badge" class="evt-badge">Offre du jour</span>
+      <div class="evt-body">
+        <p id="lk-evt-1-date" class="evt-date">Aujourd'hui</p>
+        <h3 id="lk-evt-1-title" class="evt-title">-50% sur votre repas</h3>
+        <p id="lk-evt-1-desc" class="evt-desc">Valable uniquement aujourd'hui, sur place. L'occasion parfaite de découvrir notre cuisine végétale.</p>
+        <a href="#horaires" id="lk-evt-1-cta" class="evt-cta">Réserver une table →</a>
+      </div>
+    </div>
+    <div class="evt-card reveal d2">
+      <span id="lk-evt-2-badge" class="evt-badge">Soirée</span>
+      <div class="evt-body">
+        <p id="lk-evt-2-date" class="evt-date">Vendredi 14 novembre</p>
+        <h3 id="lk-evt-2-title" class="evt-title">Soirée dégustation d'automne</h3>
+        <p id="lk-evt-2-desc" class="evt-desc">Un menu unique en 5 services, accords mets &amp; boissons inclus. Places limitées.</p>
+        <a href="#horaires" id="lk-evt-2-cta" class="evt-cta">Réserver ma place →</a>
+      </div>
+    </div>
+    <div class="evt-card reveal d3">
+      <span id="lk-evt-3-badge" class="evt-badge">Traiteur</span>
+      <div class="evt-body">
+        <p id="lk-evt-3-date" class="evt-date">Toute l'année</p>
+        <h3 id="lk-evt-3-title" class="evt-title">Formules événements sur mesure</h3>
+        <p id="lk-evt-3-desc" class="evt-desc">Anniversaires, mariages, séminaires — notre équipe traiteur végétalien s'occupe de tout.</p>
+        <a href="#localisation" id="lk-evt-3-cta" class="evt-cta">Demander un devis →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESENTATION -->
+<section id="presentation" data-lke-section="presentation" aria-label="Notre histoire">
+  <div class="pres-grid sw">
+    <div class="pres-text">
+      <p id="lk-pres-label" class="section-label reveal">Notre histoire</p>
+      <h2 id="lk-pres-title" class="section-title reveal d1">Une cuisine <em>végétale</em><br>qui fait du bien</h2>
+      <p class="section-lead reveal d2" id="lk-presentation">Chez Itsy Bitsy, on croit que manger végétalien peut être une explosion de saveurs. Depuis notre ouverture rue Jeanne Maillotte, on cuisine avec passion des recettes colorées, créatives et 100% végétales.</p>
+      <p id="lk-pres-text2" class="reveal d3" style="font-family:'Cormorant Garamond',serif;font-size:1.08rem;color:var(--c-slate);line-height:1.9;margin-top:1rem;">Produits de saison soigneusement sélectionnés, associations audacieuses, textures surprenantes — chaque plat est pensé pour régaler les vegans comme les curieux. Notre service traiteur végétalien propose des formules sur mesure pour vos événements.</p>
+      <div class="pres-badges reveal d4">
+        <span id="lk-badge-0" class="badge-pill">🌱 100% Végétalien</span>
+        <span id="lk-badge-1" class="badge-pill">♻️ Produits locaux</span>
+        <span id="lk-badge-2" class="badge-pill">🧑‍🍳 Cuisine créative</span>
+        <span id="lk-badge-3" class="badge-pill">🎉 Service traiteur</span>
+        <span id="lk-badge-4" class="badge-pill">☀️ Terrasse</span>
+      </div>
+    </div>
+    <div class="pres-img-wrap reveal d2" data-lke-wrap="pres">
+      <div class="pres-img-frame" aria-hidden="true"></div>
+      <img id="lk-img-pres" class="pres-img" data-lke-img="pres">
+      <div class="pres-stat">
+        <div id="lk-stat-num" class="pres-stat-num">100%</div>
+        <div id="lk-stat-label" class="pres-stat-label">Recommandé · 56 avis</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" data-lke-section="menu" aria-label="La carte et le traiteur">
+
+  <!-- ── HEADER ── -->
+  <div class="menu-header reveal">
+    <p id="lk-menu-label" class="section-label">La carte &amp; Traiteur</p>
+    <h2 id="lk-menu-title" class="section-title">Une cuisine <em>de saison</em>,<br>végétale à 100%</h2>
+    <p class="section-lead" style="margin:0 auto;" id="lk-menu-lead">Chaque carte évolue avec les saisons. Disponible sur place et en formule traiteur pour vos événements (min. 10 pers.).</p>
+  </div>
+
+  <!-- ── SAISON SWITCHER ── -->
+  <div class="saison-switcher reveal">
+    <button id="lk-saison-btn-0" class="saison-btn active" data-saison="ete">☀️ Carte d'Été</button>
+    <button id="lk-saison-btn-1" class="saison-btn" data-saison="printemps">🌸 Carte de Printemps</button>
+    <button id="lk-saison-btn-2" class="saison-btn" data-saison="traiteur">🧾 Modalités Traiteur</button>
+  </div>
+
+  <!-- ══════════════════════ CARTE D'ÉTÉ ══════════════════════ -->
+  <div class="saison-panel active" id="saison-ete">
+
+    <div class="saison-header reveal">
+      <div id="lk-saison-badge-0" class="saison-badge ete">☀️ Carte d'Été — jusqu'au 20 septembre 2025</div>
+    </div>
+
+    <!-- Brunch dominical -->
+    <div class="brunch-card reveal">
+      <div class="brunch-price-block">
+        <div id="lk-ete-brunch-label" class="brunch-price-label">Brunch du dimanche</div>
+        <div id="lk-ete-brunch-prix" class="brunch-price">25€</div>
+        <div id="lk-ete-brunch-sub" class="brunch-price-sub">par personne</div>
+      </div>
+      <div class="brunch-divider" aria-hidden="true"></div>
+      <div class="brunch-info">
+        <h3 id="lk-ete-h3">Brunch Végétalien de Saison</h3>
+        <ul class="brunch-items">
+          <li id="lk-ete-li-0">Bun cream cheese, petits pois, avocat &amp; roquette</li>
+          <li id="lk-ete-li-1">Lentilles citronnées, légumes grillés &amp; roquette</li>
+          <li id="lk-ete-li-2">Parfait granola, yaourt vanillé &amp; pommes caramélisées</li>
+          <li id="lk-ete-li-3">Pancakes, mousse de cacahuète, banane &amp; caramel</li>
+          <li id="lk-ete-li-4">Cookie noix de pécan &amp; chocolat</li>
+          <li id="lk-ete-li-5">Pain &amp; confiture maison · Jus de pomme · Thé ou café</li>
+        </ul>
+        <p id="lk-ete-brunch-note" class="brunch-note">📅 Dimanche uniquement · 11h–13h ou 13h–15h · Sur réservation</p>
+      </div>
+    </div>
+
+    <!-- 3 formules traiteur été -->
+    <div class="formules-grid reveal">
+
+      <!-- Formule Buffet -->
+      <div class="formule-card" data-lk-drag="formule-card">
+        <div class="formule-header buffet">
+          <span class="formule-icon">🥗</span>
+          <div>
+            <div id="lk-ete-fn-0" class="formule-name">Formule Buffet</div>
+            <div id="lk-ete-fp-0" class="formule-price">15€ / pers.</div>
+          </div>
+        </div>
+        <ul class="formule-items">
+          <li id="lk-ete-li-6">Quinoa, pois chiches grillés, courgettes, carotte, pomme &amp; graines de courge</li>
+          <li id="lk-ete-li-7">Pommes de terre grenailles, pickles, tomates confites, épinards, radis, salicorne &amp; noix</li>
+          <li id="lk-ete-li-8">Riz noir, chou rouge, carottes rôties, concombre, fèves, roquette, grenade &amp; sarrasin grillé</li>
+          <li id="lk-ete-li-9">Houmous au curry</li>
+          <li id="lk-ete-li-10">Cookie tomate &amp; romarin · Foccacia aux légumes d'été</li>
+        </ul>
+        <div class="formule-extras">
+          <span>+ Falafel 1€/pièce</span>
+          <span>+ Samosa 1,5€/pièce</span>
+          <span>+ Pièces sucrées 1,6€/pièce</span>
+        </div>
+      </div>
+
+      <!-- Formule Cocktail -->
+      <div class="formule-card" data-lk-drag="formule-card">
+        <div class="formule-header cocktail">
+          <span class="formule-icon">🍢</span>
+          <div>
+            <div id="lk-ete-fn-1" class="formule-name">Formule Cocktail</div>
+            <div id="lk-ete-fp-1" class="formule-price">14€ / pers.</div>
+          </div>
+        </div>
+        <div id="lk-ete-fsub" class="formule-subtitle">8 pièces cocktail par personne</div>
+        <ul class="formule-items">
+          <li id="lk-ete-li-11">Roulé de concombre, avocat, pomme &amp; sésame</li>
+          <li id="lk-ete-li-12">Mini poivron farci</li>
+          <li id="lk-ete-li-13">Falafel de poivron grillé aux cornflakes</li>
+          <li id="lk-ete-li-14">Foccacia aux légumes d'été</li>
+          <li id="lk-ete-li-15">Aubergine rôtie au sumac &amp; crème aux herbes</li>
+          <li id="lk-ete-li-16">Mini financier aux courgettes &amp; pignons de pin</li>
+          <li id="lk-ete-li-17">Cookie salé tomate &amp; romarin</li>
+          <li id="lk-ete-li-18">Panna cotta de carotte au curry</li>
+        </ul>
+      </div>
+
+      <!-- Plateau Repas -->
+      <div class="formule-card" data-lk-drag="formule-card">
+        <div class="formule-header plateau">
+          <span class="formule-icon">🍱</span>
+          <div>
+            <div id="lk-ete-fn-2" class="formule-name">Plateau Repas</div>
+            <div id="lk-ete-fp-2" class="formule-price">15€ / pers.</div>
+          </div>
+        </div>
+        <ul class="formule-items">
+          <li id="lk-ete-li-19"><strong>Entrée :</strong> Tartare de légumes croquants &amp; crème d'avocat</li>
+          <li id="lk-ete-li-20"><strong>Plat :</strong> Bowl d'été — Quinoa, légumes rôtis, falafels, houmous, crudités &amp; pesto + Pain</li>
+          <li id="lk-ete-li-21"><strong>Dessert :</strong> Cookie chocolat &amp; cacahuètes <em>ou</em> Financier matcha-framboise (+1€)</li>
+        </ul>
+        <div class="formule-extras">
+          <span>🥤 Jus de pomme 2€/pers.</span>
+          <span>Autres softs 3€/pers.</span>
+          <span>Alcools sur devis</span>
+        </div>
+      </div>
+
+    </div><!-- /formules-grid -->
+  </div><!-- /saison-ete -->
+
+  <!-- ══════════════════════ CARTE DE PRINTEMPS ══════════════════════ -->
+  <div class="saison-panel" id="saison-printemps">
+
+    <div class="saison-header reveal">
+      <div id="lk-saison-badge-1" class="saison-badge printemps">🌸 Carte de Printemps — jusqu'au 20 juin 2025</div>
+    </div>
+
+    <!-- Brunch -->
+    <div class="brunch-card reveal">
+      <div class="brunch-price-block">
+        <div id="lk-psp-brunch-label" class="brunch-price-label">Brunch du dimanche</div>
+        <div id="lk-psp-brunch-prix" class="brunch-price">25€</div>
+        <div id="lk-psp-brunch-sub" class="brunch-price-sub">par personne</div>
+      </div>
+      <div class="brunch-divider" aria-hidden="true"></div>
+      <div class="brunch-info">
+        <h3>Brunch Végétalien de Saison</h3>
+        <ul class="brunch-items">
+          <li id="lk-psp-li-0">Bun cream cheese, petits pois, avocat &amp; roquette</li>
+          <li id="lk-psp-li-1">Lentilles citronnées, légumes grillés &amp; roquette</li>
+          <li id="lk-psp-li-2">Parfait granola, yaourt vanillé &amp; pommes caramélisées</li>
+          <li id="lk-psp-li-3">Pancakes, mousse de cacahuète, banane &amp; caramel</li>
+          <li id="lk-psp-li-4">Cookie noix de pécan &amp; chocolat</li>
+          <li id="lk-psp-li-5">Pain &amp; confiture maison · Jus de pomme · Thé ou café</li>
+        </ul>
+        <p id="lk-psp-brunch-note" class="brunch-note">📅 Dimanche uniquement · 11h–13h ou 13h–15h · Sur réservation</p>
+      </div>
+    </div>
+
+    <!-- 3 formules traiteur printemps -->
+    <div class="formules-grid reveal">
+
+      <!-- Buffet Printemps -->
+      <div class="formule-card" data-lk-drag="formule-card">
+        <div class="formule-header buffet">
+          <span class="formule-icon">🥗</span>
+          <div>
+            <div id="lk-psp-fn-0" class="formule-name">Formule Buffet</div>
+            <div id="lk-psp-fp-0" class="formule-price">15€ / pers.</div>
+          </div>
+        </div>
+        <ul class="formule-items">
+          <li id="lk-psp-li-6">Quinoa, pousses d'épinards, poireaux confits, pomme, pois chiches grillés, carotte &amp; cacahuète</li>
+          <li id="lk-psp-li-7">Pommes de terre grenailles, pickles d'oignon rouge, roquette, radis &amp; pignons de pin</li>
+          <li id="lk-psp-li-8">Salade moutarde, lentilles, concombre, carottes rôties, avocat, betterave, persil &amp; raisins secs</li>
+          <li id="lk-psp-li-9">Houmous au curry</li>
+          <li id="lk-psp-li-10">Cookie carotte, cumin &amp; cacahuètes · Mini cake aux olives</li>
+        </ul>
+        <div class="formule-extras">
+          <span>+ Falafel 1€/pièce</span>
+          <span>+ Samosa 1,5€/pièce</span>
+          <span>+ Pièces sucrées 1,6€/pièce</span>
+        </div>
+      </div>
+
+      <!-- Cocktail Printemps -->
+      <div class="formule-card" data-lk-drag="formule-card">
+        <div class="formule-header cocktail">
+          <span class="formule-icon">🍢</span>
+          <div>
+            <div id="lk-psp-fn-1" class="formule-name">Formule Cocktail</div>
+            <div id="lk-psp-fp-1" class="formule-price">14€ / pers.</div>
+          </div>
+        </div>
+        <div id="lk-psp-fsub" class="formule-subtitle">8 pièces cocktail par personne</div>
+        <ul class="formule-items">
+          <li id="lk-psp-li-11">Tatin d'oignons rouges &amp; labneh</li>
+          <li id="lk-psp-li-12">Crème de radis, pointe d'asperge &amp; crumble aux herbes</li>
+          <li id="lk-psp-li-13">Falafel aux cornflakes &amp; crème au raifort</li>
+          <li id="lk-psp-li-14">Foccacia aux légumes de saison</li>
+          <li id="lk-psp-li-15">Chou fleur rôti aux épices &amp; pané au sésame</li>
+          <li id="lk-psp-li-16">Mini financier aux olives &amp; pignons de pin</li>
+          <li id="lk-psp-li-17">Poireau, sauce soja, houmous &amp; cacahuète grillée</li>
+          <li id="lk-psp-li-18">Panna cotta de carotte, curry &amp; pop-corn</li>
+        </ul>
+      </div>
+
+      <!-- Plateau Repas Printemps -->
+      <div class="formule-card" data-lk-drag="formule-card">
+        <div class="formule-header plateau">
+          <span class="formule-icon">🍱</span>
+          <div>
+            <div id="lk-psp-fn-2" class="formule-name">Plateau Repas</div>
+            <div id="lk-psp-fp-2" class="formule-price">15€ / pers.</div>
+          </div>
+        </div>
+        <ul class="formule-items">
+          <li id="lk-psp-li-19"><strong>Entrée :</strong> Tatin d'oignon rouge &amp; roquette</li>
+          <li id="lk-psp-li-20"><strong>Plat :</strong> Bowl de printemps — Quinoa, légumes rôtis, falafels, houmous, crudités &amp; pesto + Pain</li>
+          <li id="lk-psp-li-21"><strong>Dessert :</strong> Cookie chocolat &amp; noix de pécan <em>ou</em> Gâteau aux pommes caramélisées (+1€)</li>
+        </ul>
+        <div class="formule-extras">
+          <span>🥤 Jus de pomme 2€/pers.</span>
+          <span>Autres softs 3€/pers.</span>
+          <span>Alcools sur devis</span>
+        </div>
+      </div>
+
+    </div><!-- /formules-grid -->
+  </div><!-- /saison-printemps -->
+
+  <!-- ══════════════════════ MODALITÉS TRAITEUR ══════════════════════ -->
+  <div class="saison-panel" id="saison-traiteur">
+    <div class="modalites-grid reveal">
+
+      <div class="modalite-card">
+        <div class="modalite-icon">⏰</div>
+        <div class="modalite-text">
+          <strong>Minimum 10 personnes</strong>
+          <span>Commande à passer au plus tard <strong>8 jours</strong> avant votre événement</span>
+        </div>
+      </div>
+
+      <div class="modalite-card">
+        <div class="modalite-icon">✉️</div>
+        <div class="modalite-text">
+          <strong>Une seule adresse</strong>
+          <span>Pour toutes vos commandes traiteur : <a href="mailto:itsybitsylille@gmail.com">itsybitsylille@gmail.com</a></span>
+        </div>
+      </div>
+
+      <div class="modalite-card">
+        <div class="modalite-icon">🚚</div>
+        <div class="modalite-text">
+          <strong>Livraison possible</strong>
+          <span>Jusqu'à 70 km environ — nous consulter</span>
+        </div>
+      </div>
+
+      <div class="modalite-card">
+        <div class="modalite-icon">♻️</div>
+        <div class="modalite-text">
+          <strong>Contenants écologiques</strong>
+          <span>La formule buffet est présentée dans <strong>nos contenants</strong>, à restituer la semaine suivant votre événement</span>
+        </div>
+      </div>
+
+      <div class="modalite-card">
+        <div class="modalite-icon">💳</div>
+        <div class="modalite-text">
+          <strong>Acompte de 30%</strong>
+          <span>Demandé pour valider votre commande</span>
+        </div>
+      </div>
+
+      <div class="modalite-card alert">
+        <div class="modalite-icon">🌿</div>
+        <div class="modalite-text">
+          <strong>Saisonnalité</strong>
+          <span>La saisonnalité des légumes étant très changeante, certains légumes peuvent changer selon l'arrivage.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modalites-cta reveal">
+      <p>Prêt à commander pour votre événement ?</p>
+      <a href="mailto:itsybitsylille@gmail.com" class="btn-primary">Demander un devis traiteur →</a>
+    </div>
+  </div><!-- /saison-traiteur -->
+
+</section>
+
+<!-- GALERIE -->
+<section id="galerie" data-lke-section="galerie" aria-label="Galerie photos Itsy Bitsy">
+  <div class="galerie-header">
+    <div>
+      <p id="lk-gal-label" class="section-label">Galerie</p>
+      <h2 id="lk-gal-title" class="section-title reveal">La vie chez <em>Itsy Bitsy</em></h2>
+    </div>
+    <a href="https://www.instagram.com/itsybitsylille" id="lk-gal-insta" class="galerie-insta reveal" target="_blank" rel="noopener">📸 @itsybitsylille</a>
+  </div>
+  <div class="gallery-grid reveal" role="list">
+    <div class="g-item" data-lke-wrap="gal-0" tabindex="0" aria-label="Salade végétale signature">
+      <img id="lk-img-gal-0" data-lke-img="gal-0" src="assets/hero-plat.jpg" alt="Salade végétale colorée Itsy Bitsy" loading="lazy">
+      <div class="g-item-overlay"><span>Plats signature</span></div>
+    </div>
+    <div class="g-item" data-lke-wrap="gal-1" tabindex="0" aria-label="Herbes fraîches du marché">
+      <img id="lk-img-gal-1" data-lke-img="gal-1" src="assets/herbes-fraiches.jpg" alt="Herbes et légumes frais de saison" loading="lazy">
+      <div class="g-item-overlay"><span>Produits frais</span></div>
+    </div>
+    <div class="g-item" data-lke-wrap="gal-2" tabindex="0" aria-label="L'équipe Itsy Bitsy">
+      <img id="lk-img-gal-2" data-lke-img="gal-2" src="assets/equipe.jpg" alt="L'équipe et l'ambiance Itsy Bitsy Lille" loading="lazy">
+      <div class="g-item-overlay"><span>Notre équipe</span></div>
+    </div>
+    <div class="g-item" data-lke-wrap="gal-3" tabindex="0" aria-label="Assiette végétale">
+      <img id="lk-img-gal-3" data-lke-img="gal-3" src="assets/hero-plat.jpg" alt="Assiette végétale du chef" loading="lazy" style="object-position:bottom">
+      <div class="g-item-overlay"><span>Cuisine du chef</span></div>
+    </div>
+    <div class="g-item" data-lke-wrap="gal-4" tabindex="0" aria-label="Ingrédients de saison">
+      <img id="lk-img-gal-4" data-lke-img="gal-4" src="assets/herbes-fraiches.jpg" alt="Ingrédients frais de saison" loading="lazy" style="object-position:top">
+      <div class="g-item-overlay"><span>De saison</span></div>
+    </div>
+    <div class="g-item" data-lke-wrap="gal-5" tabindex="0" aria-label="Événements Itsy Bitsy">
+      <img id="lk-img-gal-5" data-lke-img="gal-5" src="assets/equipe.jpg" alt="Événements et brunch Itsy Bitsy" loading="lazy" style="object-position:top">
+      <div class="g-item-overlay"><span>Brunch &amp; événements</span></div>
+    </div>
+  </div>
+</section>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie">
+  <button id="lightbox-close" aria-label="Fermer">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- AVIS -->
+<section id="avis" data-lke-section="avis" aria-label="Avis clients">
+  <div class="avis-header sw reveal">
+    <p id="lk-avis-label" class="section-label">Témoignages</p>
+    <h2 id="lk-avis-title" class="section-title">Ce que disent <em>nos clients</em></h2>
+    <div class="avis-score-row">
+      <div id="lk-avis-big-num" class="avis-big-num">100%</div>
+      <div class="avis-meta">
+        <div class="avis-stars">★★★★★</div>
+        <div id="lk-avis-count" class="avis-count">Recommandé · 56 avis Facebook</div>
+      </div>
+    </div>
+  </div>
+  <div class="avis-track-wrap sw reveal d1">
+    <div class="avis-track" id="avisTrack">
+      <div class="avis-card" data-lk-drag="avis-card"><div class="avis-card-stars">★★★★★</div><p id="lk-avis-txt-0" class="avis-card-text">« Une cuisine végétale qui m'a totalement conquis ! Les plats sont colorés, frais et vraiment savoureux. Je recommande le bun avocat sans hésiter. »</p><div id="lk-avis-aut-0" class="avis-card-author">Marie L.</div></div>
+      <div class="avis-card" data-lk-drag="avis-card"><div class="avis-card-stars">★★★★★</div><p id="lk-avis-txt-1" class="avis-card-text">« Le brunch du dimanche est une merveille ! Tout est fait maison, généreux et délicieux. L'équipe est accueillante et passionnée. »</p><div id="lk-avis-aut-1" class="avis-card-author">Thomas B.</div></div>
+      <div class="avis-card" data-lk-drag="avis-card"><div class="avis-card-stars">★★★★★</div><p id="lk-avis-txt-2" class="avis-card-text">« J'y vais régulièrement depuis l'ouverture. La carte change avec les saisons, on est toujours surpris. Un bijou dans le Vieux-Lille. »</p><div id="lk-avis-aut-2" class="avis-card-author">Sophie M.</div></div>
+      <div class="avis-card" data-lk-drag="avis-card"><div class="avis-card-stars">★★★★★</div><p id="lk-avis-txt-3" class="avis-card-text">« Même en n'étant pas végétalien, j'ai adoré ! Les saveurs sont au rendez-vous. Le cookie noix de pécan est à tomber. À tester absolument ! »</p><div id="lk-avis-aut-3" class="avis-card-author">Julien R.</div></div>
+      <div class="avis-card" data-lk-drag="avis-card"><div class="avis-card-stars">★★★★★</div><p id="lk-avis-txt-4" class="avis-card-text">« Service traiteur impeccable pour notre événement d'entreprise. Les plateaux végétaliens ont fait l'unanimité. Merci à toute l'équipe ! »</p><div id="lk-avis-aut-4" class="avis-card-author">Camille D.</div></div>
+      <div class="avis-card" data-lk-drag="avis-card"><div class="avis-card-stars">★★★★★</div><p id="lk-avis-txt-5" class="avis-card-text">« Enfin un resto végétalien chaleureux ! L'ambiance est super, les prix sont raisonnables. Je reviens chaque semaine sans hésiter. »</p><div id="lk-avis-aut-5" class="avis-card-author">Élise F.</div></div>
+    </div>
+  </div>
+  <div class="avis-dots" id="avisDots" role="group" aria-label="Navigation carrousel avis"></div>
+</section>
+
+<!-- HORAIRES + RÉSERVATION -->
+<section id="horaires" data-lke-section="horaires" aria-label="Horaires et réservation">
+  <div class="horaires-grid sw">
+    <div>
+      <p id="lk-hor-label" class="section-label reveal">Horaires</p>
+      <h2 id="lk-hor-title" class="section-title reveal d1">Quand nous <em>trouver</em> ?</h2>
+      <div id="statusPill" class="status-pill reveal d2"><span class="status-dot"></span><span id="statusText" class="lk-status-text">Vérification…</span></div>
+      <div class="hours-table reveal d3" role="table" aria-label="Horaires d'ouverture">
+        <div class="hours-row" data-day="1"><span id="lk-h-lun-jour" class="hours-day">Lundi</span><span id="lk-h-lun" class="hours-time closed">Fermé</span></div>
+        <div class="hours-row" data-day="2"><span id="lk-h-mar-jour" class="hours-day">Mardi</span><span id="lk-h-mar" class="hours-time">11h30 – 15h00</span></div>
+        <div class="hours-row" data-day="3"><span id="lk-h-mer-jour" class="hours-day">Mercredi</span><span id="lk-h-mer" class="hours-time">11h30 – 15h00</span></div>
+        <div class="hours-row" data-day="4"><span id="lk-h-jeu-jour" class="hours-day">Jeudi</span><span id="lk-h-jeu" class="hours-time">11h30 – 15h00</span></div>
+        <div class="hours-row" data-day="5"><span id="lk-h-ven-jour" class="hours-day">Vendredi</span><span id="lk-h-ven" class="hours-time">11h30 – 15h00</span></div>
+        <div class="hours-row" data-day="6"><span id="lk-h-sam-jour" class="hours-day">Samedi</span><span id="lk-h-sam" class="hours-time">11h30 – 15h00</span></div>
+        <div class="hours-row" data-day="0"><span id="lk-h-dim-jour" class="hours-day">Dimanche</span><span id="lk-h-dim" class="hours-time">Brunch 11h–15h · Sur réservation</span></div>
+      </div>
+    </div>
+    
+    <div class="resa-box reveal d2" data-lke-keep="reservations">
+      <h3 id="lk-resa-title">Réserver une table</h3>
+      <p id="lk-resa-subtitle">Choisissez votre date et votre créneau — disponibilités en temps réel.</p>
+      <div class="form-grid" id="resaForm">
+        <div class="form-field"><label id="lk-label-nom" for="r-nom">Nom complet</label><input type="text" id="r-nom" placeholder="Votre nom" autocomplete="name"></div>
+        <div class="form-field"><label id="lk-label-email" for="r-email">Email</label><input type="email" id="r-email" placeholder="votre@email.fr" autocomplete="email"></div>
+        <div class="form-field"><label id="lk-label-tel" for="r-tel">Téléphone</label><input type="tel" id="r-tel" placeholder="06 00 00 00 00" autocomplete="tel"></div>
+        <div class="form-field"><label id="lk-label-couverts" for="r-cv">Couverts</label><select id="r-cv" onchange="resaRefreshSlots()"><option value="">Choisir…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+        <div class="form-field"><label id="lk-label-date" for="r-date">Date souhaitée</label><input type="date" id="r-date" onchange="resaRefreshSlots()"></div>
+        <div class="form-field"><label id="lk-label-creneau" for="r-creneau">Créneau</label><select id="r-creneau" onfocus="resaMaybeRefresh()"><option value="">Choisir d'abord une date…</option></select></div>
+        <div class="form-field full" id="resa-dispo-hint" style="display:none"><div style="font-size:.8rem;color:var(--c-sage);background:rgba(78,128,96,.08);padding:.6rem .9rem;border-radius:9px" id="resa-dispo-hint-txt"></div></div>
+        <div class="form-field full"><label id="lk-label-msg" for="r-msg">Message (allergies, occasion…)</label><textarea id="r-msg" placeholder="Précisez toute demande particulière…"></textarea></div>
+        <div class="form-field full" id="resa-err" style="display:none"><div style="font-size:.82rem;color:var(--c-clay);background:rgba(196,113,74,.1);padding:.6rem .9rem;border-radius:9px" id="resa-err-txt"></div></div>
+        <button id="lk-resa-btn" class="btn-submit" onclick="resaSubmit()">Envoyer ma réservation →</button>
+      </div>
+      <div id="resaOk" style="display:none;padding:1.5rem;background:#e8f5e9;border-radius:12px;color:#1e6b2e;text-align:center;margin-top:1rem;">✅ <strong>Merci !</strong> <span id="resaOkMsg">Votre réservation est confirmée.</span><br><button onclick="resaFormReset()" style="margin-top:.8rem;background:none;border:1.5px solid #1e6b2e;color:#1e6b2e;padding:.5rem 1.2rem;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit">Nouvelle réservation</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCALISATION -->
+<section id="localisation" data-lke-section="localisation" aria-label="Nous trouver">
+  <div style="text-align:center;margin-bottom:3rem;" class="sw">
+    <p id="lk-loc-label" class="section-label reveal">Nous trouver</p>
+    <h2 id="lk-loc-title" class="section-title reveal d1">Au cœur de <em>Lille</em></h2>
+  </div>
+  <div class="loc-grid sw">
+    <div class="loc-info reveal">
+      <div class="loc-block"><div class="loc-icon">📍</div><div class="loc-block-text"><strong>Adresse</strong><span id="lk-loc-adresse" class="lk-adresse">10 rue Jeanne Maillotte<br>59000 Lille, France</span></div></div>
+      <div class="loc-block"><div class="loc-icon">📞</div><div class="loc-block-text"><strong>Téléphone</strong><a href="tel:+33320875764" id="lk-loc-telephone" class="lk-telephone">03 20 87 57 64</a></div></div>
+      <div class="loc-block"><div class="loc-icon">✉️</div><div class="loc-block-text"><strong>Email</strong><a href="mailto:itsybitsylille@gmail.com" id="lk-loc-email" class="lk-email">itsybitsylille@gmail.com</a></div></div>
+      <div class="loc-block"><div class="loc-icon">🚇</div><div class="loc-block-text"><strong>Accès</strong><span id="lk-loc-acces">Métro Rihour (M1/M2)<br>Terrasse en été · Sur place · Retrait</span></div></div>
+      <div class="loc-block"><div class="loc-icon">💼</div><div class="loc-block-text"><strong>Service Traiteur</strong><span id="lk-loc-traiteur-desc">Plateaux végétaliens pour vos événements</span><br><a href="mailto:itsybitsylille@gmail.com" id="lk-loc-traiteur-cta">Nous contacter pour un devis</a></div></div>
+      <a id="lk-loc-btn" class="loc-btn">🗺️ Voir l'itinéraire</a>
+    </div>
+    <div class="map-wrap reveal d2">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1265.8!2d3.0610!3d50.6302!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d57e07c1d1f1%3A0xbe1e4a8c9f6bfb0c!2s10%20Rue%20Jeanne%20Maillotte%2C%2059000%20Lille!5e0!3m2!1sfr!2sfr!4v1700000000001!5m2!1sfr!2sfr" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Itsy Bitsy 10 rue Jeanne Maillotte Lille"></iframe>
+    </div>
+  </div>
+</section>
+
+
+
+<footer role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-mark-f" aria-hidden="true">itsy<br>bitsy<br><small>lille</small></div>
+      <h4 id="lk-footer-name">Itsy Bitsy</h4>
+      <p id="lk-footer-desc">Restaurant &amp; traiteur 100% végétalien · Lille</p>
+      <div class="footer-social" aria-label="Réseaux sociaux">
+        <a href="https://www.facebook.com/itsybitsylille" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+        <a href="https://www.instagram.com/itsybitsylille" target="_blank" rel="noopener" aria-label="Instagram">▣</a>
+      </div>
+    </div>
+    <div class="footer-center">
+      <h5>Contact</h5>
+      <address><span id="lk-footer-adresse" class="lk-adresse">10 rue Jeanne Maillotte<br>59000 Lille, France</span><a href="tel:+33320875764" id="lk-footer-tel" class="ft-tel lk-telephone">03 20 87 57 64</a><a href="mailto:itsybitsylille@gmail.com" id="lk-footer-email" class="lk-email" style="display:block;color:var(--c-fern);margin-top:4px;font-size:.84rem;">itsybitsylille@gmail.com</a></address>
+    </div>
+    <div class="footer-nav-col">
+      <h5>Navigation</h5>
+      <ul>
+        <li><a href="#presentation">Notre histoire</a></li>
+        <li><a href="#menu">La carte</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#avis">Avis clients</a></li>
+        <li><a href="#horaires">Horaires &amp; réservation</a></li>
+        <li><a href="#localisation">Nous trouver</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span id="lk-footer-copy">© 2024 Itsy Bitsy — Cuisine Végétale · Lille</span>
+    <span style="display:flex;gap:1.2rem;"><a href="#">Mentions légales</a><a href="#">Confidentialité</a><a href="mailto:itsybitsylille@gmail.com">Contact</a></span>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav'),ham=document.getElementById('ham'),mob=document.getElementById('mobileNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+ham.addEventListener('click',()=>{const o=ham.classList.toggle('open');mob.classList.toggle('open',o);ham.setAttribute('aria-expanded',o);});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open');ham.setAttribute('aria-expanded','false');}));
+document.addEventListener('click',e=>{if(mob.classList.contains('open')&&!nav.contains(e.target)&&!mob.contains(e.target)){ham.classList.remove('open');mob.classList.remove('open');}});
+
+document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tab-btn').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-selected','false');});
+  document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');b.setAttribute('aria-selected','true');
+  document.getElementById('tab-'+b.dataset.tab).classList.add('active');
+}));
+
+const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightbox-img');
+document.querySelectorAll('.g-item').forEach(item=>{
+  const open=()=>{lbImg.src=item.querySelector('img').src;lbImg.alt=item.querySelector('img').alt;lb.classList.add('open');document.body.style.overflow='hidden';};
+  item.addEventListener('click',open);
+  item.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')open();});
+});
+const closeLB=()=>{lb.classList.remove('open');document.body.style.overflow='';};
+document.getElementById('lightbox-close').addEventListener('click',closeLB);
+lb.addEventListener('click',e=>{if(e.target===lb)closeLB();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();});
+
+const track=document.getElementById('avisTrack'),dotsEl=document.getElementById('avisDots');
+const cards=[...track.querySelectorAll('.avis-card')];
+let cur=0,timer;
+const vis=()=>window.innerWidth<560?1:window.innerWidth<860?1:3;
+const total=()=>Math.ceil(cards.length/vis());
+function buildDots(){dotsEl.innerHTML='';for(let i=0;i<total();i++){const d=document.createElement('button');d.className='avis-dot'+(i===0?' active':'');d.setAttribute('aria-label','Avis '+(i+1));d.addEventListener('click',()=>go(i));dotsEl.appendChild(d);}}
+function go(i){cur=(i+total())%total();const w=cards[0].offsetWidth+24;track.style.transform=`translateX(-${cur*w*vis()}px)`;dotsEl.querySelectorAll('.avis-dot').forEach((d,j)=>d.classList.toggle('active',j===cur));}
+const startTimer=()=>{clearInterval(timer);timer=setInterval(()=>go(cur+1),4500);};
+buildDots();startTimer();
+track.addEventListener('mouseenter',()=>clearInterval(timer));
+track.addEventListener('mouseleave',startTimer);
+window.addEventListener('resize',()=>{buildDots();go(0);},{passive:true});
+
+(function(){
+  const now=new Date(),day=now.getDay(),h=now.getHours(),m=now.getMinutes(),t=h+m/60;
+  document.querySelectorAll('.hours-row').forEach(r=>r.classList.toggle('today',+r.dataset.day===day));
+  const pill=document.getElementById('statusPill'),txt=document.getElementById('statusText');
+  const open=(day>=2&&day<=6&&t>=11.5&&t<15)||(day===0&&t>=11&&t<15);
+  if(day===1){pill.className='status-pill closed';txt.textContent="Fermé aujourd'hui (lundi)";}
+  else if(open){pill.className='status-pill open';const rem=Math.round((15-t)*60);txt.textContent=rem<60?`Ouvert · Ferme dans ${rem} min`:'Ouvert maintenant';}
+  else{pill.className='status-pill closed';txt.textContent=day===0?'Fermé · Brunch sur réservation uniquement':'Fermé · Ouvre à 11h30';}
+})();
+
+// Reveal system - fire immediately and on scroll
+function triggerReveals(){
+  document.querySelectorAll('.reveal:not(.visible)').forEach(function(el){
+    var r=el.getBoundingClientRect();
+    if(r.top < window.innerHeight + 80) el.classList.add('visible');
+  });
+}
+triggerReveals();
+setTimeout(triggerReveals, 50);
+setTimeout(triggerReveals, 200);
+setTimeout(triggerReveals, 500);
+window.addEventListener('scroll', triggerReveals, {passive:true});
+window.addEventListener('load', function(){ triggerReveals(); setTimeout(triggerReveals,100); });
+</script>
+<style id="reveal-fallback">
+</style>
+<script>
+// Saison switcher
+document.querySelectorAll('.saison-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.saison-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.saison-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('saison-'+btn.dataset.saison).classList.add('active');
+    // Trigger reveals for newly visible panel
+    setTimeout(triggerReveals, 50);
+  });
+});
+
+// Force all reveals visible at multiple intervals
+[0, 100, 300, 700, 1500].forEach(function(t){
+  setTimeout(function(){
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
+  }, t);
+});
+</script>
+
+<!-- Loksite live editing listener -->
+
+<script>
+(function() {
+
+// ── GARDE ANTI-DOUBLE-INIT ─────────────────────────────────────────
+// Si ce script s'exécute une seconde fois (rechargement partiel du
+// preview, re-render déclenché par le parent, etc.), on ne doit PAS
+// recréer la toolbar, les boutons flottants (+Texte / +Image) ni les
+// badges d'image : c'est la cause des "boutons bleus" et autres
+// contrôles qui se dupliquent visuellement dans le preview.
+if (window.__lkeEditorBooted) {
+  console.warn('[LKE] Script preview déjà initialisé — 2e exécution ignorée.');
+  return;
+}
+window.__lkeEditorBooted = true;
+
+// ── ÉTAT ────────────────────────────────────────────────────────
+var E = {
+  sel: null,      // élément sélectionné
+  selId: null,    // son ID lk-*
+  hist: [],       // historique undo {id, old, cur}
+  future: [],
+  drag: null,     // élément en cours de drag
+  dragOver: null,
+};
+
+// ── CSS GLOBAL ───────────────────────────────────────────────────
+var style = document.createElement('style');
+style.id = 'lke-edit-style';
+style.textContent = `
+/* Désactiver animations */
+*{animation-play-state:paused!important;transition:none!important}
+/* opacity/animation toujours forcés (compense la pause globale des
+   animations en mode édition) — SÉPARÉ de transform, qui lui doit
+   pouvoir être piloté par le glisser-déposer une fois l'élément
+   passé en mode positionnement libre (.lke-free), sinon le texte
+   redevient invisible dès qu'on le bouge (il retombe à son opacity:0
+   de départ car son animation d'apparition reste en pause). */
+.reveal,.d1,.d2,.d3,.d4,.d5{opacity:1!important}
+.reveal:not(.lke-free):not([data-custom-pos]),.d1:not(.lke-free):not([data-custom-pos]),.d2:not(.lke-free):not([data-custom-pos]),.d3:not(.lke-free):not([data-custom-pos]),.d4:not(.lke-free):not([data-custom-pos]),.d5:not(.lke-free):not([data-custom-pos]){transform:none!important}
+.hero-eyebrow,.hero-title,.hero-tagline,.hero-btns,.hero-badge,.hero-scroll{opacity:1!important;animation:none!important}
+.hero-eyebrow:not(.lke-free):not([data-custom-pos]),.hero-title:not(.lke-free):not([data-custom-pos]),.hero-tagline:not(.lke-free):not([data-custom-pos]),.hero-btns:not(.lke-free):not([data-custom-pos]),.hero-badge:not(.lke-free):not([data-custom-pos]),.hero-scroll:not(.lke-free):not([data-custom-pos]){transform:none!important}
+
+/* Éléments éditables */
+[data-lke]{
+  outline:none!important;
+  cursor:text!important;
+  position:relative;
+}
+[data-lke]:not(:focus)::after{
+  content:'';
+  position:absolute;
+  inset:-1px;
+  border:1.5px dashed rgba(79,110,247,.5);
+  border-radius:3px;
+  pointer-events:none;
+  z-index:9990;
+}
+[data-lke]:hover::after{border-color:rgba(79,110,247,.9);}
+[data-lke]:focus{background:rgba(79,110,247,.06)!important;outline:2px solid #4f6ef7!important;outline-offset:2px;}
+/* Fix titre hero - span/em éditables */
+/* Ne PAS forcer display:inline-block ici : ça change la boîte (donc la
+   position réelle) uniquement pendant l'édition, puisque cette règle ne
+   s'applique que tant que [data-lke] est présent — attribut retiré à la
+   publication. On garde seulement le curseur/la sélection de texte. */
+#lk-hero-titre-span[data-lke] {
+  cursor:text!important;
+  -webkit-user-select:text!important;user-select:text!important;
+}
+#lk-hero-sous-titre[data-lke] {
+  cursor:text!important;
+  -webkit-user-select:text!important;user-select:text!important;
+}
+#lk-hero-titre { cursor:default; }
+[data-lke].lke-selected::after{border-color:#4f6ef7!important;border-style:solid!important;}
+
+/* Drag & drop */
+[data-lk-drag]{cursor:grab!important;position:relative;}
+[data-lk-drag]:hover > .lk-drag-handle{display:flex!important;}
+.lk-drag-handle{
+  position:absolute;top:6px;right:6px;
+  width:24px;height:24px;border-radius:5px;
+  background:rgba(79,110,247,.9);color:#fff;
+  font-size:12px;cursor:grab;z-index:9995;
+  display:none;align-items:center;justify-content:center;
+}
+[data-lk-drag].lke-dragging{opacity:.4;border:2px dashed #4f6ef7!important;}
+[data-lk-drag].lke-drag-over{outline:2px solid #22c55e;outline-offset:3px;}
+
+/* Toolbar flottante */
+#lke-toolbar{
+  position:fixed;z-index:99998;
+  background:linear-gradient(180deg,#1e293b,#182231);
+  border:1px solid #334155;
+  border-radius:12px;padding:7px 9px;
+  display:none;align-items:center;gap:3px;
+  flex-wrap:wrap;max-width:380px;
+  box-shadow:0 10px 36px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.03) inset;
+  font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+  pointer-events:auto;
+}
+#lke-toolbar.visible{display:flex;}
+.lkt-sep{width:1px;align-self:stretch;margin:2px 4px;background:linear-gradient(180deg,transparent,#334155,transparent);}
+.lkt-btn{
+  background:none;border:none;color:#94a3b8;cursor:pointer;
+  border-radius:6px;padding:6px 8px;font-size:12px;line-height:1;
+  min-height:26px;display:inline-flex;align-items:center;justify-content:center;gap:4px;
+  transition:background .12s ease,color .12s ease,transform .06s ease;white-space:nowrap;
+}
+.lkt-btn:hover{background:#2c3b52;color:#e2e8f0;}
+.lkt-btn:active{transform:scale(.94);}
+.lkt-btn.on{background:#4f6ef7;color:#fff;}
+.lkt-color{width:24px;height:24px;border:1px solid #334155;border-radius:6px;padding:2px;background:#0f172a;cursor:pointer;transition:border-color .12s;}
+.lkt-color:hover{border-color:#4f6ef7;}
+.lkt-num{
+  width:46px;background:#0f172a;border:1px solid #334155;border-radius:6px;
+  color:#e2e8f0;padding:5px 6px;font-size:11px;text-align:center;outline:none;
+  transition:border-color .12s;
+}
+.lkt-num:focus{border-color:#4f6ef7;}
+.lkt-sel{
+  background:#0f172a;border:1px solid #334155;border-radius:6px;
+  color:#e2e8f0;padding:5px 7px;font-size:11px;cursor:pointer;outline:none;max-width:120px;
+  transition:border-color .12s;
+}
+.lkt-sel:focus,.lkt-sel:hover{border-color:#4f6ef7;}
+.lkt-ai{
+  background:linear-gradient(135deg,#4f6ef7,#7c3aed);color:#fff;
+  border:none;border-radius:7px;padding:6px 12px;font-size:11px;
+  font-weight:700;cursor:pointer;white-space:nowrap;
+  transition:opacity .12s,transform .06s;
+}
+.lkt-ai:hover{opacity:.88;}
+.lkt-ai:active{transform:scale(.96);}
+
+/* Icônes d'alignement (barres) — plus claires que du texte/glyphes */
+.lkt-align-bars{display:flex;flex-direction:column;gap:2.5px;width:15px;}
+.lkt-align-bars i{display:block;height:2px;background:currentColor;border-radius:1px;}
+.lkt-align-bars-left i:nth-child(1){width:100%}
+.lkt-align-bars-left i:nth-child(2){width:65%}
+.lkt-align-bars-left i:nth-child(3){width:82%}
+.lkt-align-bars-center i{margin:0 auto;}
+.lkt-align-bars-center i:nth-child(1){width:100%}
+.lkt-align-bars-center i:nth-child(2){width:60%}
+.lkt-align-bars-center i:nth-child(3){width:78%}
+.lkt-align-bars-right i{margin-left:auto;}
+.lkt-align-bars-right i:nth-child(1){width:100%}
+.lkt-align-bars-right i:nth-child(2){width:65%}
+.lkt-align-bars-right i:nth-child(3){width:82%}
+
+/* Mode libre (Phase C1) */
+.lke-free{outline:1px dashed #4f6ef7!important;outline-offset:2px}
+.lke-free-handle{
+  position:fixed;z-index:99998;width:24px;height:24px;background:#4f6ef7;
+  border-radius:6px;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:13px;cursor:move;user-select:none;
+  box-shadow:0 2px 8px rgba(0,0,0,.35);
+}
+.lke-resize-handle{
+  position:fixed;z-index:99998;width:14px;height:14px;background:#fff;
+  border:2px solid #4f6ef7;border-radius:50%;cursor:nwse-resize;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
+}
+
+/* IA inline popup */
+#lke-ai-pop{
+  position:fixed;z-index:99999;
+  background:#1e293b;border:1px solid #4f6ef7;border-radius:10px;
+  padding:12px;width:300px;display:none;flex-direction:column;gap:8px;
+  box-shadow:0 12px 40px rgba(0,0,0,.6);font-family:system-ui,sans-serif;
+}
+#lke-ai-pop.visible{display:flex;}
+#lke-ai-prompt{
+  width:100%;background:#0f172a;border:1px solid #334155;border-radius:7px;
+  color:#e2e8f0;padding:8px;font-size:12px;resize:none;outline:none;
+  font-family:inherit;line-height:1.5;box-sizing:border-box;
+}
+#lke-ai-prompt:focus{border-color:#4f6ef7;}
+#lke-ai-send{
+  background:#4f6ef7;color:#fff;border:none;border-radius:7px;
+  padding:7px;font-size:12px;font-weight:600;cursor:pointer;width:100%;
+}
+#lke-ai-send:disabled{opacity:.4;}
+#lke-ai-pgb{height:3px;background:#334155;border-radius:2px;overflow:hidden;display:none;}
+#lke-ai-pgf{height:100%;background:#4f6ef7;width:0%;transition:width .3s;}
+
+body{padding-bottom:0!important;}
+`;
+document.head.appendChild(style);
+
+// ── TOOLBAR HTML ─────────────────────────────────────────────────
+var toolbar = document.createElement('div');
+toolbar.id = 'lke-toolbar';
+toolbar.setAttribute('data-lke-ui', '1');
+toolbar.innerHTML = `
+  <select class="lkt-sel" id="lkt-font" title="Police">
+    <option value="">Police</option>
+    <option value="'Playfair Display',serif">Playfair Display</option>
+    <option value="'Cormorant Garamond',serif">Cormorant Garamond</option>
+    <option value="'Jost',sans-serif">Jost</option>
+    <option value="Georgia,serif">Georgia</option>
+    <option value="system-ui,sans-serif">System UI</option>
+  </select>
+  <input class="lkt-num" id="lkt-size" type="number" min="8" max="200" placeholder="px" title="Taille">
+  <div class="lkt-sep"></div>
+  <button class="lkt-btn" id="lkt-b" title="Gras"><b>B</b></button>
+  <button class="lkt-btn" id="lkt-i" title="Italique"><i>I</i></button>
+  <button class="lkt-btn" id="lkt-u" title="Souligné"><u>U</u></button>
+  <div class="lkt-sep"></div>
+  <button class="lkt-btn" id="lkt-al" title="Aligner à gauche"><span class="lkt-align-bars lkt-align-bars-left"><i></i><i></i><i></i></span></button>
+  <button class="lkt-btn" id="lkt-ac" title="Centrer"><span class="lkt-align-bars lkt-align-bars-center"><i></i><i></i><i></i></span></button>
+  <button class="lkt-btn" id="lkt-ar" title="Aligner à droite"><span class="lkt-align-bars lkt-align-bars-right"><i></i><i></i><i></i></span></button>
+  <div class="lkt-sep"></div>
+  <input class="lkt-color" id="lkt-color" type="color" title="Couleur du texte">
+  <input class="lkt-color" id="lkt-bgcolor" type="color" title="Couleur de fond">
+  <button class="lkt-btn" id="lkt-bgcolor-clear" title="Retirer la couleur de fond (transparent)" style="font-size:10px">Fond ✕</button>
+  <div class="lkt-sep"></div>
+  <button class="lkt-btn" id="lkt-dup" title="Dupliquer cet élément">Dupliquer</button>
+  <button class="lkt-btn" id="lkt-del" title="Supprimer cet élément" style="color:#f87171">Supprimer</button>
+  <div class="lkt-sep"></div>
+  <button class="lkt-ai" id="lkt-ai-btn">IA</button>
+  <button class="lkt-btn" id="lkt-close" title="Fermer" style="margin-left:4px;color:#64748b">✕</button>
+`;
+document.body.appendChild(toolbar);
+
+// ── BOUTON FLOTTANT « Ajouter du texte » (toujours visible en mode édition) ─
+var addTextBtn = document.createElement('button');
+addTextBtn.id = 'lke-addtext-fab';
+addTextBtn.setAttribute('data-lke-ui', '1');
+addTextBtn.textContent = '+ Ajouter un texte';
+addTextBtn.title = 'Ajouter une nouvelle zone de texte libre';
+addTextBtn.style.cssText =
+  'position:fixed;bottom:20px;right:20px;z-index:99997;display:inline-block;' +
+  'background:#4f6ef7;color:#fff;border:none;border-radius:100px;' +
+  'padding:11px 18px;font-size:13px;font-weight:700;cursor:pointer;' +
+  'box-shadow:0 8px 24px rgba(79,110,247,.4);font-family:system-ui,sans-serif;';
+addTextBtn.addEventListener('mousedown', function(e) { e.stopPropagation(); });
+addTextBtn.addEventListener('click', function(e) {
+  e.stopPropagation();
+  window.lkeAddTextZone();
+});
+document.body.appendChild(addTextBtn);
+
+// ── BOUTON FLOTTANT « Ajouter une image » (+ glisser-déposer un fichier) ─
+var addImgFileInput = document.createElement('input');
+addImgFileInput.type = 'file';
+addImgFileInput.accept = 'image/*';
+addImgFileInput.style.display = 'none';
+addImgFileInput.setAttribute('data-lke-ui', '1');
+document.body.appendChild(addImgFileInput);
+
+var addImgBtn = document.createElement('button');
+addImgBtn.id = 'lke-addimg-fab';
+addImgBtn.setAttribute('data-lke-ui', '1');
+addImgBtn.textContent = '+ Ajouter une image';
+addImgBtn.title = "Ajouter une image (ou glisser-déposer un fichier n'importe où sur la page)";
+addImgBtn.style.cssText =
+  'position:fixed;bottom:66px;right:20px;z-index:99997;display:inline-block;' +
+  'background:#1e293b;color:#fff;border:1px solid #334155;border-radius:100px;' +
+  'padding:11px 18px;font-size:13px;font-weight:700;cursor:pointer;' +
+  'box-shadow:0 8px 24px rgba(0,0,0,.35);font-family:system-ui,sans-serif;';
+addImgBtn.addEventListener('mousedown', function(e) { e.stopPropagation(); });
+addImgBtn.addEventListener('click', function(e) {
+  e.stopPropagation();
+  addImgFileInput.value = '';
+  addImgFileInput.click();
+});
+document.body.appendChild(addImgBtn);
+
+addImgFileInput.addEventListener('change', function() {
+  var file = this.files[0];
+  if (file) window.lkeAddImageFromFile(file);
+});
+
+// Glisser-déposer une image n'importe où sur la page pour l'ajouter
+document.addEventListener('dragover', function(e) { e.preventDefault(); });
+document.addEventListener('drop', function(e) {
+  var file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+  if (!file || file.type.indexOf('image/') !== 0) return;
+  e.preventDefault();
+  window.lkeAddImageFromFile(file, e.clientX, e.clientY);
+});
+
+
+// ── IA POPUP HTML ────────────────────────────────────────────────
+var aiPop = document.createElement('div');
+aiPop.id = 'lke-ai-pop';
+aiPop.setAttribute('data-lke-ui', '1');
+aiPop.innerHTML = `
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em">✨ Réécrire avec l'IA</div>
+  <textarea id="lke-ai-prompt" rows="2" placeholder="Ex: Rends plus accrocheur, raccourcis à 5 mots..."></textarea>
+  <button id="lke-ai-send">Envoyer</button>
+  <div id="lke-ai-pgb"><div id="lke-ai-pgf"></div></div>
+`;
+document.body.appendChild(aiPop);
+
+// ── UTILITAIRES ───────────────────────────────────────────────────
+function rgbToHex(rgb) {
+  var m = (rgb||'').match(/(\d+),\s*(\d+),\s*(\d+)/);
+  if (!m) return '#000000';
+  return '#' + [m[1],m[2],m[3]].map(function(n){ return (+n).toString(16).padStart(2,'0'); }).join('');
+}
+
+function positionToolbar(el) {
+  var r = el.getBoundingClientRect();
+  var tw = 360;
+  var th = toolbar.offsetHeight || 44;
+  var top = r.top - th - 8;
+  var left = r.left;
+  if (top < 8) top = r.bottom + 8;
+  if (left + tw > window.innerWidth - 8) left = window.innerWidth - tw - 8;
+  if (left < 8) left = 8;
+  toolbar.style.top = top + 'px';
+  toolbar.style.left = left + 'px';
+}
+
+function syncToolbarToEl(el) {
+  var cs = window.getComputedStyle(el);
+  var fEl = document.getElementById('lkt-font'); if(fEl) fEl.value = '';
+  var sEl = document.getElementById('lkt-size'); if(sEl) sEl.value = Math.round(parseFloat(cs.fontSize)) || '';
+  var cEl = document.getElementById('lkt-color'); if(cEl) cEl.value = rgbToHex(cs.color);
+  var bgEl = document.getElementById('lkt-bgcolor'); if(bgEl) bgEl.value = rgbToHex(cs.backgroundColor);
+  var fw = cs.fontWeight;
+  var bEl = document.getElementById('lkt-b'); if(bEl) bEl.classList.toggle('on', parseInt(fw) >= 600);
+  var iEl = document.getElementById('lkt-i'); if(iEl) iEl.classList.toggle('on', cs.fontStyle === 'italic');
+  var uEl = document.getElementById('lkt-u'); if(uEl) uEl.classList.toggle('on', cs.textDecorationLine.indexOf('underline') !== -1);
+  ['al','ac','ar'].forEach(function(id) { document.getElementById('lkt-' + id).classList.remove('on'); });
+  var ta = cs.textAlign;
+  if (ta === 'left' || ta === 'start') document.getElementById('lkt-al').classList.add('on');
+  else if (ta === 'center') document.getElementById('lkt-ac').classList.add('on');
+  else if (ta === 'right') document.getElementById('lkt-ar').classList.add('on');
+}
+
+function notifyParent(key, value) {
+  var styleInfo = {};
+  if (E.sel) {
+    var cs = window.getComputedStyle(E.sel);
+    styleInfo = {
+      color:      rgbToHex(cs.color),
+      fontSize:   cs.fontSize,
+      fontFamily: cs.fontFamily,
+      fontWeight: cs.fontWeight,
+      textAlign:  cs.textAlign
+    };
+  }
+  try { window.parent.postMessage({ type: 'lke-edit', key: key, value: value, style: styleInfo }, '*'); } catch(e) {}
+}
+
+function applyStyle(prop, val) {
+  if (!E.sel) return;
+  var el = E.sel;
+
+  // ── Correctif alignement : `text-align` n'a AUCUN effet visuel sur un
+  // élément inline (span, em, a, strong, b, small...) — la propriété ne
+  // s'applique qu'aux conteneurs de type bloc, pour aligner le contenu
+  // *à l'intérieur* d'eux. Beaucoup de zones de texte éditables sont des
+  // <span>/<em> (ex. titres découpés en plusieurs morceaux), ce qui
+  // rendait les boutons d'alignement inopérants sur ces blocs, même si
+  // le style était bien posé en mémoire. On force donc l'élément à
+  // devenir display:block avant d'appliquer l'alignement, uniquement
+  // quand c'est nécessaire (on ne casse pas la mise en page des
+  // éléments déjà en bloc/inline-block/flex/grid).
+  if (prop === 'textAlign') {
+    var curDisplay = window.getComputedStyle(el).display;
+    // `text-align` n'a d'effet visuel que sur un conteneur de type bloc
+    // qui occupe (ou peut occuper) plus de largeur que son contenu.
+    // - display:inline → aucun effet, l'élément épouse son contenu.
+    // - display:inline-block (et autres inline-*) → l'élément a beau
+    //   établir son propre contexte de bloc, sa largeur reste calée sur
+    //   son contenu (shrink-to-fit) tant qu'aucune largeur n'est fixée :
+    //   centrer/aligner du texte à l'intérieur d'une boîte de la même
+    //   largeur que ce texte ne change donc rien visuellement non plus.
+    // Dans les deux cas, on passe l'élément en display:block, qui prend
+    // toute la largeur disponible du parent par défaut et rend
+    // l'alignement effectif.
+    if (curDisplay === 'inline' || curDisplay.indexOf('inline-') === 0) {
+      if (!el.hasAttribute('data-lke-orig-display')) {
+        el.setAttribute('data-lke-orig-display', el.style.display || '');
+      }
+      el.style.display = 'block';
+    }
+  }
+
+  var oldVal = el.style[prop];
+  el.style[prop] = val;
+
+  // Historique : permet d'annuler/refaire les changements de style
+  // (couleur, alignement, gras, police...), qui jusqu'ici n'étaient pas
+  // suivis par le système d'undo/redo.
+  if (oldVal !== val) {
+    pushHist({ type: 'style', el: el, prop: prop, old: oldVal, cur: val });
+  }
+
+  if (E.selId) notifyParent('style:' + E.selId, JSON.stringify({ prop: prop, val: val }));
+}
+
+// ── SÉLECTION D'UN ÉLÉMENT ────────────────────────────────────────
+function selectEl(el) {
+  if (E.sel && E.sel !== el) {
+    E.sel.classList.remove('lke-selected');
+    E.sel.blur();
+  }
+  E.sel = el;
+  E.selId = el.getAttribute('data-lke');
+  el.classList.add('lke-selected');
+  syncToolbarToEl(el);
+  toolbar.classList.add('visible');
+  positionToolbar(el);
+  // La position libre (déplacer / redimensionner / dupliquer) est activée
+  // automatiquement dès la sélection — plus besoin d'un interrupteur séparé.
+  enableFreePositioning(el);
+}
+
+function deselect() {
+  if (E.sel) { E.sel.classList.remove('lke-selected'); E.sel = null; E.selId = null; }
+  toolbar.classList.remove('visible');
+  aiPop.classList.remove('visible');
+  clearFreeUI();
+}
+
+// ── MODE LIBRE : déplacement libre + redimensionnement ─────────────
+var freeUI = { handle: null, resize: null, el: null };
+
+function clearFreeUI() {
+  ['handle', 'resize'].forEach(function(k) {
+    if (freeUI[k]) { freeUI[k].remove(); freeUI[k] = null; }
+  });
+  if (freeUI.el) { freeUI.el.classList.remove('lke-free'); freeUI.el = null; }
+}
+
+function positionFreeUI(el) {
+  var r = el.getBoundingClientRect();
+  if (freeUI.handle) {
+    // Si la barre d'outils est visible et couvre la même zone (texte court),
+    // placer la poignée au-dessus d'elle plutôt qu'au-dessus de l'élément,
+    // pour ne pas cacher les boutons de la barre (couleur, alignement...).
+    var handleTop = r.top - 28;
+    if (toolbar.classList.contains('visible')) {
+      var tRect = toolbar.getBoundingClientRect();
+      if (tRect.bottom > handleTop && tRect.top < (handleTop + 24)) {
+        handleTop = tRect.top - 28;
+      }
+    }
+    // Si l'élément est trop proche du haut de la fenêtre (ex: titre du
+    // hero), la poignée calculée au-dessus sort de l'écran ou se
+    // retrouve coincée derrière la barre d'outils — impossible à
+    // attraper à la souris même si techniquement cliquable au pixel
+    // près. On la place alors SOUS l'élément à la place.
+    if (handleTop < 4) {
+      handleTop = r.bottom + 8;
+    }
+    freeUI.handle.style.top = handleTop + 'px'; freeUI.handle.style.left = r.left + 'px';
+  }
+  if (freeUI.resize) { freeUI.resize.style.top = (r.bottom - 7) + 'px'; freeUI.resize.style.left = (r.right - 7) + 'px'; }
+}
+
+function enableFreePositioning(el) {
+  var cs = window.getComputedStyle(el);
+  if (cs.position === 'static') el.style.position = 'relative';
+  if (!el.style.transform) el.style.transform = 'translate(0px,0px)';
+  el.classList.add('lke-free');
+  buildFreeUI(el);
+}
+
+// ── Rendre un élément réellement déplaçable via transform ──────────
+// La propriété CSS `transform` n'a AUCUN effet sur un élément inline non
+// remplacé (span, em, a, strong, small...). Or plusieurs zones éditables
+// en sont : le « Itsy Bitsy » du titre hero est un <span>, celui de la
+// barre de navigation aussi (<span class="logo-name">). Le glisser-déposer
+// semblait donc totalement inopérant sur ces textes précis, alors même que
+// la valeur du transform était correctement calculée et mémorisée.
+// On bascule ces éléments en inline-block AU MOMENT du premier déplacement
+// réel — jamais au simple clic de sélection, pour ne pas modifier la mise
+// en page sans action volontaire de l'utilisateur.
+// Le marqueur data-lke-disp-fix permet à l'éditeur (espace.html) de retirer
+// ce display de secours à la publication si l'élément n'a finalement aucune
+// position personnalisée (pas de data-custom-pos).
+function lkeEnsureTransformable(el) {
+  if (!el) return;
+  var cs = window.getComputedStyle(el);
+  if (cs.position === 'static') el.style.position = 'relative';
+  if (cs.display === 'inline') {
+    el.style.display = 'inline-block';
+    el.setAttribute('data-lke-disp-fix', '1');
+  }
+  el.style.transformOrigin = 'top left';
+}
+window.lkeEnsureTransformable = lkeEnsureTransformable;
+
+// ── Zoom par clic (boutons − / +), sans avoir à glisser une poignée ─
+function lkeAdjustScale(el, delta) {
+  lkeEnsureTransformable(el);
+  var startTransform = el.style.transform || 'translate(0px,0px) scale(1)';
+  var t0 = parseFreeTransform(startTransform);
+  var newScale = Math.max(0.2, Math.min(6, Math.round((t0.s + delta) * 100) / 100));
+  el.style.transform = buildFreeTransform({ x: t0.x, y: t0.y, s: newScale });
+  el.setAttribute('data-custom-pos', '1');
+  pushHist({ type: 'transform', el: el, old: startTransform, cur: el.style.transform });
+  try { window.parent.postMessage({ type: 'lke-resize' }, '*'); } catch(e) {}
+  // Si les poignées de déplacement sont déjà affichées sur cet élément,
+  // les réaligner sur sa nouvelle taille.
+  if ((freeUI.handle || freeUI.resize) && el.classList.contains('lke-free')) positionFreeUI(el);
+}
+
+// ── Création d'une zone de texte libre ─────────────────────────────
+var lkeTextCounter = 0;
+window.lkeAddTextZone = function() {
+  var newId = 'lk-custom-text-' + Date.now() + '-' + (lkeTextCounter++);
+  var div = document.createElement('div');
+  div.id = newId;
+  div.textContent = 'Nouveau texte';
+  // Positionné en absolu par rapport à la page (pas à une section), pour ne
+  // jamais être écrasé par une mise en page en grille/flex existante, et
+  // placé directement dans la zone déjà visible à l'écran (pas besoin de
+  // scroller, ce qui évite tout décalage des poignées de déplacement).
+  var top = window.scrollY + 140;
+  var left = window.scrollX + Math.max(20, Math.round(window.innerWidth / 2) - 160);
+  div.style.cssText = 'position:absolute;top:' + top + 'px;left:' + left + 'px;max-width:320px;' +
+    'font-family:inherit;font-size:1.1rem;color:#1c3428;z-index:5000;';
+  document.body.appendChild(div);
+  mkEditable(div, newId);
+  div.style.transform = 'translate(0px,0px)';
+  selectEl(div);
+  pushHist({ type: 'create', el: div, parent: document.body, ref: div.nextSibling });
+  try { window.parent.postMessage({ type: 'lke-create-text' }, '*'); } catch(e) {}
+};
+
+// ── Ajout d'une image libre (bouton "+ Ajouter une image" ou glisser-déposer) ─
+var lkeImgCounter = 0;
+window.lkeAddImageFromFile = function(file, clientX, clientY) {
+  if (!file) { console.warn('[LKE] lkeAddImageFromFile appelé sans fichier'); return; }
+  if (file.type.indexOf('image/') !== 0) {
+    console.warn('[LKE] Fichier rejeté (pas une image):', file.type);
+    try { window.parent.postMessage({ type: 'lke-error', context: 'img-add', message: 'Le fichier sélectionné n\'est pas une image.' }, '*'); } catch (e0) {}
+    return;
+  }
+  var MAX_MB = 8;
+  if (file.size > MAX_MB * 1024 * 1024) {
+    console.warn('[LKE] Image trop lourde (' + Math.round(file.size / 1024 / 1024) + 'Mo)');
+    try { window.parent.postMessage({ type: 'lke-error', context: 'img-add', message: 'Image trop lourde (max ' + MAX_MB + 'Mo). Compressez-la avant de l\'ajouter.' }, '*'); } catch (e0) {}
+    return;
+  }
+  var reader = new LKImageReader(); // Storage au lieu de base64 (repli automatique)
+  reader.onerror = function() {
+    console.error('[LKE] Échec de lecture du fichier image à ajouter', reader.error);
+    try { window.parent.postMessage({ type: 'lke-error', context: 'img-add', message: 'Échec de lecture du fichier image.' }, '*'); } catch (e0) {}
+  };
+  reader.onload = function(ev) {
+    var src = ev.target.result;
+    var wrapId = 'custom-img-' + Date.now() + '-' + (lkeImgCounter++);
+    var wrap = document.createElement('div');
+    wrap.setAttribute('data-lke-wrap', wrapId);
+    var top, left;
+    if (typeof clientX === 'number' && typeof clientY === 'number') {
+      // Déposé à l'endroit exact du glisser-déposer
+      top = window.scrollY + clientY - 60;
+      left = window.scrollX + clientX - 100;
+    } else {
+      // Ajouté via le bouton : placé dans la zone visible à l'écran
+      top = window.scrollY + 140;
+      left = window.scrollX + Math.max(20, Math.round(window.innerWidth / 2) - 140);
+    }
+    wrap.style.cssText = 'position:absolute;top:' + top + 'px;left:' + left + 'px;max-width:280px;z-index:5000;';
+    var img = document.createElement('img');
+    img.src = src;
+    img.alt = '';
+    img.style.cssText = 'display:block;width:100%;height:auto;border-radius:8px;box-shadow:0 8px 28px rgba(0,0,0,.25);';
+    wrap.appendChild(img);
+    document.body.appendChild(wrap);
+    console.log('[LKE] Nouvelle image libre créée:', wrapId, '(' + Math.round(file.size / 1024) + ' Ko)');
+    // Attache automatiquement les boutons Remplacer / Supprimer (comme
+    // toutes les autres images de la page).
+    if (window.initImages) window.initImages();
+    enableFreePositioning(wrap);
+    pushHist({ type: 'create', el: wrap, parent: document.body, ref: wrap.nextSibling });
+    try { window.parent.postMessage({ type: 'lke-create-image' }, '*'); } catch(e) {}
+  };
+  reader.readAsDataURL(file);
+};
+
+// ── Dupliquer / supprimer l'élément actuellement sélectionné ──────
+window.lkeDuplicateSelected = function() {
+  var el = E.sel;
+  if (!el) return;
+  var clone = el.cloneNode(true);
+  // Le clone hérite de data-lke / id de l'original : il faut les retirer
+  // avant de le réenregistrer comme élément éditable à part entière.
+  clone.removeAttribute('data-lke');
+  var origId = el.id;
+  var newId = null;
+  if (origId) {
+    var base = origId.replace(/-copy\d+$/, '');
+    var n = 1;
+    do { newId = base + '-copy' + n; n++; } while (document.getElementById(newId));
+    clone.id = newId;
+  } else {
+    clone.removeAttribute('id');
+  }
+  // Léger décalage pour bien voir que c'est une copie distincte
+  var m2 = /translate\(([-\d.]+)px,\s*([-\d.]+)px\)/.exec(clone.style.transform || '') || [0, 0, 0];
+  var ox = (parseFloat(m2[1]) || 0) + 20, oy = (parseFloat(m2[2]) || 0) + 20;
+  clone.style.transform = 'translate(' + ox + 'px,' + oy + 'px)';
+  el.parentNode.insertBefore(clone, el.nextSibling);
+  if (newId) { try { mkEditable(clone, newId); } catch(e2) {} }
+  clone.classList.add('lke-free');
+  pushHist({ type: 'duplicate', el: clone, parent: el.parentNode, ref: clone.nextSibling });
+  try { window.parent.postMessage({ type: 'lke-duplicate' }, '*'); } catch(e) {}
+  selectEl(clone);
+};
+
+window.lkeDeleteSelected = function() {
+  var el = E.sel;
+  if (!el) return;
+  var parent = el.parentNode, ref = el.nextSibling;
+  pushHist({ type: 'delete', el: el, parent: parent, ref: ref });
+  el.remove();
+  clearFreeUI();
+  deselect();
+  try { window.parent.postMessage({ type: 'lke-delete' }, '*'); } catch(e) {}
+};
+
+function parseFreeTransform(str) {
+  var mt = /translate\(([-\d.]+)px,\s*([-\d.]+)px\)/.exec(str || '');
+  var ms = /scale\(([\d.]+)\)/.exec(str || '');
+  return {
+    x: mt ? parseFloat(mt[1]) : 0,
+    y: mt ? parseFloat(mt[2]) : 0,
+    s: ms ? parseFloat(ms[1]) : 1
+  };
+}
+function buildFreeTransform(t) {
+  return 'translate(' + t.x + 'px,' + t.y + 'px) scale(' + t.s + ')';
+}
+
+function buildFreeUI(el) {
+  clearFreeUI();
+  el.style.transformOrigin = 'top left';
+  el.classList.add('lke-free');
+  freeUI.el = el;
+
+  var h = document.createElement('div');
+  h.className = 'lke-free-handle';
+  h.setAttribute('data-lke-ui', '1');
+  h.textContent = '⠿';
+  h.title = 'Glisser pour déplacer · double-clic pour réinitialiser la position';
+  document.body.appendChild(h);
+  freeUI.handle = h;
+
+  var rs = document.createElement('div');
+  rs.className = 'lke-resize-handle';
+  rs.setAttribute('data-lke-ui', '1');
+  rs.title = 'Redimensionner';
+  document.body.appendChild(rs);
+  freeUI.resize = rs;
+
+  positionFreeUI(el);
+
+  // Déplacement libre (glisser la poignée ⠿)
+  h.addEventListener('mousedown', function(ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    // Garantir que `transform` aura bien un effet sur cet élément
+    // (cas des textes inline : span/em) AVANT de mesurer quoi que ce soit.
+    lkeEnsureTransformable(el);
+    positionFreeUI(el);
+    var startX = ev.clientX, startY = ev.clientY;
+    var startTransform = el.style.transform || 'translate(0px,0px) scale(1)';
+    var t0 = parseFreeTransform(startTransform);
+    // data-custom-pos est posé DÈS LE DÉBUT du glissement, pas à la fin :
+    // c'est lui qui neutralise « .reveal.visible{transform:...!important} ».
+    // Tant qu'il était posé seulement au relâchement de la souris, l'élément
+    // restait figé sous le curseur pendant tout le déplacement puis sautait
+    // d'un coup à sa nouvelle position — d'où l'impression que le glisser
+    // déposer ne marchait pas. On mémorise l'état précédent pour pouvoir le
+    // restaurer si l'utilisateur relâche sans avoir rien bougé.
+    var hadCustomPos = el.hasAttribute('data-custom-pos');
+    el.setAttribute('data-custom-pos', '1');
+    function onMove(e2) {
+      var dx = e2.clientX - startX, dy = e2.clientY - startY;
+      el.style.transform = buildFreeTransform({ x: t0.x + dx, y: t0.y + dy, s: t0.s });
+      positionFreeUI(el);
+    }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      if (el.style.transform !== startTransform) {
+        pushHist({ type: 'transform', el: el, old: startTransform, cur: el.style.transform });
+        try { window.parent.postMessage({ type: 'lke-drag' }, '*'); } catch(e) {}
+      } else if (!hadCustomPos) {
+        // Simple clic sur la poignée, sans déplacement : on ne laisse aucune
+        // trace (sinon l'élément perdrait son animation d'apparition pour rien).
+        el.removeAttribute('data-custom-pos');
+        if (el.hasAttribute('data-lke-disp-fix')) {
+          el.style.removeProperty('display');
+          el.removeAttribute('data-lke-disp-fix');
+        }
+      }
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+
+  // Double-clic sur la poignée ⠿ : réinitialise la position/taille
+  // personnalisée (utile pour corriger un élément resté mal placé à
+  // cause de l'ancien bug de retour en arrière au moment du glisser).
+  h.addEventListener('dblclick', function(ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    var oldTransform = el.style.transform || '';
+    var hadCustomPos = el.hasAttribute('data-custom-pos');
+    el.style.transform = '';
+    el.removeAttribute('data-custom-pos');
+    // Retirer aussi le display:inline-block de secours : il n'a plus de raison
+    // d'être une fois la position réinitialisée.
+    if (el.hasAttribute('data-lke-disp-fix')) {
+      el.style.removeProperty('display');
+      el.removeAttribute('data-lke-disp-fix');
+    }
+    positionFreeUI(el);
+    if (oldTransform || hadCustomPos) {
+      pushHist({ type: 'transform', el: el, old: oldTransform, cur: '' });
+      try { window.parent.postMessage({ type: 'lke-drag' }, '*'); } catch(e) {}
+    }
+  });
+
+  // Redimensionnement (glisser le coin rond) — agrandit/réduit tout l'élément
+  // via un zoom (transform:scale), ce qui fonctionne de façon fiable même
+  // pour des images placées dans une grille CSS (où changer width/height
+  // directement n'a souvent aucun effet visible).
+  rs.addEventListener('mousedown', function(ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    // Même préparation que pour le déplacement : sans cela, `scale()` reste
+    // sans effet sur un texte inline et la poignée paraît cassée.
+    lkeEnsureTransformable(el);
+    positionFreeUI(el);
+    var startX = ev.clientX, startY = ev.clientY;
+    var startTransform = el.style.transform || 'translate(0px,0px) scale(1)';
+    var t0 = parseFreeTransform(startTransform);
+    var startRect = el.getBoundingClientRect();
+    var naturalW = startRect.width / t0.s || 1;
+    // Même logique que pour le déplacement : le marqueur est posé dès le
+    // début pour que le redimensionnement soit visible en direct.
+    var hadCustomPos = el.hasAttribute('data-custom-pos');
+    el.setAttribute('data-custom-pos', '1');
+    function onMove(e2) {
+      var dx = e2.clientX - startX;
+      var newWidth = Math.max(24, startRect.width + dx);
+      var newScale = Math.max(0.2, Math.min(6, newWidth / naturalW));
+      el.style.transform = buildFreeTransform({ x: t0.x, y: t0.y, s: newScale });
+      positionFreeUI(el);
+    }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      if (el.style.transform !== startTransform) {
+        pushHist({ type: 'transform', el: el, old: startTransform, cur: el.style.transform });
+        try { window.parent.postMessage({ type: 'lke-resize' }, '*'); } catch(e) {}
+      } else if (!hadCustomPos) {
+        el.removeAttribute('data-custom-pos');
+        if (el.hasAttribute('data-lke-disp-fix')) {
+          el.style.removeProperty('display');
+          el.removeAttribute('data-lke-disp-fix');
+        }
+      }
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+}
+
+// ── RENDRE UN ÉLÉMENT ÉDITABLE ────────────────────────────────────
+function mkEditable(el, key) {
+  if (!el || el.hasAttribute('data-lke')) return;
+  el.setAttribute('data-lke', key);
+  el.setAttribute('contenteditable', 'true');
+  el.setAttribute('spellcheck', 'false');
+
+  el.addEventListener('click', function(e) {
+    e.stopPropagation();
+    selectEl(el);
+  });
+
+  el.addEventListener('focus', function() { selectEl(el); });
+  el.addEventListener('mousedown', function(e) { e.stopPropagation(); });
+
+  el.addEventListener('input', function() {
+    var val = el.innerText || el.textContent || '';
+    // Historique
+    var last = E.hist[E.hist.length - 1];
+    if (!last || last.id !== key || (Date.now() - last.ts) > 800) {
+      E.hist.push({ type: 'text', id: key, old: last ? last.cur : val, cur: val, ts: Date.now(), el: el });
+      E.future = [];
+      updateHistUI();
+    } else { last.cur = val; last.ts = Date.now(); }
+    notifyParent(key, val);
+  });
+
+  el.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) e.preventDefault();
+    if (e.key === 'Escape') { el.blur(); deselect(); }
+    if ((e.metaKey || e.ctrlKey) && e.key === 'z') { e.preventDefault(); lkeUndo(); }
+    if ((e.metaKey || e.ctrlKey) && e.key === 'y') { e.preventDefault(); lkeRedo(); }
+  });
+}
+
+// ── UNDO / REDO ───────────────────────────────────────────────────
+// Historique générique : chaque entrée a un "type" (text / transform /
+// resize / zindex / duplicate / delete / create) et sait s'annuler /
+// se refaire elle-même via applyEntry().
+function pushHist(entry) {
+  entry.ts = Date.now();
+  E.hist.push(entry);
+  E.future = [];
+  updateHistUI();
+}
+
+function applyEntry(entry, dir) {
+  var toOld = (dir === 'undo');
+  switch (entry.type) {
+    case 'text':
+      var val = toOld ? entry.old : entry.cur;
+      if (entry.el) { entry.el.textContent = val; notifyParent(entry.id, val); }
+      break;
+    case 'transform':
+      if (entry.el) {
+        var tv = toOld ? entry.old : entry.cur;
+        entry.el.style.transform = tv;
+        // Synchroniser le marqueur de position personnalisée. Sans cela, un
+        // « annuler » complet laissait data-custom-pos en place : l'élément
+        // revenait bien à sa position d'origine mais restait définitivement
+        // exclu de son animation d'apparition, et le HTML publié gardait un
+        // transform inline inutile.
+        var pf = parseFreeTransform(tv);
+        if (!tv || (pf.x === 0 && pf.y === 0 && pf.s === 1)) {
+          entry.el.removeAttribute('data-custom-pos');
+        } else {
+          entry.el.setAttribute('data-custom-pos', '1');
+        }
+      }
+      break;
+    case 'resize':
+      if (entry.el) {
+        var d = toOld ? entry.old : entry.cur;
+        entry.el.style.width = d.w;
+        entry.el.style.height = d.h;
+      }
+      break;
+    case 'zindex':
+      if (entry.el) entry.el.style.zIndex = toOld ? entry.old : entry.cur;
+      break;
+    case 'imgsrc':
+      if (entry.el) {
+        if (entry.isBg) entry.el.style.backgroundImage = toOld ? entry.old : entry.cur;
+        else entry.el.src = toOld ? entry.old : entry.cur;
+      }
+      break;
+    case 'style':
+      if (entry.el) entry.el.style[entry.prop] = toOld ? entry.old : entry.cur;
+      break;
+    case 'duplicate':
+    case 'create':
+      // annuler = retirer l'élément créé / dupliqué ; refaire = le remettre
+      if (toOld) { if (entry.el && entry.el.parentNode) entry.el.remove(); }
+      else { entry.parent.insertBefore(entry.el, entry.ref); }
+      break;
+    case 'delete':
+      // annuler = remettre l'élément supprimé ; refaire = le supprimer à nouveau
+      if (toOld) { entry.parent.insertBefore(entry.el, entry.ref); }
+      else { if (entry.el && entry.el.parentNode) entry.el.remove(); }
+      break;
+  }
+}
+
+function lkeUndo() {
+  if (!E.hist.length) return;
+  var entry = E.hist.pop();
+  E.future.push(entry);
+  applyEntry(entry, 'undo');
+  updateHistUI();
+}
+function lkeRedo() {
+  if (!E.future.length) return;
+  var entry = E.future.pop();
+  E.hist.push(entry);
+  applyEntry(entry, 'redo');
+  updateHistUI();
+}
+function updateHistUI() {
+  try { window.parent.postMessage({ type: 'lke-hist', undo: E.hist.length, redo: E.future.length }, '*'); } catch(e) {}
+}
+
+// ── TOOLBAR EVENTS ────────────────────────────────────────────────
+document.getElementById('lkt-font').addEventListener('change', function() { applyStyle('fontFamily', this.value); });
+document.getElementById('lkt-size').addEventListener('input', function() { if (this.value) applyStyle('fontSize', this.value + 'px'); });
+document.getElementById('lkt-color').addEventListener('input', function() { applyStyle('color', this.value); });
+document.getElementById('lkt-bgcolor').addEventListener('input', function() { applyStyle('backgroundColor', this.value); });
+document.getElementById('lkt-bgcolor-clear').addEventListener('click', function(e) {
+  e.stopPropagation();
+  applyStyle('backgroundColor', '');
+});
+
+document.getElementById('lkt-b').addEventListener('click', function(e) {
+  e.stopPropagation();
+  if (!E.sel) return;
+  var cs = window.getComputedStyle(E.sel);
+  var isBold = parseInt(cs.fontWeight) >= 600;
+  applyStyle('fontWeight', isBold ? '400' : '700');
+  this.classList.toggle('on', !isBold);
+});
+document.getElementById('lkt-i').addEventListener('click', function(e) {
+  e.stopPropagation();
+  if (!E.sel) return;
+  var cs = window.getComputedStyle(E.sel);
+  var isItalic = cs.fontStyle === 'italic';
+  applyStyle('fontStyle', isItalic ? 'normal' : 'italic');
+  this.classList.toggle('on', !isItalic);
+});
+document.getElementById('lkt-u').addEventListener('click', function(e) {
+  e.stopPropagation();
+  if (!E.sel) return;
+  var cs = window.getComputedStyle(E.sel);
+  var isUnderline = cs.textDecorationLine.indexOf('underline') !== -1;
+  applyStyle('textDecoration', isUnderline ? 'none' : 'underline');
+  this.classList.toggle('on', !isUnderline);
+});
+
+['al','ac','ar'].forEach(function(id, i) {
+  var aligns = ['left', 'center', 'right'];
+  document.getElementById('lkt-' + id).addEventListener('click', function(e) {
+    e.stopPropagation();
+    applyStyle('textAlign', aligns[i]);
+    ['lkt-al','lkt-ac','lkt-ar'].forEach(function(bid) { document.getElementById(bid).classList.remove('on'); });
+    this.classList.add('on');
+  });
+});
+
+document.getElementById('lkt-dup').addEventListener('click', function(e) {
+  e.stopPropagation();
+  window.lkeDuplicateSelected();
+});
+
+document.getElementById('lkt-del').addEventListener('click', function(e) {
+  e.stopPropagation();
+  window.lkeDeleteSelected();
+});
+
+document.getElementById('lkt-close').addEventListener('click', function(e) {
+  e.stopPropagation();
+  deselect();
+});
+
+toolbar.addEventListener('mousedown', function(e) { e.stopPropagation(); });
+toolbar.addEventListener('click', function(e) { e.stopPropagation(); });
+
+// ── IA BUTTON ────────────────────────────────────────────────────
+document.getElementById('lkt-ai-btn').addEventListener('click', function(e) {
+  e.stopPropagation();
+  if (!E.sel) return;
+  var r = toolbar.getBoundingClientRect();
+  aiPop.style.top = (r.bottom + 8) + 'px';
+  aiPop.style.left = r.left + 'px';
+  aiPop.classList.toggle('visible');
+  if (aiPop.classList.contains('visible')) {
+    setTimeout(function() { document.getElementById('lke-ai-prompt').focus(); }, 50);
+  }
+});
+
+// ── IA STREAMING ────────────────────────────────────────────────
+document.getElementById('lke-ai-send').addEventListener('click', async function(e) {
+  e.stopPropagation();
+  if (!E.sel) return;
+  var prompt = document.getElementById('lke-ai-prompt').value.trim();
+  if (!prompt) { document.getElementById('lke-ai-prompt').focus(); return; }
+
+  var original  = E.sel.textContent.trim();
+  var btn       = this;
+  var pgb       = document.getElementById('lke-ai-pgb');
+  var pgf       = document.getElementById('lke-ai-pgf');
+  var savedSel  = E.sel;
+  var savedId   = E.selId;
+
+  // Déterminer le type selon l'ID de l'élément
+  var type = 'default';
+  if (savedId && savedId.indexOf('titre') !== -1)       type = 'titre';
+  else if (savedId && savedId.indexOf('tagline') !== -1) type = 'description';
+  else if (savedId && (savedId.indexOf('pres') !== -1 || savedId.indexOf('text') !== -1)) type = 'description';
+  else if (savedId && savedId.indexOf('li-') !== -1)    type = 'plat';
+
+  btn.disabled = true;
+  if (pgb) pgb.style.display = 'block';
+  if (pgf) pgf.style.width = '10%';
+
+  try {
+    // Appel via n8n
+    // Lecture de la base n8n du parent protégée par try/catch : l'aperçu et
+    // l'éditeur ne sont pas toujours sur la même origine (GitHub Pages vs
+    // Netlify), et un accès cross-origin à window.parent lève une exception.
+    var parentBase = null;
+    try { parentBase = window.parent && window.parent._n8nBaseUrl; } catch (eOrig) {}
+    var n8nUrl = (window._n8nAiUrl || window._n8nUrl || parentBase ||
+                'https://alexandria-mpegs-incidents-construction.trycloudflare.com') + '/webhook/loksite-ai';
+
+    var resp = await fetch(n8nUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prompt:  prompt,
+        context: original,
+        type:    type
+      })
+    });
+
+    if (!resp.ok) throw new Error('n8n HTTP ' + resp.status);
+    var result = await resp.json();
+    if (!result.success) throw new Error(result.error || 'Erreur IA');
+
+    if (pgf) pgf.style.width = '100%';
+
+    // Afficher le texte généré directement dans l'élément
+    var generated = result.text || '';
+    if (generated && savedSel) {
+      savedSel.textContent = generated;
+      notifyParent(savedId, generated);
+    }
+
+    document.getElementById('lke-ai-prompt').value = '';
+    setTimeout(function() {
+      document.getElementById('lke-ai-pop').classList.remove('visible');
+      if (pgb) pgb.style.display = 'none';
+      if (pgf) pgf.style.width = '0%';
+    }, 800);
+
+  } catch(err) {
+    if (pgf) { pgf.style.background = '#ef4444'; pgf.style.width = '100%'; }
+    console.error('[AI]', err);
+    // Fallback : afficher l'erreur dans le prompt
+    document.getElementById('lke-ai-prompt').placeholder = '❌ ' + err.message;
+    setTimeout(function() {
+      if (pgb) pgb.style.display = 'none';
+      if (pgf) { pgf.style.width = '0%'; pgf.style.background = '#4f6ef7'; }
+      document.getElementById('lke-ai-prompt').placeholder = 'Ex: Rends plus accrocheur, raccourcis à 5 mots...';
+    }, 2000);
+  }
+  btn.disabled = false;
+});;
+
+aiPop.addEventListener('mousedown', function(e) { e.stopPropagation(); });
+aiPop.addEventListener('click', function(e) { e.stopPropagation(); });
+
+// ── DRAG & DROP INTRA-SECTION ─────────────────────────────────────
+function initDrag(el) {
+  if (el.hasAttribute('data-lk-dragging-init')) return;
+  el.setAttribute('data-lk-dragging-init', '1');
+
+  // Handle
+  var handle = document.createElement('div');
+  handle.className = 'lk-drag-handle';
+  handle.innerHTML = '⠿';
+  handle.title = 'Glisser pour réorganiser';
+  el.style.position = 'relative';
+  el.insertBefore(handle, el.firstChild);
+
+  handle.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    startDrag(el, e);
+  });
+}
+
+function startDrag(el, e) {
+  E.drag = el;
+  el.classList.add('lke-dragging');
+  var parent = el.parentElement;
+  var siblings = Array.from(parent.children).filter(function(c) { return c !== el && c.hasAttribute('data-lk-drag'); });
+
+  function onMove(ev) {
+    var target = document.elementFromPoint(ev.clientX, ev.clientY);
+    if (!target) return;
+    var over = target.closest('[data-lk-drag]');
+    if (over && over !== el && over.parentElement === parent) {
+      if (E.dragOver) E.dragOver.classList.remove('lke-drag-over');
+      E.dragOver = over;
+      over.classList.add('lke-drag-over');
+    }
+  }
+
+  function onUp(ev) {
+    el.classList.remove('lke-dragging');
+    if (E.dragOver) {
+      E.dragOver.classList.remove('lke-drag-over');
+      // Insérer avant ou après selon la position
+      var r = E.dragOver.getBoundingClientRect();
+      var mid = r.top + r.height / 2;
+      if (ev.clientY < mid) {
+        parent.insertBefore(el, E.dragOver);
+      } else {
+        parent.insertBefore(el, E.dragOver.nextSibling);
+      }
+      try { window.parent.postMessage({ type: 'lke-drag', parent: parent.id || parent.className }, '*'); } catch(e) {}
+    }
+    E.drag = null; E.dragOver = null;
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+  }
+
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+}
+
+// ── INITIALISER TOUS LES ÉLÉMENTS ────────────────────────────────
+function initAll() {
+  // Tous les IDs lk-* → éditables
+  document.querySelectorAll('[id^="lk-"]').forEach(function(el) {
+    var key = el.id;
+    // Ne pas rendre éditable les conteneurs structurels.
+    // NB : ces IDs doivent inclure le préfixe "lk-" puisque `key` (= el.id)
+    // le contient toujours ici (querySelectorAll('[id^="lk-"]') plus haut).
+    // Avant correction cette liste ne matchait jamais rien (elle listait
+    // "hero" au lieu de "lk-hero"), ce qui laissait passer des conteneurs
+    // structurels dans mkEditable() et produisait des comportements
+    // incohérents sur certaines zones de texte.
+    var skip = ['lk-hero','lk-menu','lk-galerie','lk-avis','lk-horaires',
+                'lk-localisation','lk-footer','lk-evenements',
+                'lk-saison-ete','lk-saison-printemps','lk-saison-traiteur','lk-lightbox',
+                'lk-avisTrack','lk-avisDots','lk-statusPill',
+                'lk-img-pres','lk-img-gal-0','lk-img-gal-1','lk-img-gal-2','lk-img-gal-3',
+                'lk-hero-titre'];
+    // "lk-presentation" retiré de cette liste : c'est le paragraphe d'intro
+    // (<p id="lk-presentation">), pas un conteneur structurel — le vrai
+    // wrapper de section est <section id="presentation"> (sans préfixe lk-,
+    // donc jamais visé par ce sélecteur). Le laisser ici rendait ce texte
+    // non sélectionnable/déplaçable dans l'éditeur.
+    if (skip.indexOf(key) !== -1) return;
+    // Pas de conteneurs avec beaucoup d'enfants, SAUF si aucun de ses
+    // enfants directs n'est déjà éditable/positionnable : un paragraphe
+    // découpé en plusieurs <span>/<br> ne doit pas être exclu juste parce
+    // qu'il a >4 enfants inline (bug empêchant certaines zones de texte
+    // d'être sélectionnées/déplacées).
+    if (el.children.length > 4) {
+      var hasStructuralChild = Array.prototype.some.call(el.children, function(c) {
+        return c.children.length > 0 || c.hasAttribute('data-lke') || c.hasAttribute('data-lk-drag');
+      });
+      if (hasStructuralChild) return;
+    }
+    // Pas les images (ont leur propre overlay)
+    if (el.tagName === 'IMG') return;
+    mkEditable(el, key);
+  });
+
+  // Drag & drop sur les cartes
+  document.querySelectorAll('[data-lk-drag]').forEach(initDrag);
+}
+
+// ── MESSAGES DEPUIS L'ESPACE ──────────────────────────────────────
+window.addEventListener('message', function(ev) {
+  var d = ev.data;
+  if (!d || !d.type) return;
+
+  // Sync texte depuis espace
+  if (d.type === 'lke-sync') {
+    var el = document.getElementById(d.target);
+    if (el) el.textContent = d.value;
+  }
+  // Sync image depuis espace (jusqu'ici absent : les images dont le
+  // contenu vient de la base de données client — ex. data-lke-img="pres"
+  // sans src en dur dans le HTML — ne recevaient donc jamais leur source
+  // et restaient vides dans le preview).
+  if (d.type === 'lke-img-sync' && d.target && d.value) {
+    var imgTarget = document.querySelector('[data-lke-img="' + d.target + '"]')
+                  || document.getElementById('lk-img-' + d.target)
+                  || document.getElementById(d.target);
+    if (imgTarget) {
+      if (imgTarget.tagName === 'IMG') {
+        imgTarget.src = d.value;
+      } else {
+        imgTarget.style.backgroundImage = "url('" + d.value + "')";
+      }
+    }
+  }
+  // URL n8n actuelle transmise par l'espace client (tunnel Cloudflare)
+  if (d.type === 'lke-n8n' && d.n8nBase) {
+    window._n8nAiUrl = d.n8nBase;
+  }
+  // Horaires
+  if (d.type === 'lke-horaire') {
+    var row = document.querySelector('.hours-row[data-day="' + d.day + '"] .hours-time');
+    if (row) row.textContent = d.value;
+  }
+  // Style
+  if (d.type === 'lke-style-field') {
+    var sel = document.getElementById(d.target);
+    if (!sel || !d.style) return;
+    if (d.style.fontFamily) sel.style.fontFamily = d.style.fontFamily;
+    if (d.style.fontSize)   sel.style.fontSize   = d.style.fontSize;
+    if (d.style.fontWeight) sel.style.fontWeight = d.style.fontWeight;
+    if (d.style.color)      sel.style.color      = d.style.color;
+    if (d.style.textAlign)  sel.style.textAlign  = d.style.textAlign;
+  }
+  // Undo/Redo depuis l'espace
+  if (d.type === 'lke-undo') { lkeUndo(); }
+  if (d.type === 'lke-redo') { lkeRedo(); }
+
+  // Scroll
+  if (d.type === 'lke-scroll') {
+    var map = {hero:'hero',evenements:'evenements',presentation:'presentation',horaires:'horaires',localisation:'localisation',footer:'footer',menu:'menu',avis:'avis',galerie:'galerie'};
+    var anchor = document.getElementById(map[d.anchor] || d.anchor);
+    if (anchor) anchor.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // Afficher / masquer une section (interrupteur Visible/Masqué du panneau)
+  if (d.type === 'lke-toggle-section') {
+    var sec = document.getElementById(d.anchor);
+    if (sec) {
+      var vis = !!d.visible;
+      sec.style.display = vis ? '' : 'none';
+      if (vis) { sec.removeAttribute('data-lke-hidden'); } else { sec.setAttribute('data-lke-hidden', 'true'); }
+      try { window.parent.postMessage({ type: 'lke-toggle', anchor: d.anchor, visible: vis }, '*'); } catch(e) {}
+    }
+  }
+
+  // L'espace demande l'état des cartes « Événements & offres »
+  if (d.type === 'lke-get-evt-state') {
+    if (window.initEvtCards) window.initEvtCards();
+    try {
+      window.parent.postMessage({ type: 'lke-evt-state', cards: window.lkeEvtState() }, '*');
+    } catch(e) {}
+  }
+
+  // L'espace bascule une carte « Événements » individuelle
+  if (d.type === 'lke-toggle-evt-card') {
+    var r = window.lkeSetEvtCard(d.index, !!d.visible);
+    if (r) {
+      try {
+        window.parent.postMessage({
+          type: 'lke-evt-toggle-confirm',
+          index: r.index, label: r.label, visible: r.visible
+        }, '*');
+        window.parent.postMessage({ type: 'lke-evt-state', cards: window.lkeEvtState() }, '*');
+      } catch(e) {}
+    }
+  }
+
+  // L'espace demande l'état actuel de visibilité de toutes les sections
+  if (d.type === 'lke-get-visibility') {
+    var anchors = ['hero','evenements','presentation','menu','galerie','avis','horaires','localisation','footer'];
+    var state = {};
+    anchors.forEach(function(a) {
+      var s = document.getElementById(a);
+      state[a] = s ? (s.style.display !== 'none') : true;
+    });
+    try { window.parent.postMessage({ type: 'lke-visibility-state', state: state }, '*'); } catch(e) {}
+  }
+});
+
+// ── Cliquer sur une image l'encadre en bleu (déplacer / redimensionner) ─
+// En phase de capture, pour passer devant le clic qui ouvrirait sinon la
+// visionneuse plein écran de la galerie ou tout autre lien/bouton interne.
+document.addEventListener('click', function(e) {
+  var wrap = e.target.closest('[data-lke-wrap]');
+  if (!wrap) return;
+  if (e.target.closest('button')) return; // Supprimer reste normal
+  e.preventDefault();
+  e.stopPropagation();
+  // Enregistrer la sélection (E.sel) pour que le scroll/resize recale
+  // correctement les poignées — sans ça elles restent figées à l'écran
+  // pendant que la photo défile en dessous.
+  if (E.sel && E.sel !== wrap) { E.sel.classList.remove('lke-selected'); }
+  E.sel = wrap;
+  E.selId = wrap.getAttribute('data-lke-wrap');
+  enableFreePositioning(wrap);
+}, true);
+
+// ── Fermer au clic hors élément ────────────────────────────────────
+// (en mousedown, pas en click : certains champs de formulaire — labels
+// liés à un input — déclenchent un clic synthétique sur le champ associé
+// au relâchement de la souris, ce qui fermait la barre à tort en "click")
+document.addEventListener('mousedown', function(e) {
+  if (toolbar.contains(e.target) || aiPop.contains(e.target)) return;
+  if (freeUI.handle === e.target || freeUI.resize === e.target) return;
+  if (e.target.closest('[data-lke]')) return;
+  if (e.target.closest('[data-lke-wrap]')) return;
+  deselect();
+});
+
+// ── Garder la barre d'outils et les poignées alignées sur l'élément ─
+// (au cas où la page bouge : redimensionnement de fenêtre, ouverture
+// d'un calendrier de réservation qui décale la mise en page, etc.)
+function lkeRepositionSelectionUI() {
+  if (E.sel) {
+    positionToolbar(E.sel);
+    positionFreeUI(E.sel);
+  }
+}
+window.addEventListener('resize', lkeRepositionSelectionUI);
+window.addEventListener('scroll', lkeRepositionSelectionUI, true);
+
+// ── Lancement ─────────────────────────────────────────────────────
+// initImages/initSections(/initEvtCards) créent les contrôles d'édition
+// (bouton "Remplacer" sur chaque image, badge de couleur/fond de
+// section). Ils ne tournaient auparavant que depuis lkeToggleEdit(),
+// donc uniquement après un clic sur le bouton "Mode édition" — jamais
+// au chargement. Comme le reste de l'édition (texte) est déjà actif
+// sans ce clic, un utilisateur n'a aucune raison de cliquer dessus :
+// ces contrôles n'existaient donc simplement pas dans le DOM, d'où
+// l'impression que "Remplacer" ne répondait pas. On les initialise ici
+// au même titre que initAll(), pour un comportement cohérent dès le
+// chargement.
+function lkeInitEditControls() {
+  initAll();
+  if (window.initImages) window.initImages();
+  if (window.initSections) window.initSections();
+  if (window.initEvtCards) window.initEvtCards();
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() { lkeInitEditControls(); setTimeout(lkeInitEditControls, 500); setTimeout(lkeInitEditControls, 1500); });
+} else {
+  lkeInitEditControls();
+  setTimeout(lkeInitEditControls, 500);
+  setTimeout(lkeInitEditControls, 1500);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CARTES « ÉVÉNEMENTS & OFFRES » — visibilité individuelle
+   ───────────────────────────────────────────────────────────────
+   `lkeInitEditControls()` appelait déjà `window.initEvtCards()`,
+   mais la fonction n'existait pas : les interrupteurs du panneau
+   ne recevaient donc jamais d'état et restaient invisibles.
+
+   L'état est porté par des attributs (`data-evt-hidden`) et non
+   par une variable JS, afin d'être capturé tel quel par la
+   sauvegarde (outerHTML → Supabase + GitHub).
+   ═══════════════════════════════════════════════════════════════ */
+function lkeEvtGrid()  { return document.querySelector('#evenements .evt-grid'); }
+function lkeEvtCards() {
+  var g = lkeEvtGrid();
+  return g ? Array.prototype.slice.call(g.querySelectorAll('.evt-card')) : [];
+}
+function lkeEvtLabel(card, i) {
+  var t = card.querySelector('.evt-title');
+  var b = card.querySelector('.evt-badge');
+  var txt = (t && t.textContent.trim()) || (b && b.textContent.trim()) || '';
+  if (txt.length > 34) txt = txt.slice(0, 33).trim() + '…';
+  return txt || ('Événement ' + (i + 1));
+}
+function lkeEvtIsVisible(card) {
+  return card.getAttribute('data-evt-hidden') !== 'true';
+}
+
+// Recalcule la grille : aucune colonne vide ne subsiste, la mise en
+// page reste symétrique quel que soit le nombre de blocs affichés.
+function lkeEvtRelayout() {
+  var grid = lkeEvtGrid();
+  if (!grid) return 0;
+  var cards = lkeEvtCards();
+  var n = 0;
+  cards.forEach(function(c) { if (lkeEvtIsVisible(c)) n++; });
+  grid.setAttribute('data-evt-visible', String(n));
+
+  // Les classes d'animation en cascade (d1/d2/d3) sont réattribuées
+  // dans l'ordre d'apparition réel, sinon un bloc masqué laisse un
+  // « trou » dans le rythme d'apparition au défilement.
+  var rank = 0;
+  cards.forEach(function(c) {
+    c.classList.remove('d1', 'd2', 'd3');
+    if (lkeEvtIsVisible(c)) { rank++; if (rank <= 3) c.classList.add('d' + rank); }
+  });
+  return n;
+}
+
+window.initEvtCards = function initEvtCards() {
+  var cards = lkeEvtCards();
+  if (!cards.length) return;
+  cards.forEach(function(c, i) {
+    if (!c.hasAttribute('data-evt-index')) c.setAttribute('data-evt-index', String(i + 1));
+    // Reprise d'un état sauvegardé sous forme de style en dur
+    if (!c.hasAttribute('data-evt-hidden') && c.style.display === 'none') {
+      c.setAttribute('data-evt-hidden', 'true');
+    }
+  });
+  lkeEvtRelayout();
+};
+
+// État transmis au panneau d'administration
+window.lkeEvtState = function() {
+  if (window.initEvtCards) window.initEvtCards();
+  return lkeEvtCards().map(function(c, i) {
+    return {
+      index:   parseInt(c.getAttribute('data-evt-index'), 10) || (i + 1),
+      label:   lkeEvtLabel(c, i),
+      visible: lkeEvtIsVisible(c)
+    };
+  });
+};
+
+// Bascule une carte depuis le panneau
+window.lkeSetEvtCard = function(index, visible) {
+  var cards = lkeEvtCards();
+  var card = null;
+  cards.forEach(function(c, i) {
+    var idx = parseInt(c.getAttribute('data-evt-index'), 10) || (i + 1);
+    if (idx === index) card = c;
+  });
+  if (!card) return null;
+
+  if (visible) {
+    card.removeAttribute('data-evt-hidden');
+    card.style.display = '';
+  } else {
+    card.setAttribute('data-evt-hidden', 'true');
+    card.style.display = 'none';
+  }
+
+  var n = lkeEvtRelayout();
+
+  // Cohérence avec l'interrupteur principal de la section : plus aucune
+  // carte visible → la section entière disparaît ; on réaffiche une
+  // carte → la section revient.
+  var sec = document.getElementById('evenements');
+  if (sec) {
+    if (n === 0) {
+      sec.style.display = 'none';
+      sec.setAttribute('data-lke-hidden', 'true');
+    } else if (visible) {
+      sec.style.display = '';
+      sec.removeAttribute('data-lke-hidden');
+    }
+  }
+
+  var i = cards.indexOf(card);
+  return { index: index, label: lkeEvtLabel(card, i < 0 ? 0 : i), visible: !!visible };
+};
+
+try { window.parent.postMessage({ type: 'lke-ready' }, '*'); } catch(e) {}
+console.log('[LKE] Éditeur inline Loksite v3 actif —', document.querySelectorAll('[data-lke]').length + ' éléments éditables après init');
+
+// Exposer pour debug
+window.lkeUndo = lkeUndo;
+window.lkeRedo = lkeRedo;
+window._notifyParent    = notifyParent;
+window._mkEditable      = mkEditable;
+
+
+// ── Exposer globalement pour le bouton toggle ───────────────
+window._lkeInitAll      = initAll;
+// Exposés pour le débogage F12 (ces fonctions sont sinon privées à l'éditeur)
+window.enableFreePositioning = enableFreePositioning;
+window.selectEl = selectEl;
+window._lkeDeselect     = deselect;
+
+})();
+// ═══════════════════════════════════════════════════════════════
+//  CODE GLOBAL : sections bg + images upload
+// ═══════════════════════════════════════════════════════════════
+
+window.initSections = function initSections() {
+  document.querySelectorAll('[data-lke-section]').forEach(function(sec) {
+    if (sec.hasAttribute('data-lke-sec-init')) return;
+    sec.setAttribute('data-lke-sec-init', '1');
+    sec.style.position = 'relative';
+
+    var badge = document.createElement('div');
+    badge.className = 'lke-section-badge';
+    badge.setAttribute('data-lke-ui', '1');
+    badge.style.cssText = 'position:fixed;top:60px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,.9);color:#e2e8f0;border:1px solid #334155;border-radius:20px;padding:5px 14px;font-size:11px;font-family:system-ui,sans-serif;display:none;align-items:center;gap:10px;z-index:9994;pointer-events:auto;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.4)';
+
+    // Label
+    var lbl = document.createElement('span');
+    lbl.style.cssText = 'color:#94a3b8;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em';
+    lbl.textContent = 'Section';
+    badge.appendChild(lbl);
+
+    var sep = document.createElement('span');
+    sep.style.cssText = 'width:1px;height:12px;background:#334155;display:inline-block';
+    badge.appendChild(sep);
+
+    // Color picker fond
+    var colorIn = document.createElement('input');
+    colorIn.type = 'color';
+    colorIn.title = 'Couleur de fond';
+    colorIn.style.cssText = 'width:22px;height:22px;border:none;border-radius:4px;padding:1px;cursor:pointer;background:none;outline:none;flex-shrink:0';
+    var cs = window.getComputedStyle(sec);
+    if (cs.backgroundColor && cs.backgroundColor !== 'rgba(0, 0, 0, 0)') {
+      var m = cs.backgroundColor.match(/\d+/g);
+      if (m) colorIn.value = '#' + m.slice(0,3).map(function(n){ return (+n).toString(16).padStart(2,'0'); }).join('');
+    }
+    badge.appendChild(colorIn);
+
+    // Bouton image de fond
+    var bgFileIn = document.createElement('input');
+    bgFileIn.type = 'file'; bgFileIn.accept = 'image/*'; bgFileIn.style.display = 'none';
+    bgFileIn.setAttribute('data-lke-ui', '1');
+    badge.appendChild(bgFileIn);
+
+    var bgImgBtn = document.createElement('button');
+    bgImgBtn.type = 'button';
+    bgImgBtn.textContent = 'Image fond';
+    bgImgBtn.title = 'Image de fond';
+    bgImgBtn.style.cssText = 'background:none;border:1px solid #334155;color:#cbd5e1;cursor:pointer;font-size:10px;padding:2px 8px;border-radius:10px;font-family:system-ui,sans-serif';
+    badge.appendChild(bgImgBtn);
+
+    // Reset
+    var resetBtn = document.createElement('button');
+    resetBtn.type = 'button';
+    resetBtn.textContent = '✕';
+    resetBtn.title = 'Reset fond';
+    resetBtn.style.cssText = 'background:none;border:none;color:#94a3b8;cursor:pointer;font-size:12px;padding:2px 4px;line-height:1';
+    badge.appendChild(resetBtn);
+
+    sec.insertBefore(badge, sec.firstChild);
+
+    // Afficher/masquer — avec délai pour éviter la disparition au clic
+    var hideTO = null;
+    function showBadge() { clearTimeout(hideTO); badge.style.display = 'flex'; }
+    function hideBadge() { hideTO = setTimeout(function(){ badge.style.display = 'none'; }, 200); }
+
+    sec.addEventListener('mouseenter', function() {
+      showBadge();
+      // Nom de la section dans le label
+      var secName = sec.getAttribute('data-lke-section') || 'Section';
+      lbl.textContent = secName.charAt(0).toUpperCase() + secName.slice(1);
+    });
+    sec.addEventListener('mouseleave', hideBadge);
+    badge.addEventListener('mouseenter', showBadge);
+    badge.addEventListener('mouseleave', hideBadge);
+    // Empêcher la disparition quand on interagit avec les contrôles
+    badge.addEventListener('mousedown', function(e) { e.stopPropagation(); clearTimeout(hideTO); });
+    badge.addEventListener('click',     function(e) { e.stopPropagation(); clearTimeout(hideTO); });
+    colorIn.addEventListener('focus',   function()  { clearTimeout(hideTO); badge.style.display = 'flex'; });
+    colorIn.addEventListener('blur',    function()  { /* ne pas masquer */ });
+
+    // Color picker
+    colorIn.addEventListener('input', function(e) {
+      e.stopPropagation();
+      sec.style.backgroundColor = this.value;
+    });
+    colorIn.addEventListener('click', function(e) { e.stopPropagation(); });
+
+    // Image de fond
+    bgImgBtn.addEventListener('click', function(e) {
+      e.stopPropagation(); clearTimeout(hideTO);
+      bgFileIn.value = ''; bgFileIn.click();
+    });
+    bgFileIn.addEventListener('change', function() {
+      var file = this.files[0]; if (!file) return;
+      if (file.type.indexOf('image/') !== 0) {
+        console.warn('[LKE] Fichier rejeté (pas une image, fond de section)', file.type);
+        try { window.parent.postMessage({ type: 'lke-error', context: 'section-bg', message: 'Le fichier sélectionné n\'est pas une image.' }, '*'); } catch (e2) {}
+        return;
+      }
+      var MAX_MB = 8;
+      if (file.size > MAX_MB * 1024 * 1024) {
+        console.warn('[LKE] Image trop lourde (fond de section)', Math.round(file.size / 1024 / 1024) + 'Mo');
+        try { window.parent.postMessage({ type: 'lke-error', context: 'section-bg', message: 'Image trop lourde (max ' + MAX_MB + 'Mo).' }, '*'); } catch (e2) {}
+        return;
+      }
+      var reader = new LKImageReader(); // Storage au lieu de base64 (repli automatique)
+      reader.onerror = function() {
+        console.error('[LKE] Échec de lecture du fichier (fond de section)', reader.error);
+        try { window.parent.postMessage({ type: 'lke-error', context: 'section-bg', message: 'Échec de lecture du fichier image.' }, '*'); } catch (e2) {}
+      };
+      reader.onload = function(ev) {
+        var oldBg = sec.style.backgroundImage;
+        sec.style.backgroundImage = "url('" + ev.target.result + "')";
+        sec.style.backgroundSize = 'cover';
+        sec.style.backgroundPosition = 'center';
+        pushHist({ type: 'imgsrc', el: sec, old: oldBg, cur: sec.style.backgroundImage, isBg: true });
+        console.log('[LKE] Image de fond appliquée à la section', sec.id || sec.getAttribute('data-lke-section'), '(' + Math.round(file.size / 1024) + ' Ko)');
+        bgImgBtn.textContent = '✅ OK';
+        setTimeout(function(){ bgImgBtn.textContent = 'Image fond'; }, 1500);
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Reset
+    resetBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      sec.style.backgroundColor = '';
+      sec.style.backgroundImage = '';
+    });
+  });
+}
+
+window.initImages = function initImages() {
+  document.querySelectorAll('[data-lke-wrap]').forEach(function(wrap) {
+    if (wrap.hasAttribute('data-lke-wrap-init')) return;
+    wrap.setAttribute('data-lke-wrap-init', '1');
+    var wrapId = wrap.getAttribute('data-lke-wrap');
+    var img = wrap.querySelector('img');
+    var isBgDiv = !img && wrap.classList.contains('hero-bg');
+    if (!img && !isBgDiv) return;
+    if (window.getComputedStyle(wrap).position === 'static') wrap.style.position = 'relative';
+
+    // Forcer overflow visible pour que le badge ne soit pas coupé
+    wrap.style.overflow = 'visible';
+    var badge = document.createElement('div');
+    badge.className = 'lke-gallery-badge';
+    badge.setAttribute('data-lke-ui', '1');
+    badge.style.cssText = 'position:absolute;top:6px;right:6px;z-index:9999;display:flex;gap:5px;pointer-events:auto';
+
+    // ── Remplacer (swap l'image en place, sans casser la mise en page :
+    // contrairement à Supprimer + "+Ajouter une image", qui retire la case
+    // de la grille et recrée une image flottante ailleurs). ──
+    var replaceFileIn = document.createElement('input');
+    replaceFileIn.type = 'file';
+    replaceFileIn.accept = 'image/*';
+    replaceFileIn.style.display = 'none';
+    replaceFileIn.setAttribute('data-lke-ui', '1');
+    wrap.appendChild(replaceFileIn);
+
+    var replaceBtn = document.createElement('button');
+    replaceBtn.type = 'button';
+    replaceBtn.textContent = 'Remplacer';
+    replaceBtn.title = 'Remplacer cette image par une nouvelle';
+    replaceBtn.style.cssText = 'background:rgba(79,110,247,.92);color:#fff;border:none;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:system-ui,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.5);white-space:nowrap';
+
+    replaceBtn.addEventListener('click', function(e) {
+      e.preventDefault(); e.stopPropagation();
+      try {
+        replaceFileIn.value = '';
+        replaceFileIn.click();
+      } catch (errClick) {
+        console.error('[LKE] Impossible d\'ouvrir le sélecteur de fichier pour', wrapId, errClick);
+      }
+    });
+    replaceFileIn.addEventListener('click', function(e) { e.stopPropagation(); });
+    replaceFileIn.addEventListener('change', function() {
+      var file = this.files[0];
+      if (!file) return;
+      // ── Validation : type et taille du fichier ──
+      if (file.type.indexOf('image/') !== 0) {
+        console.warn('[LKE] Fichier rejeté (pas une image) pour', wrapId, file.type);
+        try { window.parent.postMessage({ type: 'lke-error', context: 'img-replace', wrapId: wrapId, message: 'Le fichier sélectionné n\'est pas une image.' }, '*'); } catch (e2) {}
+        return;
+      }
+      var MAX_MB = 8;
+      if (file.size > MAX_MB * 1024 * 1024) {
+        console.warn('[LKE] Image trop lourde (' + Math.round(file.size / 1024 / 1024) + 'Mo) pour', wrapId);
+        try { window.parent.postMessage({ type: 'lke-error', context: 'img-replace', wrapId: wrapId, message: 'Image trop lourde (max ' + MAX_MB + 'Mo). Compressez-la avant de la réutiliser.' }, '*'); } catch (e2) {}
+        return;
+      }
+      var reader = new LKImageReader(); // Storage au lieu de base64 (repli automatique)
+      reader.onerror = function() {
+        console.error('[LKE] Échec de lecture du fichier pour', wrapId, reader.error);
+        try { window.parent.postMessage({ type: 'lke-error', context: 'img-replace', wrapId: wrapId, message: 'Échec de lecture du fichier image.' }, '*'); } catch (e2) {}
+      };
+      reader.onload = function(ev) {
+        console.log('[LKE] Image remplacée pour', wrapId, '(' + Math.round(file.size / 1024) + ' Ko)');
+        if (isBgDiv) {
+          var oldBg = wrap.style.backgroundImage;
+          wrap.style.backgroundImage = "url('" + ev.target.result + "')";
+          pushHist({ type: 'imgsrc', el: wrap, old: oldBg, cur: wrap.style.backgroundImage, isBg: true });
+        } else if (img) {
+          var oldSrc = img.getAttribute('src') || '';
+          img.src = ev.target.result;
+          pushHist({ type: 'imgsrc', el: img, old: oldSrc, cur: img.src });
+        }
+        notifyParent('img:' + wrapId, '');
+      };
+      reader.readAsDataURL(file);
+    });
+    badge.appendChild(replaceBtn);
+
+    var delBtn = document.createElement('button');
+    delBtn.type = 'button';
+    delBtn.textContent = 'Supprimer';
+    delBtn.title = 'Supprimer';
+    delBtn.style.cssText = 'background:rgba(220,38,38,.9);color:#fff;border:none;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:system-ui,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.5);white-space:nowrap';
+
+    badge.appendChild(delBtn);
+    wrap.appendChild(badge);
+
+    delBtn.addEventListener('click', function(e) {
+      e.preventDefault(); e.stopPropagation();
+
+      // Sauvegarder l'état avant suppression pour pouvoir annuler
+      var savedBgImage = isBgDiv ? wrap.style.backgroundImage : null;
+      var savedImgSrc  = (!isBgDiv && img) ? img.src : null;
+      var savedOpacity = wrap.style.opacity;
+
+      badge.style.display = 'none';
+      if (isBgDiv) {
+        wrap.style.backgroundImage = 'none';
+      } else {
+        // Cacher l'image sans la supprimer
+        if (img) img.style.visibility = 'hidden';
+        wrap.style.opacity = '0.3';
+      }
+
+      // Overlay sombre avec boutons Confirmer et Annuler
+      var overlay = document.createElement('div');
+      overlay.className = 'lke-delete-overlay';
+      overlay.setAttribute('data-lke-ui', '1');
+      overlay.style.cssText = 'position:absolute;inset:0;background:rgba(15,23,42,.8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;z-index:99999;border-radius:inherit';
+
+      var confirmBtn = document.createElement('button');
+      confirmBtn.textContent = 'Confirmer la suppression';
+      confirmBtn.style.cssText = 'background:rgba(220,38,38,.9);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;box-shadow:0 2px 12px rgba(0,0,0,.4)';
+
+      var undoBtn = document.createElement('button');
+      undoBtn.textContent = 'Annuler';
+      undoBtn.style.cssText = 'background:#4f6ef7;color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;box-shadow:0 2px 12px rgba(0,0,0,.4)';
+
+      overlay.appendChild(confirmBtn);
+      overlay.appendChild(undoBtn);
+      wrap.appendChild(overlay);
+
+      // Bloquer le lightbox pendant l'overlay
+      function blockLightbox(ev) { ev.stopPropagation(); ev.preventDefault(); }
+      wrap.addEventListener('click', blockLightbox);
+      overlay.addEventListener('mousedown', function(e2){ e2.stopPropagation(); });
+
+      // Confirmer → vraiment supprimer
+      confirmBtn.addEventListener('click', function(e2) {
+        e2.preventDefault(); e2.stopPropagation();
+        overlay.remove();
+        wrap.removeEventListener('click', blockLightbox);
+        if (!isBgDiv) {
+          wrap.style.display = 'none';
+          wrap.style.opacity = savedOpacity;
+          if (img) img.style.visibility = '';
+        }
+        notifyParent('img-delete:' + wrapId, '');
+      });
+
+      // Annuler → restaurer l'état original
+      undoBtn.addEventListener('click', function(e2) {
+        e2.preventDefault(); e2.stopPropagation();
+        overlay.remove();
+        wrap.removeEventListener('click', blockLightbox);
+        if (isBgDiv) {
+          wrap.style.backgroundImage = savedBgImage || '';
+        } else {
+          if (img) { img.style.visibility = ''; img.src = savedImgSrc || img.src; }
+          wrap.style.opacity = savedOpacity;
+        }
+        badge.style.display = 'flex';
+      });
+    });
+  });
+
+  // ── Images "nues" (data-lke-img directement sur un <img>, sans wrapper) ──
+  // Ex : la photo de la section « Notre Histoire » (data-lke-img="pres")
+  // n'a pas de src en dur et, jusqu'ici, aucun moyen de la remplacer :
+  // ni bouton, ni clic, ni sync. Elle restait donc vide en permanence,
+  // dans l'éditeur comme après publication (la publication capture le
+  // DOM tel quel, donc un src jamais posé reste vide pour toujours).
+  document.querySelectorAll('img[data-lke-img]').forEach(function(img) {
+    if (img.closest('[data-lke-wrap]')) return; // déjà géré ci-dessus
+    if (img.hasAttribute('data-lke-img-init')) return;
+    img.setAttribute('data-lke-img-init', '1');
+
+    var holder = img.parentElement;
+    if (!holder) return;
+    if (window.getComputedStyle(holder).position === 'static') holder.style.position = 'relative';
+
+    var fileIn = document.createElement('input');
+    fileIn.type = 'file';
+    fileIn.accept = 'image/*';
+    fileIn.style.display = 'none';
+    fileIn.setAttribute('data-lke-ui', '1');
+    holder.appendChild(fileIn);
+
+    var replaceBadge = document.createElement('button');
+    replaceBadge.type = 'button';
+    replaceBadge.className = 'lke-gallery-badge lke-replace-badge';
+    replaceBadge.setAttribute('data-lke-ui', '1');
+    replaceBadge.textContent = img.getAttribute('src') ? 'Remplacer' : '+ Ajouter une image';
+    replaceBadge.style.cssText = 'position:absolute;top:6px;right:6px;z-index:9999;' +
+      'background:rgba(79,110,247,.92);color:#fff;border:none;border-radius:6px;' +
+      'padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;' +
+      'font-family:system-ui,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.5);white-space:nowrap';
+    holder.appendChild(replaceBadge);
+
+    replaceBadge.addEventListener('click', function(e) {
+      e.preventDefault(); e.stopPropagation();
+      try {
+        fileIn.value = '';
+        fileIn.click();
+      } catch (errClick) {
+        console.error('[LKE] Impossible d\'ouvrir le sélecteur de fichier (image nue)', errClick);
+      }
+    });
+    fileIn.addEventListener('click', function(e) { e.stopPropagation(); });
+
+    fileIn.addEventListener('change', function() {
+      var file = this.files[0];
+      if (!file) return;
+      if (file.type.indexOf('image/') !== 0) {
+        console.warn('[LKE] Fichier rejeté (pas une image, image nue)', file.type);
+        try { window.parent.postMessage({ type: 'lke-error', context: 'img-replace-naked', message: 'Le fichier sélectionné n\'est pas une image.' }, '*'); } catch (e2) {}
+        return;
+      }
+      var MAX_MB = 8;
+      if (file.size > MAX_MB * 1024 * 1024) {
+        console.warn('[LKE] Image trop lourde (image nue)', Math.round(file.size / 1024 / 1024) + 'Mo');
+        try { window.parent.postMessage({ type: 'lke-error', context: 'img-replace-naked', message: 'Image trop lourde (max ' + MAX_MB + 'Mo).' }, '*'); } catch (e2) {}
+        return;
+      }
+      var reader = new LKImageReader(); // Storage au lieu de base64 (repli automatique)
+      reader.onerror = function() {
+        console.error('[LKE] Échec de lecture du fichier (image nue)', reader.error);
+        try { window.parent.postMessage({ type: 'lke-error', context: 'img-replace-naked', message: 'Échec de lecture du fichier image.' }, '*'); } catch (e2) {}
+      };
+      reader.onload = function(ev) {
+        var oldSrc = img.getAttribute('src') || '';
+        img.src = ev.target.result;
+        console.log('[LKE] Image (nue) mise à jour:', img.getAttribute('data-lke-img'), '(' + Math.round(file.size / 1024) + ' Ko)');
+        replaceBadge.textContent = 'Remplacer';
+        var key = img.getAttribute('data-lke-img');
+        pushHist({
+          type: 'imgsrc', el: img, old: oldSrc, cur: img.src
+        });
+        if (key) notifyParent('img:' + key, '');
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+}
+
+</script>
+
+<!-- ═══ BOUTON MODE ÉDITION ═══════════════════════════════════ -->
+<div id="lke-edit-toggle" data-lke-ui="1" style="position:fixed;top:calc(var(--nav-h, 68px) + 14px);right:14px;z-index:99999;font-family:system-ui,sans-serif" data-hide-in-iframe>
+  <button id="lke-toggle-btn" onclick="lkeToggleEdit()" style="background:#1e293b;color:#e2e8f0;border:1.5px solid #334155;border-radius:20px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,.4);white-space:nowrap">
+    <span id="lke-toggle-dot" style="width:7px;height:7px;border-radius:50%;background:#64748b;flex-shrink:0"></span>
+    <span id="lke-toggle-label">Mode édition</span>
+  </button>
+</div>
+
+<script>
+(function() {
+  var active = false;
+  var inited = false;
+
+  window.lkeToggleEdit = function() {
+    active = !active;
+    var dot   = document.getElementById('lke-toggle-dot');
+    var label = document.getElementById('lke-toggle-label');
+    var btn   = document.getElementById('lke-toggle-btn');
+
+    if (active) {
+      if (dot)   dot.style.background  = '#22c55e';
+      if (label) label.textContent     = 'Édition active — cliquez un texte';
+      if (btn)   btn.style.borderColor = '#22c55e';
+      if (btn)   btn.style.background  = '#0f172a';
+
+      // 1ère activation : lancer initAll (expose via window._lkeInitAll)
+      if (!inited) {
+        inited = true;
+        if (window._lkeInitAll) window._lkeInitAll();
+      }
+      // Ré-activer contenteditable sur tous les éléments déjà marqués
+      document.querySelectorAll('[data-lke]').forEach(function(el) {
+        el.setAttribute('contenteditable', 'true');
+      });
+      // Activer images et sections
+      if (window.initImages) window.initImages();
+      if (window.initSections) window.initSections();
+      // Barre du bas
+      var bar = document.getElementById('lke-bar');
+      if (bar) { bar.style.display = 'flex'; }
+      var atb = document.getElementById('lke-addtext-fab');
+      if (atb) atb.style.display = 'block';
+      var aib = document.getElementById('lke-addimg-fab');
+      if (aib) aib.style.display = 'block';
+
+    } else {
+      if (dot)   dot.style.background  = '#64748b';
+      if (label) label.textContent     = 'Mode édition';
+      if (btn)   btn.style.borderColor = '#334155';
+      if (btn)   btn.style.background  = '#1e293b';
+
+      // Désactiver édition
+      document.querySelectorAll('[data-lke]').forEach(function(el) {
+        el.setAttribute('contenteditable', 'false');
+        el.blur();
+      });
+      // Masquer toolbar et barre
+      var toolbar = document.getElementById('lke-toolbar');
+      if (toolbar) toolbar.classList.remove('visible');
+      var ai = document.getElementById('lke-ai-pop');
+      if (ai) ai.classList.remove('visible');
+      var bar = document.getElementById('lke-bar');
+      if (bar) bar.style.display = 'none';
+      var atb2 = document.getElementById('lke-addtext-fab');
+      if (atb2) atb2.style.display = 'none';
+      var aib2 = document.getElementById('lke-addimg-fab');
+      if (aib2) aib2.style.display = 'none';
+      // Désactiver deselect
+      if (window._lkeDeselect) window._lkeDeselect();
+    }
+  };
+
+  // Si ?edit=1 dans l'URL → activer automatiquement (pour l'espace)
+  if (new URLSearchParams(window.location.search).get('edit') === '1') {
+    function doActivate() {
+      if (window.lkeToggleEdit) {
+        window.lkeToggleEdit();
+      } else {
+        setTimeout(doActivate, 100);
+      }
+    }
+    if (document.readyState === 'complete') {
+      setTimeout(doActivate, 200);
+    } else {
+      window.addEventListener('load', function() { setTimeout(doActivate, 200); });
+    }
+  }
+})();
+</script>
+
+
+
+
+<script data-lke-keep="reservations">
+
+// ═══════════════════════════════════════════════════════
+//  RÉSERVATION — formulaire classique avec dispos dynamiques
+// ═══════════════════════════════════════════════════════
+(function() {
+var SB_URL = 'https://qhnofvfgutsdgbfwhupg.supabase.co';
+var SB_KEY = 'sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY';
+var CLIENT = window.LOKSITE_CLIENT_ID || '';
+var SETTINGS = null;
+var SETTINGS_AT = 0;
+var JOUR_KEYS = ['dim','lun','mar','mer','jeu','ven','sam'];
+
+function sbHeaders() {
+  return { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY };
+}
+
+async function loadSettings() {
+  try {
+    var r = await fetch(SB_URL + '/rest/v1/res_settings?client_id=eq.' + encodeURIComponent(CLIENT) + '&select=settings', { headers: sbHeaders() });
+    if (r.ok) { var d = await r.json(); if (d && d[0]) { SETTINGS = d[0].settings; SETTINGS_AT = Date.now(); } }
+  } catch(e) { console.warn('[RESA] settings', e); }
+}
+
+function genSlots(debut, fin, duree) {
+  function toMin(t){ var p=(t||'').split(':'); return parseInt(p[0]||0)*60+parseInt(p[1]||0); }
+  function toStr(m){ return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'); }
+  var out=[], cur=toMin(debut), end=toMin(fin);
+  while (cur + duree <= end) { out.push(toStr(cur)); cur += duree; }
+  return out;
+}
+
+var _lastRefresh = 0;
+window.resaMaybeRefresh = function() {
+  // Rafraîchit les dispos à l'ouverture du menu (max 1x / 3s)
+  if (Date.now() - _lastRefresh > 3000) window.resaRefreshSlots();
+};
+
+window.resaRefreshSlots = async function() {
+  _lastRefresh = Date.now();
+  var dateEl = document.getElementById('r-date');
+  var selEl = document.getElementById('r-creneau');
+  var hintEl = document.getElementById('resa-dispo-hint');
+  var hintTxt = document.getElementById('resa-dispo-hint-txt');
+  if (!dateEl || !selEl || !dateEl.value) return;
+  var dateStr = dateEl.value;
+  if (!SETTINGS || Date.now() - SETTINGS_AT > 60000) await loadSettings();
+  var s = SETTINGS || {};
+  var dt = new Date(dateStr + 'T00:00:00');
+  var horaire = s.horaires && s.horaires[JOUR_KEYS[dt.getDay()]];
+
+  // Fermé ou bloqué ?
+  var blocked = s.dates_bloquees && s.dates_bloquees.indexOf(dateStr) !== -1;
+  if (!horaire || !horaire.open || blocked) {
+    selEl.innerHTML = '<option value="">Fermé ce jour</option>';
+    if (hintEl) { hintEl.style.display=''; hintTxt.textContent = blocked ? 'Le restaurant est exceptionnellement fermé ce jour.' : 'Le restaurant est fermé ce jour. Choisissez une autre date.'; }
+    return;
+  }
+
+  selEl.innerHTML = '<option value="">Chargement…</option>';
+
+  // Réservations existantes du jour
+  var dayRDVs = [];
+  try {
+    var r = await fetch(SB_URL + '/rest/v1/reservations_public?client_id=eq.' + encodeURIComponent(CLIENT) +
+      '&date=eq.' + dateStr + '&statut=neq.cancelled&select=heure,couverts', { headers: sbHeaders() });
+    if (r.ok) dayRDVs = await r.json();
+  } catch(e) { console.warn('[RESA] rdvs', e); }
+
+  var slots = genSlots(horaire.debut, horaire.fin, s.duree || 30);
+  var couvertsMax = s.couverts_max || 10;
+  var demandes = parseInt((document.getElementById('r-cv')||{}).value) || 1;
+  var now = new Date();
+  var delai = (s.delai_min || 2) * 3600000;
+
+  var opts = ['<option value="">Choisir…</option>'];
+  var freeCount = 0, fullCount = 0, pastCount = 0;
+  slots.forEach(function(h) {
+    var pris = dayRDVs.filter(function(x){ return x.heure === h; })
+      .reduce(function(sum,x){ return sum + (parseInt(x.couverts)||0); }, 0);
+    var restant = couvertsMax - pris;
+    var past = new Date(dateStr + 'T' + h + ':00').getTime() < now.getTime() + delai;
+    if (past) { pastCount++; return; }
+    if (restant < demandes) { fullCount++; return; }
+    freeCount++;
+    var info = ' — ' + restant + ' place' + (restant > 1 ? 's' : '') + ' rest.';
+    opts.push('<option value="' + h + '">' + h + info + '</option>');
+  });
+
+  var emptyLbl = 'Complet ce jour';
+  var emptyHint = 'Plus aucune disponibilité ce jour — essayez une autre date.';
+  if (!freeCount && pastCount && !fullCount) {
+    emptyLbl = 'Trop tard pour ce jour';
+    emptyHint = 'Les réservations pour ce jour sont closes — choisissez une date ultérieure.';
+  } else if (!freeCount && fullCount && demandes > 1) {
+    emptyHint = 'Plus assez de places pour ' + demandes + ' personnes — essayez moins de couverts ou une autre date.';
+  }
+
+  selEl.innerHTML = freeCount ? opts.join('') : '<option value="">' + emptyLbl + '</option>';
+  selEl.disabled = !freeCount;
+  if (hintEl) {
+    hintEl.style.display = '';
+    hintTxt.textContent = freeCount
+      ? freeCount + ' créneau' + (freeCount>1?'x':'') + ' disponible' + (freeCount>1?'s':'') + ' ce jour.'
+      : emptyHint;
+  }
+};
+
+window.resaSubmit = async function() {
+  var get = function(id){ return (document.getElementById(id)||{}).value || ''; };
+  var nom = get('r-nom').trim(), email = get('r-email').trim(), tel = get('r-tel').trim();
+  var cv = parseInt(get('r-cv')) || 0, date = get('r-date'), heure = get('r-creneau'), msg = get('r-msg').trim();
+  var errEl = document.getElementById('resa-err'), errTxt = document.getElementById('resa-err-txt');
+  function showErr(m){ if(errEl){ errEl.style.display=''; errTxt.textContent=m; setTimeout(function(){ errEl.style.display='none'; }, 5000);} }
+
+  if (!nom || !tel || !cv || !date || !heure) { showErr('Merci de remplir : nom, téléphone, couverts, date et créneau.'); return; }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('Email invalide.'); return; }
+
+  var btn = document.getElementById('lk-resa-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+
+  try {
+    var notifConfirm = SETTINGS && SETTINGS.notif_confirm;
+    var resp = await fetch(SB_URL + '/rest/v1/reservations_creneaux', {
+      method: 'POST',
+      headers: Object.assign({ 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, sbHeaders()),
+      body: JSON.stringify({
+        client_id: CLIENT, nom_client: nom, tel: tel, email: email,
+        couverts: cv, date: date, heure: heure,
+        statut: notifConfirm ? 'pending' : 'confirmed', notes: msg
+      })
+    });
+    if (!resp.ok) {
+      var body = await resp.text();
+      console.error('[RESA] insert failed', resp.status, body);
+      throw new Error('HTTP ' + resp.status);
+    }
+    document.getElementById('resaForm').style.display = 'none';
+    var ok = document.getElementById('resaOk');
+    if (ok) {
+      ok.style.display = 'block';
+      var okMsg = document.getElementById('resaOkMsg'); if (okMsg && SETTINGS && SETTINGS.msg_confirm) okMsg.textContent = SETTINGS.msg_confirm;
+    }
+  } catch(e) {
+    showErr('Une erreur est survenue. Veuillez réessayer.');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Confirmer ma réservation →'; }
+  }
+};
+
+window.resaFormReset = function() {
+  var ok = document.getElementById('resaOk');
+  var form = document.getElementById('resaForm');
+  if (ok) ok.style.display = 'none';
+  if (form) form.style.display = '';
+  ['r-nom','r-email','r-tel','r-msg'].forEach(function(id){
+    var el = document.getElementById(id); if (el) el.value = '';
+  });
+  var sel = document.getElementById('r-creneau');
+  if (sel) { sel.innerHTML = '<option value="">Choisissez d\'abord une date</option>'; sel.disabled = true; }
+  var di = document.getElementById('r-date');
+  if (di) di.value = '';
+  var hint = document.getElementById('resa-dispo-hint');
+  if (hint) hint.style.display = 'none';
+};
+
+// Init : date min = aujourd'hui + précharger settings
+document.addEventListener('DOMContentLoaded', function() {
+  var di = document.getElementById('r-date');
+  if (di) di.min = new Date().toISOString().split('T')[0];
+  loadSettings();
+});
+if (document.readyState !== 'loading') {
+  var di = document.getElementById('r-date');
+  if (di) di.min = new Date().toISOString().split('T')[0];
+  loadSettings();
+}
+})();
+
+</script>
+
+<!-- ══════════════════════════════════════════════════════════════
+     ÉDITEUR TACTILE — support du doigt pour l'édition mobile.
+     L'éditeur d'origine n'écoutait que la souris (mousedown /
+     mousemove / mouseup) : déplacer ou redimensionner un élément
+     était donc strictement impossible sur un téléphone. Ce module
+     traduit les gestes tactiles en événements souris et adapte la
+     barre d'outils au petit écran. Le rendu bureau est inchangé.
+══════════════════════════════════════════════════════════════ -->
+<style id="lke-touch-css">
+@media (max-width:768px){
+  /* — Poignées : cibles réellement atteignables au doigt — */
+  .lke-free-handle{
+    width:38px !important; height:38px !important;
+    font-size:18px !important; border-radius:11px !important;
+    box-shadow:0 4px 14px rgba(0,0,0,.45) !important;
+  }
+  .lke-resize-handle{
+    width:26px !important; height:26px !important;
+    border-width:3px !important;
+    margin:-6px 0 0 -6px;
+  }
+  .lk-drag-handle{
+    min-width:34px !important; min-height:34px !important;
+    font-size:17px !important;
+  }
+
+  /* — Barre d'outils ancrée en bas, défilante — */
+  #lke-toolbar{
+    position:fixed !important;
+    left:0 !important; right:0 !important;
+    top:auto !important;
+    bottom:0 !important;
+    max-width:none !important;
+    width:100% !important;
+    border-radius:16px 16px 0 0 !important;
+    padding:9px 10px calc(9px + env(safe-area-inset-bottom)) !important;
+    flex-wrap:nowrap !important;
+    overflow-x:auto; overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    box-shadow:0 -8px 30px rgba(0,0,0,.5) !important;
+  }
+  #lke-toolbar::-webkit-scrollbar{ display:none; }
+  #lke-toolbar > *{ flex-shrink:0; }
+  .lkt-btn{ min-height:38px !important; min-width:38px !important; padding:8px 11px !important; font-size:13px !important; }
+  .lkt-num{ width:56px !important; padding:9px 6px !important; font-size:14px !important; }
+  .lkt-sel{ padding:9px 8px !important; font-size:13px !important; max-width:112px !important; }
+  .lkt-color{ width:34px !important; height:34px !important; }
+  .lkt-ai{ padding:9px 15px !important; font-size:13px !important; }
+
+  /* — Boutons flottants : au-dessus de la barre, jamais hors cadre — */
+  #lke-addtext-fab, #lke-addimg-fab{
+    right:auto !important; left:10px !important;
+    padding:9px 14px !important; font-size:12px !important;
+    max-width:calc(100vw - 20px);
+  }
+  #lke-addtext-fab{ bottom:calc(12px + env(safe-area-inset-bottom)) !important; }
+  #lke-addimg-fab { bottom:calc(58px + env(safe-area-inset-bottom)) !important; }
+  body.lke-tb-open #lke-addtext-fab,
+  body.lke-tb-open #lke-addimg-fab{ display:none !important; }
+
+  /* — Badges d'image : cibles tactiles — */
+  .lke-gallery-badge button{
+    padding:8px 12px !important; font-size:12px !important;
+    min-height:34px;
+  }
+
+  /* — Popup IA : pleine largeur — */
+  #lke-ai-pop{
+    left:10px !important; right:10px !important;
+    width:auto !important; max-width:none !important;
+  }
+}
+/* Groupe de réglages tactiles : masqué tant qu'on n'est pas sur mobile */
+#lkt-touch-group{ display:none; }
+@media (max-width:768px){ #lkt-touch-group{ display:flex; align-items:center; gap:3px; } }
+</style>
+
+<script id="lke-touch-js">
+(function(){
+  'use strict';
+
+  /* ── 1. PONT TACTILE ────────────────────────────────────────────
+     Les poignées créées dynamiquement (buildFreeUI) ne peuvent pas
+     être équipées une par une : on délègue au niveau du document. */
+  var HANDLE_SEL = '.lke-free-handle, .lke-resize-handle, .lk-drag-handle';
+  var hasTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+
+  function fire(target, type, pt, buttons){
+    var ev;
+    try {
+      ev = new MouseEvent(type, {
+        bubbles:true, cancelable:true, view:window,
+        clientX:pt.clientX, clientY:pt.clientY,
+        screenX:pt.screenX, screenY:pt.screenY,
+        button:0, buttons: buttons
+      });
+    } catch(e){
+      ev = document.createEvent('MouseEvents');
+      ev.initMouseEvent(type, true, true, window, 0,
+        pt.screenX, pt.screenY, pt.clientX, pt.clientY,
+        false,false,false,false, 0, null);
+    }
+    target.dispatchEvent(ev);
+  }
+
+  var lastTap = { t:0, el:null };
+
+  function onTouchStart(ev){
+    if (!ev.touches || ev.touches.length !== 1) return;
+    var handle = ev.target.closest && ev.target.closest(HANDLE_SEL);
+    if (!handle) return;
+
+    // Empêche le défilement de la page pendant la manipulation
+    ev.preventDefault();
+
+    var t0 = ev.touches[0];
+
+    // Double-tap sur la poignée de déplacement = réinitialiser la position
+    // (équivalent du double-clic souris, qui n'est plus synthétisé dès lors
+    // que l'on annule le comportement par défaut du touchstart).
+    if (handle.classList.contains('lke-free-handle')){
+      var now = Date.now();
+      if (lastTap.el === handle && (now - lastTap.t) < 320){
+        lastTap.t = 0; lastTap.el = null;
+        var dbl;
+        try { dbl = new MouseEvent('dblclick', { bubbles:true, cancelable:true, view:window }); }
+        catch(e){ dbl = document.createEvent('MouseEvents');
+                  dbl.initMouseEvent('dblclick', true, true, window, 2, 0,0,0,0, false,false,false,false, 0, null); }
+        handle.dispatchEvent(dbl);
+        return;
+      }
+      lastTap.t = now; lastTap.el = handle;
+    }
+
+    fire(handle, 'mousedown', t0, 1);
+
+    function onMove(e2){
+      if (!e2.touches || e2.touches.length !== 1) return;
+      e2.preventDefault();
+      fire(document, 'mousemove', e2.touches[0], 1);
+    }
+    function onEnd(e2){
+      document.removeEventListener('touchmove', onMove, { passive:false });
+      document.removeEventListener('touchend', onEnd);
+      document.removeEventListener('touchcancel', onEnd);
+      var pt = (e2.changedTouches && e2.changedTouches[0]) || t0;
+      fire(document, 'mouseup', pt, 0);
+    }
+    document.addEventListener('touchmove', onMove, { passive:false });
+    document.addEventListener('touchend', onEnd);
+    document.addEventListener('touchcancel', onEnd);
+  }
+
+  if (hasTouch){
+    document.addEventListener('touchstart', onTouchStart, { passive:false, capture:true });
+  }
+
+  /* ── 2. RÉGLAGES TACTILES DANS LA BARRE D'OUTILS ────────────────
+     Viser une poignée de 14px au doigt reste pénible : on ajoute des
+     boutons pas-à-pas pour la taille du texte, la taille de l'élément
+     et les marges. Ils n'apparaissent que sous 768px. */
+
+  function sel(){ return document.querySelector('.lke-selected'); }
+
+  function parseT(str){
+    var mt = /translate\(([-\d.]+)px,\s*([-\d.]+)px\)/.exec(str || '');
+    var ms = /scale\(([\d.]+)\)/.exec(str || '');
+    return { x: mt ? parseFloat(mt[1]) : 0,
+             y: mt ? parseFloat(mt[2]) : 0,
+             s: ms ? parseFloat(ms[1]) : 1 };
+  }
+  function buildT(t){ return 'translate(' + t.x + 'px,' + t.y + 'px) scale(' + t.s + ')'; }
+
+  function notify(type){
+    try { window.parent.postMessage({ type: type }, '*'); } catch(e){}
+  }
+
+  function stepFont(delta){
+    var el = sel(); if (!el) return;
+    var cur = parseFloat(window.getComputedStyle(el).fontSize) || 16;
+    var next = Math.max(8, Math.min(200, Math.round(cur + delta)));
+    el.style.fontSize = next + 'px';
+    var inp = document.getElementById('lkt-size');
+    if (inp) inp.value = next;
+    notify('lke-style');
+  }
+
+  function stepScale(delta){
+    var el = sel(); if (!el) return;
+    if (window.lkeEnsureTransformable) window.lkeEnsureTransformable(el);
+    else {
+      if (window.getComputedStyle(el).position === 'static') el.style.position = 'relative';
+      el.style.transformOrigin = 'top left';
+    }
+    var t = parseT(el.style.transform);
+    t.s = Math.max(0.2, Math.min(6, Math.round((t.s + delta) * 100) / 100));
+    el.style.transform = buildT(t);
+    el.setAttribute('data-custom-pos', '1');
+    notify('lke-resize');
+    notify('lke-style');
+    if (window.enableFreePositioning) window.enableFreePositioning(el);
+  }
+
+  function stepSpacing(delta){
+    var el = sel(); if (!el) return;
+    var cs = window.getComputedStyle(el);
+    var mt = parseFloat(cs.marginTop) || 0;
+    var mb = parseFloat(cs.marginBottom) || 0;
+    el.style.marginTop    = Math.max(0, Math.round(mt + delta)) + 'px';
+    el.style.marginBottom = Math.max(0, Math.round(mb + delta)) + 'px';
+    notify('lke-style');
+    if (window.enableFreePositioning && el.classList.contains('lke-free')) {
+      window.enableFreePositioning(el);
+    }
+  }
+
+  function mkBtn(label, title, fn){
+    var b = document.createElement('button');
+    b.className = 'lkt-btn';
+    b.type = 'button';
+    b.innerHTML = label;
+    b.title = title;
+    b.setAttribute('data-lke-ui', '1');
+    b.addEventListener('mousedown', function(e){ e.stopPropagation(); e.preventDefault(); });
+    b.addEventListener('touchstart', function(e){ e.stopPropagation(); }, { passive:true });
+    b.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); fn(); });
+    return b;
+  }
+
+  function buildTouchGroup(){
+    var tb = document.getElementById('lke-toolbar');
+    if (!tb || document.getElementById('lkt-touch-group')) return;
+
+    var g = document.createElement('div');
+    g.id = 'lkt-touch-group';
+    g.setAttribute('data-lke-ui', '1');
+
+    var sep = document.createElement('div');
+    sep.className = 'lkt-sep';
+    sep.setAttribute('data-lke-ui', '1');
+
+    g.appendChild(mkBtn('A&minus;', 'Réduire le texte',        function(){ stepFont(-2); }));
+    g.appendChild(mkBtn('A+',       'Agrandir le texte',       function(){ stepFont(+2); }));
+    g.appendChild(mkBtn('&#8600;',  "Réduire l'élément",       function(){ stepScale(-0.1); }));
+    g.appendChild(mkBtn('&#8598;',  "Agrandir l'élément",      function(){ stepScale(+0.1); }));
+    g.appendChild(mkBtn('&#8597;&minus;', 'Resserrer les marges', function(){ stepSpacing(-6); }));
+    g.appendChild(mkBtn('&#8597;+',       'Espacer les marges',   function(){ stepSpacing(+6); }));
+
+    // Inséré juste avant le séparateur qui précède « Dupliquer »
+    var dup = document.getElementById('lkt-dup');
+    if (dup && dup.previousElementSibling) tb.insertBefore(g, dup.previousElementSibling);
+    else tb.appendChild(g);
+    tb.insertBefore(sep, g.nextSibling);
+  }
+
+  /* ── 3. Signale à la page que la barre est ouverte (masque les FAB
+        pour qu'ils ne passent pas sous la barre ancrée en bas). ── */
+  function watchToolbar(){
+    var tb = document.getElementById('lke-toolbar');
+    if (!tb) return;
+    var sync = function(){
+      document.body.classList.toggle('lke-tb-open', tb.classList.contains('visible'));
+    };
+    new MutationObserver(sync).observe(tb, { attributes:true, attributeFilter:['class'] });
+    sync();
+  }
+
+  function boot(){
+    if (!document.getElementById('lke-toolbar')) { setTimeout(boot, 200); return; }
+    buildTouchGroup();
+    watchToolbar();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+
+</body>
+</html>
