@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="fr" data-lk-theme="douceur" data-lk-theme-custom="{&quot;shadow&quot;:&quot;strong&quot;}"><head>
+<script>
+// ── Loksite Client ID (utilisé par analytics ET réservations) ──
+window.LOKSITE_CLIENT_ID = "axel.merlot59@gmail.com";
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Itsy Bitsy — Cuisine Végétale · Lille</title>
+<meta name="description" content="Restaurant et traiteur 100% végétalien au cœur de Lille. Cuisine végétale créative, brunch du dimanche sur réservation. 10 rue Jeanne Maillotte, Lille.">
+<meta property="og:title" content="Itsy Bitsy — Cuisine Végétale · Lille">
+<meta property="og:description" content="Restaurant et traiteur 100% végétalien à Lille. Cuisine de saison, brunch dominical, produits frais et locaux.">
+<meta property="og:type" content="restaurant">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;🌿&lt;/text&gt;&lt;/svg&gt;">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&amp;family=Jost:wght@300;400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&amp;display=swap" rel="stylesheet">
+<style>
+:root {
+  --c-forest:#1c3428;--c-pine:#2a5240;--c-sage:#4e8060;--c-fern:#7aab82;
+  --c-mist:#b8d9bc;--c-cream:#f6f1e8;--c-linen:#ede5d4;--c-warm:#e8dfc9;
+  --c-clay:#c4714a;--c-blush:#e0a07a;--c-gold:#c9a55a;
+  --c-ink:#18261e;--c-slate:#3d5446;--c-smoke:#7a9480;--c-white:#ffffff;
+  --nav-h:68px;--ease:cubic-bezier(0.4,0,0.2,1);--ease-out:cubic-bezier(0,0,0.2,1);
+  --r-card:18px;--r-pill:100px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Jost',sans-serif;color:var(--c-ink);background:var(--c-cream);overflow-x:hidden;line-height:1.6}
+img{display:block;max-width:100%}
+a{text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--c-warm)}
+::-webkit-scrollbar-thumb{background:var(--c-sage);border-radius:3px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slowZoom{from{transform:scale(1.06)}to{transform:scale(1)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease-out,transform .6s ease-out}
+.reveal.visible:not([data-custom-pos]){opacity:1!important;transform:translateY(0)!important}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LOKSITE — POSITIONS PERSONNALISÉES (glisser-déposer de l'éditeur)
+   ═══════════════════════════════════════════════════════════════════
+   Ces règles font partie du CSS DE BASE (pas du <style id="lke-edit-style">
+   retiré à la publication) : elles doivent donc s'appliquer À L'IDENTIQUE
+   dans l'éditeur ET sur le site publié.
+
+   Sans elles, un élément déplacé revenait à son ancienne position, car :
+   - « .reveal.visible { transform:translateY(0)!important } » écrase le
+     transform inline posé par le glisser-déposer (un !important d'une
+     feuille de style bat toujours un style inline sans !important) ;
+   - les animations d'apparition (fadeUp ... forwards) du hero
+     réappliquent elles aussi transform:translateY(0) en fin d'animation,
+     ce qui écrase également le style inline.
+
+   On neutralise donc animation + transition dès qu'un élément porte
+   data-custom-pos (attribut posé UNIQUEMENT lors d'un déplacement /
+   redimensionnement réel, et conservé à la publication), et on force
+   opacity:1 puisque ces animations étaient aussi chargées de rendre
+   l'élément visible.                                                   */
+[data-custom-pos]{
+  opacity:1!important;
+  animation:none!important;
+  transition:none!important;
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   ÉLÉMENTS LIBRES ANCRÉS (nouveaux textes / nouvelles images)
+   ───────────────────────────────────────────────────────────────────
+   Un élément créé depuis l'éditeur (« + Ajouter un texte » /
+   « + Ajouter une image ») n'existe pas dans la mise en page d'origine :
+   il n'a donc aucune position « naturelle » sur laquelle s'appuyer.
+   On l'ancre dans la SECTION sous laquelle il a été déposé et on stocke
+   sa position en POURCENTAGE de la largeur de cette section (+ un décalage
+   vertical en px depuis le haut de la section).
+
+   Pourquoi ce n'est pas du px absolu par rapport au <body> :
+   le canevas d'édition fait toujours 1440 px de large (voir espace.html,
+   DESIGN_WIDTH) alors que le visiteur peut être en 1280, 1728, 2560…
+   Une valeur « left:980px » ne désigne donc PAS le même endroit relatif
+   dans les deux cas — d'où le décalage constaté entre l'aperçu et le
+   rendu publié. Un pourcentage, lui, désigne le même endroit partout.
+
+   Ces règles font partie du CSS DE BASE (jamais retiré à la publication).
+   Le !important protège la position contre toute règle de mise en page
+   (grid/flex) de la section hôte.                                       */
+[data-lke-anchor]{
+  position:absolute!important;
+  z-index:5;
+}
+[data-lke-anchor] img{max-width:100%;height:auto}
+
+/* ── ADAPTATION MOBILE DES ELEMENTS ANCRES ──────────────────────────
+   Un element cree dans l'editeur (image ou texte libre) est en
+   position:absolute, avec left ET width en % de sa section. Ces deux
+   valeurs sont relatives, donc il se reduit avec la page — mais un
+   placement pense pour une grille 2 colonnes n'a plus aucun sens quand
+   la section passe en 1 colonne : l'element se retrouverait fatalement
+   par-dessus le texte.
+   Sous le point de rupture, on le remet donc dans le FLUX normal, en
+   pleine largeur, empile en bas de sa section (voir le module LKEAnchor
+   en fin de page, qui pose/retire la classe et gere l'ordre).
+   Ces regles font partie du CSS DE BASE (jamais retire a la
+   publication) et n'ont aucun effet au-dessus du point de rupture. */
+[data-lke-anchored].lke-anchor-flow,
+[data-custom-pos].lke-anchor-flow{
+  position:static!important;
+  left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;
+  width:100%!important;max-width:100%!important;
+  transform:none!important;
+  margin:2rem 0 0!important;
+  grid-column:1/-1!important;
+  z-index:auto!important;
+  float:none!important;
+}
+[data-lke-anchored].lke-anchor-flow img{width:100%!important;height:auto!important;display:block}
+
+/* Les contrôles d'édition (Remplacer / Supprimer) sont enfants du
+   conteneur d'image. Or ce conteneur peut porter un transform:scale()
+   (poignée de redimensionnement) qui, sans compensation, agrandit AUSSI
+   les boutons — d'où les boutons géants sur les petites images fortement
+   agrandies. --lke-inv porte l'échelle inverse, recalculée à chaque
+   changement de transform (voir lkeSyncBadgeScale). */
+.lke-gallery-badge{
+  transform-origin:top right;
+  transform:scale(var(--lke-inv,1));
+}
+.lke-gallery-badge button{
+  font-size:11px!important;
+  line-height:1.2!important;
+  padding:5px 10px!important;
+  min-height:0!important;
+  min-width:0!important;
+  width:auto!important;
+  height:auto!important;
+}
+.lke-delete-overlay button{transform:scale(var(--lke-inv,1))}
+
+/* NAV */
+#nav{position:fixed;inset:0 0 auto;height:var(--nav-h);z-index:9000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;transition:background .45s var(--ease),box-shadow .45s}
+#nav.scrolled{background:rgba(246,241,232,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 1px 0 rgba(28,52,40,.08)}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.logo-mark{width:46px;height:46px;background:var(--c-pine);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-style:italic;font-size:10px;color:var(--c-cream);text-align:center;line-height:1.2;padding:6px;transition:transform .4s var(--ease);flex-shrink:0}
+#nav:not(.scrolled) .logo-mark{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35)}
+.nav-logo:hover .logo-mark{transform:rotate(-8deg) scale(1.07)}
+.logo-name{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--c-white);transition:color .35s}
+#nav.scrolled .logo-name{color:var(--c-forest)}
+.nav-links{display:flex;align-items:center;gap:1.8rem;list-style:none}
+.nav-links a{font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.82);transition:color .3s,opacity .3s}
+#nav.scrolled .nav-links a{color:var(--c-slate)}
+.nav-links a:hover{color:var(--c-white)!important;opacity:1}
+#nav.scrolled .nav-links a:hover{color:var(--c-sage)!important}
+.nav-cta{background:var(--c-clay)!important;color:var(--c-white)!important;padding:.5rem 1.25rem;border-radius:var(--r-pill);font-weight:600!important;letter-spacing:.05em!important;transition:background .3s,transform .2s,box-shadow .3s!important;opacity:1!important}
+.nav-cta:hover{background:var(--c-blush)!important;transform:translateY(-2px);box-shadow:0 6px 20px rgba(196,113,74,.35)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--c-white);border-radius:2px;transition:all .3s}
+#nav.scrolled .hamburger span{background:var(--c-forest)}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0;width:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-nav{display:none;position:fixed;top:var(--nav-h);inset-inline:0;background:var(--c-cream);z-index:8999;padding:2rem 5% 2.5rem;flex-direction:column;gap:0;box-shadow:0 12px 40px rgba(28,52,40,.12)}
+.mobile-nav.open{display:flex}
+.mobile-nav a{padding:1rem 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;color:var(--c-forest);border-bottom:1px solid var(--c-warm);transition:color .25s,padding-left .25s}
+.mobile-nav a:hover{color:var(--c-sage);padding-left:8px}
+.mob-cta{margin-top:1.5rem;background:var(--c-clay);color:var(--c-white)!important;text-align:center;border-radius:var(--r-pill);padding:.9rem!important;font-family:'Jost',sans-serif!important;font-style:normal!important;font-size:.9rem!important;border-bottom:none!important}
+
+/* HERO */
+#hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--c-forest)}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(28,52,40,.85) 0%,rgba(42,82,64,.7) 50%,rgba(28,52,40,.75) 100%)}
+.hero-blob{position:absolute;bottom:-5%;right:-8%;width:45vw;height:45vw;max-width:600px;max-height:600px;background:radial-gradient(ellipse,rgba(122,171,130,.18) 0%,transparent 70%);border-radius:60% 40% 55% 45%/50% 60% 40% 50%;pointer-events:none}
+.hero-content{position:relative;z-index:2;text-align:center;color:var(--c-white);padding:0 1.5rem;max-width:820px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--c-mist);margin-bottom:1.6rem;opacity:0;animation:fadeUp .7s .4s var(--ease) forwards}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:32px;height:1px;background:rgba(184,217,188,.5)}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3.8rem,10vw,7.5rem);font-weight:700;line-height:.95;margin-bottom:.4rem;opacity:0;animation:fadeUp .85s .55s var(--ease) forwards;letter-spacing:-.02em}
+.hero-title em{font-style:italic;color:var(--c-mist);display:block;font-size:clamp(1.2rem,3vw,1.9rem);letter-spacing:.06em;margin-top:.5rem}
+.hero-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.05rem,2vw,1.4rem);color:rgba(255,255,255,.8);margin:1.8rem auto 2.6rem;max-width:520px;line-height:1.7;opacity:0;animation:fadeUp .8s .75s var(--ease) forwards}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .95s var(--ease) forwards}
+.btn-primary{background:var(--c-clay);color:var(--c-white);padding:.9rem 2.2rem;border-radius:var(--r-pill);font-weight:600;font-size:.9rem;letter-spacing:.04em;transition:background .3s,transform .25s,box-shadow .3s;border:2px solid transparent}
+.btn-primary:hover{background:var(--c-blush);transform:translateY(-3px);box-shadow:0 12px 30px rgba(196,113,74,.4)}
+.btn-ghost{background:transparent;color:var(--c-white);padding:.9rem 2.2rem;border-radius:var(--r-pill);font-weight:500;font-size:.9rem;letter-spacing:.04em;border:1.5px solid rgba(255,255,255,.45);transition:border-color .3s,background .3s,transform .25s}
+.btn-ghost:hover{border-color:var(--c-white);background:rgba(255,255,255,.1);transform:translateY(-3px)}
+.hero-badge{position:absolute;bottom:8rem;right:5%;background:rgba(255,255,255,.1);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:1rem 1.4rem;text-align:center;color:var(--c-white);animation:fadeIn .8s 1.3s var(--ease) forwards;opacity:0}
+.badge-stars{font-size:.85rem;letter-spacing:3px;color:var(--c-gold)}
+.badge-score{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;line-height:1.1}
+.badge-label{font-size:.7rem;opacity:.7;letter-spacing:.08em}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;animation:fadeIn 1s 1.8s ease forwards;opacity:0}
+.scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,rgba(255,255,255,.5),transparent);animation:scrollAnim 2s 2s ease infinite}
+
+/* SECTIONS */
+.sw{max-width:1240px;margin:0 auto}
+.section-label{display:inline-block;font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--c-clay);margin-bottom:.7rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:700;color:var(--c-forest);line-height:1.12;margin-bottom:1rem}
+.section-title em{font-style:italic;color:var(--c-sage)}
+.section-lead{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--c-smoke);line-height:1.8}
+
+/* EVENEMENTS */
+#evenements{background:var(--c-linen);padding:6rem 5%}
+.evt-header{max-width:1240px;margin:0 auto 3rem;text-align:center}
+.evt-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem}
+.evt-card{position:relative;background:var(--c-white);border-radius:var(--r-card);overflow:hidden;border:1px solid var(--c-mist);transition:transform .3s,box-shadow .3s}
+.evt-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(28,52,40,.1)}
+.evt-badge{position:absolute;top:1rem;left:1rem;background:var(--c-clay);color:var(--c-white);font-size:.72rem;font-weight:700;letter-spacing:.04em;padding:.35rem .8rem;border-radius:var(--r-pill);z-index:2}
+.evt-body{padding:3.1rem 1.6rem 1.8rem}
+.evt-date{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--c-sage);margin-bottom:.5rem}
+.evt-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--c-forest);margin-bottom:.6rem}
+.evt-desc{font-size:.88rem;color:var(--c-smoke);line-height:1.6;margin-bottom:1.1rem}
+.evt-cta{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:600;color:var(--c-clay);transition:gap .25s}
+.evt-cta:hover{gap:10px}
+/* — Mise en page selon le nombre de blocs réellement affichés —
+   `data-evt-visible` est posé par initEvtCards(). Aucune colonne
+   fantôme ne subsiste quand une carte est masquée : la grille est
+   recalculée sur le nombre exact de cartes visibles. */
+.evt-card[hidden],.evt-card[data-evt-hidden]{display:none !important}
+.evt-grid[data-evt-visible="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.evt-grid[data-evt-visible="2"]{grid-template-columns:repeat(2,minmax(0,1fr));max-width:880px}
+.evt-grid[data-evt-visible="1"]{grid-template-columns:minmax(0,460px);justify-content:center;max-width:460px}
+.evt-grid[data-evt-visible="0"]{display:none}
+@media(max-width:1024px){
+  .evt-grid[data-evt-visible="3"]{grid-template-columns:repeat(2,minmax(0,1fr));max-width:880px}
+  .evt-grid[data-evt-visible="3"] .evt-card:last-child{grid-column:1/-1;max-width:460px;justify-self:center;width:100%}
+}
+
+/* PRESENTATION */
+#presentation{background:var(--c-white);padding:8rem 5%}
+.pres-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.pres-text p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--c-slate);line-height:1.9;margin-top:1rem}
+.pres-badges{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.badge-pill{display:inline-flex;align-items:center;gap:6px;background:var(--c-cream);border:1px solid var(--c-mist);color:var(--c-pine);padding:.45rem 1rem;border-radius:var(--r-pill);font-size:.82rem;font-weight:500;transition:border-color .3s,background .3s}
+.badge-pill:hover{border-color:var(--c-sage);background:#eaf3ec}
+.pres-img-wrap{position:relative}
+.pres-img-frame{position:absolute;top:-18px;right:-18px;bottom:18px;left:18px;border:2px solid var(--c-mist);border-radius:22px;z-index:0;pointer-events:none}
+.pres-img{position:relative;z-index:1;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:20px;transition:transform .6s var(--ease)}
+.pres-img-wrap:hover .pres-img{transform:scale(1.02) translateY(-4px)}
+.pres-stat{position:absolute;left:-28px;bottom:40px;z-index:2;background:var(--c-forest);color:var(--c-white);padding:1.2rem 1.5rem;border-radius:16px;box-shadow:0 20px 50px rgba(28,52,40,.3);animation:float 4s ease-in-out infinite}
+.pres-stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--c-gold);line-height:1}
+.pres-stat-label{font-size:.75rem;color:rgba(255,255,255,.7);margin-top:2px;letter-spacing:.06em}
+
+/* MENU */
+#menu{background:var(--c-cream);padding:8rem 5%}
+.menu-header{text-align:center;max-width:620px;margin:0 auto 3rem}
+.brunch-card{max-width:1240px;margin:0 auto 3.5rem;background:linear-gradient(135deg,var(--c-forest) 0%,var(--c-pine) 100%);border-radius:24px;padding:2.8rem 3rem;display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:center;position:relative;overflow:hidden}
+.brunch-card::before{content:'';position:absolute;right:-40px;top:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(122,171,130,.2),transparent 70%);pointer-events:none}
+.brunch-price-block{text-align:center}
+.brunch-price-label{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--c-mist);margin-bottom:.4rem}
+.brunch-price{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;color:var(--c-gold);line-height:1}
+.brunch-price-sub{font-size:.78rem;color:rgba(255,255,255,.5);margin-top:3px}
+.brunch-divider{width:1px;background:rgba(255,255,255,.15);align-self:stretch}
+.brunch-info h3{font-family:'Playfair Display',serif;font-style:italic;font-size:1.5rem;color:var(--c-white);margin-bottom:.8rem}
+.brunch-items{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem 1.4rem}
+.brunch-items li{color:rgba(255,255,255,.78);font-size:.88rem;display:flex;align-items:center;gap:6px}
+.brunch-items li::before{content:'🌿';font-size:.7rem}
+.brunch-note{margin-top:1.2rem;font-size:.78rem;color:var(--c-mist);display:flex;align-items:center;gap:8px}
+.menu-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem}
+.tab-btn{background:none;border:1.5px solid var(--c-mist);color:var(--c-slate);padding:.55rem 1.4rem;border-radius:var(--r-pill);font-size:.84rem;font-weight:500;letter-spacing:.04em;transition:all .3s}
+.tab-btn:hover{border-color:var(--c-sage);color:var(--c-pine)}
+.tab-btn.active{background:var(--c-forest);border-color:var(--c-forest);color:var(--c-white)}
+.tab-panel{display:none}
+.tab-panel.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;max-width:1240px;margin:0 auto}
+.menu-card{background:var(--c-white);border-radius:var(--r-card);border:1px solid transparent;transition:border-color .3s,box-shadow .3s,transform .3s;overflow:hidden}
+.menu-card:hover{border-color:var(--c-mist);transform:translateY(-4px);box-shadow:0 14px 40px rgba(28,52,40,.08)}
+.menu-card-img{width:100%;height:160px;object-fit:cover;display:block}
+.menu-card-body{padding:1.4rem 1.6rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.menu-card-info{flex:1}
+.menu-card-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--c-forest);margin-bottom:.35rem}
+.menu-card-desc{font-size:.84rem;color:var(--c-smoke);line-height:1.55}
+.menu-card-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.6rem}
+.tag{font-size:.66rem;background:var(--c-cream);color:var(--c-pine);padding:.18rem .6rem;border-radius:100px;font-weight:500}
+.menu-card-price{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--c-clay);white-space:nowrap}
+.menu-card-no-img .menu-card-body{padding:1.5rem 1.6rem}
+
+/* GALERIE */
+#galerie{background:var(--c-forest);padding:8rem 5%}
+.galerie-header{max-width:1240px;margin:0 auto 3rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.galerie-header .section-label{color:var(--c-mist)}
+.galerie-header .section-title{color:var(--c-white)}
+.galerie-insta{color:var(--c-fern);font-size:.85rem;font-weight:500;display:flex;align-items:center;gap:6px;transition:color .3s}
+.galerie-insta:hover{color:var(--c-white)}
+.gallery-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:240px 240px;grid-auto-rows:240px;gap:10px}
+.g-item{border-radius:14px;overflow:hidden;cursor:pointer;position:relative;background:var(--c-pine)}
+/* Cases uniformes : les anciens span (1re case en 2x2, 5e en 2x1) ont ete
+   retires — toutes les photos de la galerie doivent avoir la meme taille. */
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.g-item:hover img{transform:scale(1.09)}
+.g-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,52,40,.78) 0%,transparent 55%);opacity:0;transition:opacity .35s;display:flex;align-items:flex-end;padding:1.2rem}
+.g-item:hover .g-item-overlay{opacity:1}
+.g-item-overlay span{color:rgba(255,255,255,.92);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+#lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(10,20,14,.96);align-items:center;justify-content:center;padding:2rem}
+#lightbox.open{display:flex;animation:fadeIn .25s ease}
+#lightbox img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:12px}
+#lightbox-close{position:fixed;top:1.5rem;right:1.5rem;background:rgba(255,255,255,.1);border:none;color:var(--c-white);width:44px;height:44px;border-radius:50%;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:background .3s}
+#lightbox-close:hover{background:rgba(255,255,255,.22)}
+
+/* AVIS */
+#avis{background:var(--c-linen);padding:8rem 5%}
+.avis-header{text-align:center;margin-bottom:3.5rem}
+.avis-score-row{display:flex;align-items:center;justify-content:center;gap:1.4rem;margin-top:1.2rem}
+.avis-big-num{font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:700;color:var(--c-forest);line-height:1}
+.avis-meta{text-align:left}
+.avis-stars{color:var(--c-gold);font-size:1.1rem;letter-spacing:3px}
+.avis-count{font-size:.82rem;color:var(--c-smoke);margin-top:4px}
+.avis-track-wrap{max-width:1200px;margin:0 auto;overflow:hidden;position:relative}
+.avis-track{display:flex;gap:1.5rem;transition:transform .5s var(--ease)}
+.avis-card{width:calc(33.333% - 1rem);flex-shrink:0;background:var(--c-white);border-radius:20px;padding:2rem 2.2rem;box-shadow:0 4px 24px rgba(28,52,40,.06);transition:box-shadow .3s}
+.avis-card:hover{box-shadow:0 10px 40px rgba(28,52,40,.1)}
+.avis-card-stars{color:var(--c-gold);font-size:.85rem;letter-spacing:3px;margin-bottom:1rem}
+.avis-card-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.08rem;color:var(--c-slate);line-height:1.75;margin-bottom:1.2rem}
+.avis-card-author{display:flex;align-items:center;gap:.6rem;font-size:.8rem;font-weight:600;color:var(--c-smoke)}
+.avis-card-author::before{content:'';display:block;width:20px;height:1.5px;background:var(--c-fern)}
+.avis-dots{display:flex;justify-content:center;gap:8px;margin-top:2.5rem}
+.avis-dot{width:8px;height:8px;border-radius:4px;border:none;background:var(--c-mist);cursor:pointer;transition:all .3s}
+.avis-dot.active{background:var(--c-pine);width:22px}
+
+/* HORAIRES */
+#horaires{background:var(--c-white);padding:8rem 5%}
+.horaires-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;max-width:1100px;margin:0 auto;align-items:start}
+.status-pill{display:inline-flex;align-items:center;gap:8px;padding:.4rem 1rem;border-radius:var(--r-pill);font-size:.78rem;font-weight:600;margin-bottom:1.8rem}
+.status-pill.open{background:#e6f4ea;color:#1e6b2e}
+.status-pill.closed{background:#fce8e8;color:#b71c1c}
+.status-dot{width:8px;height:8px;border-radius:50%}
+.status-pill.open .status-dot{background:#34a853;animation:pulse 2s infinite}
+.status-pill.closed .status-dot{background:#ea4335}
+.hours-table{width:100%}
+.hours-row{display:flex;justify-content:space-between;align-items:center;padding:.85rem .8rem;border-radius:10px;transition:background .2s}
+.hours-row:hover{background:var(--c-cream)}
+.hours-row.today{background:var(--c-cream);font-weight:600}
+.hours-day{font-size:.9rem;color:var(--c-slate)}
+.hours-row.today .hours-day{color:var(--c-forest)}
+.hours-time{font-size:.9rem;color:var(--c-pine);font-weight:500}
+.hours-time.closed{color:var(--c-smoke);font-style:italic}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-field{display:flex;flex-direction:column;gap:5px}
+.form-field.full{grid-column:span 2}
+label{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--c-smoke)}
+input,select,textarea{padding:.8rem 1rem;border:1.5px solid var(--c-warm);border-radius:10px;font-family:'Jost',sans-serif;font-size:.9rem;color:var(--c-ink);background:var(--c-cream);outline:none;appearance:none;transition:border-color .3s,box-shadow .3s,background .3s}
+input:focus,select:focus,textarea:focus{border-color:var(--c-sage);box-shadow:0 0 0 3px rgba(78,128,96,.14);background:var(--c-white)}
+textarea{resize:vertical;min-height:90px}
+.btn-submit{grid-column:span 2;width:100%;background:var(--c-forest);color:var(--c-white);border:none;padding:1rem 2rem;border-radius:12px;font-size:.92rem;font-weight:600;letter-spacing:.04em;margin-top:.5rem;transition:background .3s,transform .25s,box-shadow .3s}
+.btn-submit:hover{background:var(--c-pine);transform:translateY(-2px);box-shadow:0 10px 28px rgba(28,52,40,.22)}
+
+/* LOCALISATION */
+#localisation{background:var(--c-cream);padding:8rem 5%}
+.loc-grid{display:grid;grid-template-columns:380px 1fr;gap:4rem;max-width:1100px;margin:0 auto;align-items:center}
+.loc-info{display:flex;flex-direction:column;gap:1.6rem}
+.loc-block{display:flex;gap:1rem;align-items:flex-start}
+.loc-icon{width:46px;height:46px;background:var(--c-white);border:1px solid var(--c-mist);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.loc-block-text strong{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--c-smoke);font-weight:600;margin-bottom:3px}
+.loc-block-text span,.loc-block-text a{font-size:.92rem;color:var(--c-ink)}
+.loc-block-text a{color:var(--c-pine);transition:color .3s}
+.loc-block-text a:hover{color:var(--c-clay)}
+.loc-btn{display:inline-flex;align-items:center;gap:8px;background:var(--c-clay);color:var(--c-white);padding:.75rem 1.5rem;border-radius:var(--r-pill);font-size:.85rem;font-weight:600;margin-top:.5rem;transition:background .3s,transform .25s}
+.loc-btn:hover{background:var(--c-blush);transform:translateY(-2px)}
+.map-wrap{border-radius:22px;overflow:hidden;aspect-ratio:4/3;box-shadow:0 20px 60px rgba(28,52,40,.12)}
+.map-wrap iframe{width:100%;height:100%;border:none}
+
+/* FOOTER */
+footer{background:var(--c-forest);color:rgba(255,255,255,.7);padding:4rem 5% 2.5rem}
+.footer-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:3rem;max-width:1100px;margin:0 auto;align-items:start}
+.logo-mark-f{width:52px;height:52px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-style:italic;font-size:10px;color:var(--c-cream);margin-bottom:1rem;padding:6px;text-align:center;line-height:1.2}
+.footer-brand h4{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--c-white)}
+.footer-brand p{font-size:.82rem;margin-top:.4rem}
+.footer-social{display:flex;gap:.8rem;margin-top:1.2rem}
+.footer-social a{width:36px;height:36px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:rgba(255,255,255,.7);transition:all .3s}
+.footer-social a:hover{background:var(--c-clay);color:var(--c-white);border-color:var(--c-clay)}
+.footer-nav-col h5,.footer-center h5{font-size:.72rem;text-transform:uppercase;letter-spacing:.18em;font-weight:600;color:var(--c-fern);margin-bottom:1rem}
+.footer-nav-col ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.footer-nav-col li a{font-size:.86rem;color:rgba(255,255,255,.65);transition:color .3s}
+.footer-nav-col li a:hover{color:var(--c-white)}
+.footer-center{text-align:center}
+.footer-center address{font-style:normal;font-size:.86rem;line-height:1.7}
+.ft-tel{display:block;margin-top:.6rem;font-size:1rem;font-weight:600;color:var(--c-white)}
+.footer-bottom{max-width:1100px;margin:3rem auto 0;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:.75rem}
+.footer-bottom a{color:rgba(255,255,255,.5);transition:color .3s}
+.footer-bottom a:hover{color:var(--c-white)}
+
+/* SAISON SWITCHER */
+.saison-switcher{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;margin:0 auto 3rem;max-width:1240px;padding:0 5%}
+.saison-btn{background:none;border:1.5px solid var(--c-mist);color:var(--c-slate);padding:.65rem 1.8rem;border-radius:var(--r-pill);font-size:.88rem;font-weight:600;letter-spacing:.04em;transition:all .3s;cursor:pointer}
+.saison-btn:hover{border-color:var(--c-sage);color:var(--c-pine);background:#eaf3ec}
+.saison-btn.active{background:var(--c-forest);border-color:var(--c-forest);color:var(--c-white);box-shadow:0 6px 20px rgba(28,52,40,.2)}
+
+/* SAISON PANELS */
+.saison-panel{display:none;max-width:1240px;margin:0 auto;padding:0 5%}
+.saison-panel.active{display:block}
+
+/* SAISON HEADER */
+.saison-header{text-align:center;margin-bottom:2.5rem}
+.saison-badge{display:inline-block;padding:.6rem 1.8rem;border-radius:var(--r-pill);font-size:.85rem;font-weight:600;letter-spacing:.06em}
+.saison-badge.ete{background:linear-gradient(135deg,#f97316,#f59e0b);color:var(--c-white)}
+.saison-badge.printemps{background:linear-gradient(135deg,#10b981,#34d399);color:var(--c-white)}
+
+/* FORMULES GRID */
+.formules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.formule-card{background:var(--c-white);border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(28,52,40,.07);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
+.formule-card:hover{transform:translateY(-5px);box-shadow:0 16px 45px rgba(28,52,40,.12)}
+.formule-header{display:flex;align-items:center;gap:1rem;padding:1.4rem 1.6rem;border-bottom:1px solid var(--c-warm)}
+.formule-header.buffet{background:linear-gradient(135deg,#e8f5e9,#f1f8f2)}
+.formule-header.cocktail{background:linear-gradient(135deg,#fff3e0,#fef9f0)}
+.formule-header.plateau{background:linear-gradient(135deg,#fce4ec,#fdf0f4)}
+.formule-icon{font-size:2rem;line-height:1}
+.formule-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--c-forest)}
+.formule-price{font-size:1.3rem;font-weight:700;color:var(--c-clay);font-family:'Playfair Display',serif;margin-top:2px}
+.formule-subtitle{font-size:.8rem;font-weight:600;color:var(--c-sage);text-transform:uppercase;letter-spacing:.1em;padding:.7rem 1.6rem 0}
+.formule-items{list-style:none;padding:1rem 1.6rem;flex:1;display:flex;flex-direction:column;gap:.55rem}
+.formule-items li{font-size:.87rem;color:var(--c-slate);line-height:1.5;padding-left:1rem;position:relative}
+.formule-items li::before{content:'·';position:absolute;left:0;color:var(--c-sage);font-weight:700}
+.formule-items li strong{color:var(--c-forest)}
+.formule-extras{display:flex;flex-wrap:wrap;gap:.4rem;padding:1rem 1.6rem 1.4rem;border-top:1px solid var(--c-cream)}
+.formule-extras span{font-size:.75rem;background:var(--c-cream);color:var(--c-pine);padding:.25rem .7rem;border-radius:100px;font-weight:500}
+
+/* MODALITÉS */
+.modalites-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:1240px;margin:0 auto;padding:0 5%}
+.modalite-card{background:var(--c-white);border-radius:16px;padding:1.6rem;display:flex;gap:1rem;align-items:flex-start;box-shadow:0 3px 15px rgba(28,52,40,.06);transition:transform .3s,box-shadow .3s}
+.modalite-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(28,52,40,.1)}
+.modalite-card.alert{background:linear-gradient(135deg,#e8f5e9,#f1f8f2);border:1px solid var(--c-mist)}
+.modalite-icon{font-size:1.8rem;line-height:1;flex-shrink:0}
+.modalite-text{display:flex;flex-direction:column;gap:4px}
+.modalite-text strong{font-size:.88rem;font-weight:700;color:var(--c-forest);text-transform:uppercase;letter-spacing:.06em}
+.modalite-text span{font-size:.85rem;color:var(--c-slate);line-height:1.55}
+.modalite-text a{color:var(--c-pine);font-weight:600;transition:color .3s}
+.modalite-text a:hover{color:var(--c-clay)}
+.modalites-cta{text-align:center;margin-top:3rem;padding:2.5rem;background:var(--c-forest);border-radius:20px;max-width:1240px;margin:2.5rem auto 0;padding:2.5rem 5%}
+.modalites-cta p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;color:rgba(255,255,255,.85);margin-bottom:1.5rem}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .formules-grid{grid-template-columns:1fr}
+  .modalites-grid{grid-template-columns:1fr 1fr}
+
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .evt-grid,
+  .evt-grid[data-evt-visible="1"],
+  .evt-grid[data-evt-visible="2"],
+  .evt-grid[data-evt-visible="3"]{grid-template-columns:minmax(0,1fr);max-width:520px;justify-content:stretch}
+  .evt-grid[data-evt-visible="3"] .evt-card:last-child{grid-column:auto;max-width:none;justify-self:auto}
+  .pres-grid{grid-template-columns:1fr;gap:3rem}
+  .pres-img-wrap{order:-1}
+  .pres-stat{left:auto;right:1rem;bottom:1rem}
+  .brunch-card{grid-template-columns:1fr;gap:1.5rem}
+  .brunch-divider{display:none}
+  .avis-card{width:calc(80% - .75rem)}
+  .horaires-grid{grid-template-columns:1fr;gap:4rem}
+  .loc-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,200px);grid-auto-rows:200px}
+  .footer-grid{grid-template-columns:1fr;gap:2.5rem}
+  .footer-center{text-align:left}
+}
+@media(max-width:560px){
+  .formules-grid,.modalites-grid{grid-template-columns:1fr}
+  .saison-btn{padding:.55rem 1rem;font-size:.8rem}
+
+  #presentation,#menu,#galerie,#avis,#horaires,#localisation,#evenements{padding:5rem 5%}
+  .form-grid{grid-template-columns:1fr}
+  .form-field.full,.btn-submit{grid-column:span 1}
+  .hero-badge{display:none}
+  .avis-card{width:calc(92% - .75rem)}
+}
+</style>
+<!-- Loksite Cookie Consent -->
+<script>
+(function(){
+  if (window.self !== window.top) return;
+  if (window.location.pathname.includes('vitrine-preview')) return;
+
+  var consent = localStorage.getItem('lk_cookie_consent');
+  if (consent) return; // choix déjà fait (accepted ou declined)
+
+  function showBanner() {
+    var overlay = document.createElement('div');
+    overlay.id = 'lk-cookie-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;font-family:-apple-system,Segoe UI,Roboto,sans-serif';
+    overlay.innerHTML =
+      '<div style="background:#fff;border-radius:16px;max-width:380px;width:100%;padding:28px;box-shadow:0 24px 64px rgba(15,23,42,.3)">' +
+      '<div style="font-size:16px;font-weight:800;color:#0f172a;margin-bottom:10px">Cookies & vie privée</div>' +
+      '<div style="font-size:13.5px;line-height:1.6;color:#475569;margin-bottom:20px">Ce site utilise des cookies de mesure d\'audience pour comprendre comment il est utilisé. Vous pouvez accepter ou refuser ce suivi. <a href="cookies.html" style="color:#0f172a;font-weight:600;text-decoration:underline">En savoir plus</a></div>' +
+      '<div style="display:flex;gap:10px">' +
+      '<button id="lk-cookie-refuse" style="flex:1;background:#f1f5f9;border:none;color:#475569;border-radius:10px;padding:11px 0;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit">Refuser</button>' +
+      '<button id="lk-cookie-accept" style="flex:1;background:#0f172a;border:none;color:#fff;border-radius:10px;padding:11px 0;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit">Accepter</button>' +
+      '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    document.getElementById('lk-cookie-accept').onclick = function(){
+      localStorage.setItem('lk_cookie_consent', 'accepted');
+      overlay.remove();
+      window.dispatchEvent(new Event('lkConsentAccepted'));
+    };
+    document.getElementById('lk-cookie-refuse').onclick = function(){
+      localStorage.setItem('lk_cookie_consent', 'declined');
+      overlay.remove();
+    };
+  }
+
+  if (document.body) showBanner();
+  else document.addEventListener('DOMContentLoaded', showBanner);
+})();
+</script>
+
+<!-- Loksite Analytics Tracker -->
+<script>
+(function() {
+  // Ne pas tracker si chargé dans une iframe OU si c'est le fichier preview
+  if (window.self !== window.top) return;
+  if (window.location.pathname.includes('vitrine-preview')) return;
+
+  // No-op par défaut tant que le consentement cookies n'est pas donné
+  window.lkTrackClick = window.lkTrackClick || function(){};
+
+  function lkRunTracker() {
+  var CLIENT_ID = "b6a7672d-74d3-452d-97e2-6ff020bea7db";
+  var SUPABASE_URL = "https://qhnofvfgutsdgbfwhupg.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY";
+  var sessionId = Math.random().toString(36).slice(2);
+
+  // Visiteur unique persistant (même appareil/navigateur => même visitor_id)
+  var visitorId = localStorage.getItem('lk_visitor_id');
+  if (!visitorId) {
+    visitorId = 'v_' + Date.now().toString(36) + Math.random().toString(36).slice(2);
+    localStorage.setItem('lk_visitor_id', visitorId);
+  }
+
+  var start = Date.now();
+  var device = /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : /iPad|Tablet/i.test(navigator.userAgent) ? "tablette" : "desktop";
+  var referrer = document.referrer.includes("google") ? "Organique"
+    : (document.referrer.includes("facebook") || document.referrer.includes("instagram") || document.referrer.includes("tiktok")) ? "Social"
+    : document.referrer === "" ? "Direct" : "Autre";
+
+  function lkTrackPage(page) {
+    fetch(SUPABASE_URL + "/rest/v1/analytics_events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Prefer": "return=minimal" },
+      body: JSON.stringify({ client_id: CLIENT_ID, page: page, referrer: referrer, device: device, session_id: sessionId, visitor_id: visitorId, duration: 0 })
+    }).catch(function(){});
+  }
+
+  // Enregistrement de la visite (page principale)
+  lkTrackPage(window.location.pathname);
+
+  // Tracking des sections vues au scroll (= "pages vues" supplémentaires)
+  if ('IntersectionObserver' in window) {
+    var seenSections = {};
+    var sectionObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && entry.target.id && !seenSections[entry.target.id]) {
+          seenSections[entry.target.id] = true;
+          lkTrackPage(window.location.pathname + '#' + entry.target.id);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('section[id]').forEach(function(s) {
+      if (s.id !== 'hero') sectionObserver.observe(s);
+    });
+  }
+
+  // Tracker de clics sur les sections
+  window.lkTrackClick = function(section) {
+    fetch(SUPABASE_URL + "/rest/v1/click_events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Prefer": "return=minimal" },
+      body: JSON.stringify({ client_id: CLIENT_ID, section: section, session_id: sessionId, created_at: new Date().toISOString() })
+    }).catch(function(){});
+  };
+  var ticker = setInterval(function() {
+    var dur = Math.round((Date.now() - start) / 1000);
+    fetch(SUPABASE_URL + "/rest/v1/analytics_events?session_id=eq." + sessionId, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Prefer": "return=minimal" },
+      body: JSON.stringify({ duration: dur }),
+      keepalive: true
+    });
+  }, 15000);
+
+  // Mise à jour finale à la fermeture
+  // keepalive:true permet à cette requête de se terminer même si l'onglet
+  // se ferme juste après — sans ça, le navigateur l'annule souvent avant
+  // qu'elle n'atteigne Supabase, et la durée reste figée à 0.
+  window.addEventListener("visibilitychange", function() {
+    if (document.visibilityState === "hidden") {
+      clearInterval(ticker);
+      var dur = Math.round((Date.now() - start) / 1000);
+      fetch(SUPABASE_URL + "/rest/v1/analytics_events?session_id=eq." + sessionId, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Prefer": "return=minimal" },
+        body: JSON.stringify({ duration: dur }),
+        keepalive: true
+      });
+    }
+  });
+  } // fin lkRunTracker
+
+  var consent = localStorage.getItem('lk_cookie_consent');
+  if (consent === 'accepted') {
+    lkRunTracker();
+  } else if (!consent) {
+    window.addEventListener('lkConsentAccepted', lkRunTracker, { once: true });
+  }
+})();
+</script>
+
+<!-- Loksite site_config loader -->
+<script>
+(function() {
+  var SUPABASE_URL = "https://qhnofvfgutsdgbfwhupg.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY";
+  var CLIENT_ID = "b6a7672d-74d3-452d-97e2-6ff020bea7db";
+
+  function applySiteConfig(cfg) {
+    if (!cfg) return;
+    // Hero
+    var eyebrow = document.getElementById("lk-hero-eyebrow");
+    var titre = document.getElementById("lk-hero-titre");
+    var sousTitre = document.getElementById("lk-hero-sous-titre");
+    var tagline = document.getElementById("lk-hero-tagline");
+    var btnResa = document.getElementById("lk-btn-resa");
+    var presentation = document.getElementById("lk-presentation");
+
+    if (eyebrow && cfg.hero_eyebrow) eyebrow.textContent = cfg.hero_eyebrow;
+    if (titre && cfg.hero_titre) {
+      titre.childNodes[0].textContent = cfg.hero_titre;
+    }
+    if (sousTitre && cfg.hero_sous_titre) sousTitre.textContent = cfg.hero_sous_titre;
+    if (tagline && cfg.hero_tagline) tagline.textContent = cfg.hero_tagline;
+    if (btnResa && cfg.bouton_resa_texte) btnResa.textContent = cfg.bouton_resa_texte;
+    if (presentation && cfg.presentation_texte) presentation.textContent = cfg.presentation_texte;
+
+    // Horaires
+    if (cfg.horaires) {
+      var jours = {lun:1, mar:2, mer:3, jeu:4, ven:5, sam:6, dim:0};
+      Object.keys(jours).forEach(function(j) {
+        if (cfg.horaires[j] !== undefined) {
+          var row = document.querySelector(".hours-row[data-day='" + jours[j] + "'] .hours-time");
+          if (row) {
+            row.textContent = cfg.horaires[j] || "Fermé";
+            if (!cfg.horaires[j] || cfg.horaires[j] === "Fermé") {
+              row.classList.add("closed");
+            } else {
+              row.classList.remove("closed");
+            }
+          }
+        }
+      });
+    }
+
+    // Contact info
+    if (cfg.telephone) {
+      document.querySelectorAll(".lk-telephone").forEach(function(el) { el.textContent = cfg.telephone; });
+    }
+    if (cfg.adresse) {
+      document.querySelectorAll(".lk-adresse").forEach(function(el) { el.textContent = cfg.adresse; });
+    }
+    if (cfg.email) {
+      document.querySelectorAll(".lk-email").forEach(function(el) { el.textContent = cfg.email; });
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    fetch(SUPABASE_URL + "/rest/v1/rpc/lk_site_public", {
+      method: "POST",
+      headers: { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify({ p_email: CLIENT_ID })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data && data.site_config) {
+        applySiteConfig(data.site_config);
+      }
+    })
+    .catch(function(e) { console.log("site_config non chargé:", e); });
+  });
+})();
+</script>
+<link id="lk-theme-fonts" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&amp;family=Jost:wght@300;400;500;600;700&amp;family=Cormorant+Garamond:wght@300;400;500;600;700&amp;family=Jost:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Inter+Tight:wght@300;400;500;600;700&amp;family=Fraunces:wght@300;400;500;600;700&amp;family=Poppins:wght@300;400;500;600;700&amp;family=Poppins:wght@300;400;500;600;700&amp;family=Poppins:wght@300;400;500;600;700&amp;family=DM+Serif+Display:wght@300;400;500;600;700&amp;family=Comfortaa:wght@300;400;500;600;700&amp;family=Quicksand:wght@300;400;500;600;700&amp;family=Quicksand:wght@300;400;500;600;700&amp;family=Quicksand:wght@300;400;500;600;700&amp;display=swap" data-families="Cormorant Garamond|Jost|Cormorant Garamond|Jost|Space Grotesk|Inter|Inter|Inter|Inter Tight|Fraunces|Poppins|Poppins|Poppins|DM Serif Display|Comfortaa|Quicksand|Quicksand|Quicksand"><style id="lk-theme">/* Généré par le sélecteur de thèmes Loksite — ne pas modifier à la main */
+:root{
+--lk-primary:#4a3f5c;--lk-primary-dark:#37304a;
+--lk-secondary:#9d8bc4;--lk-secondary-soft:#cfc3e8;
+--lk-accent:#e8879b;--lk-accent-soft:#f3b6c2;--lk-gold:#dba463;
+--lk-bg:#fdfaff;--lk-bg-alt:#f6eff8;
+--lk-border:#ecdff0;--lk-border-soft:#f2e6f4;
+--lk-text:#3f3550;--lk-text-soft:#6a5e7d;--lk-text-muted:#a096ad;
+--lk-btn-bg:#e8879b;--lk-btn-bg-hover:#9d8bc4;--lk-btn-text:#ffffff;
+--lk-font-title:'Comfortaa',cursive;--lk-font-body:'Quicksand',sans-serif;
+--lk-font-accent:'Quicksand',sans-serif;--lk-font-btn:'Quicksand',sans-serif;
+--lk-radius:22px;--lk-radius-pill:100px;--lk-btn-radius:100px;
+--lk-shadow:0 18px 48px rgba(0,0,0,.18);
+--c-forest:var(--lk-primary);--c-pine:var(--lk-primary-dark);
+--c-sage:var(--lk-secondary);--c-fern:var(--lk-secondary-soft);--c-mist:var(--lk-border-soft);
+--c-cream:var(--lk-bg);--c-linen:var(--lk-bg-alt);--c-warm:var(--lk-border);
+--c-clay:var(--lk-accent);--c-blush:var(--lk-accent-soft);--c-gold:var(--lk-gold);
+--c-ink:var(--lk-text);--c-slate:var(--lk-text-soft);--c-smoke:var(--lk-text-muted);
+--r-card:var(--lk-radius);
+}
+body,input,select,textarea{font-family:var(--lk-font-body)}
+.hero-title,.section-title,.evt-title,.badge-score,.brunch-price,.brunch-info h3,.menu-card-name,.menu-card-price,.avis-big-num,.pres-stat-num,.formule-name,.formule-price,.logo-name,.logo-mark,.logo-mark-f,.footer-brand h4{font-family:var(--lk-font-title)}
+.hero-tagline,.section-lead,.pres-text p,.avis-card-text,.modalites-cta p,.mobile-nav a{font-family:var(--lk-font-accent)}
+.btn-primary,.btn-submit,.loc-btn,.evt-badge{font-family:var(--lk-font-btn);border-radius:var(--lk-btn-radius);background:var(--lk-btn-bg);color:var(--lk-btn-text)}
+.btn-primary:hover,.btn-submit:hover,.loc-btn:hover,.evt-badge:hover{background:var(--lk-btn-bg-hover)}
+.nav-cta,.mob-cta{font-family:var(--lk-font-btn)!important;border-radius:var(--lk-btn-radius)!important;background:var(--lk-btn-bg)!important;color:var(--lk-btn-text)!important}
+.btn-ghost,.tab-btn,.saison-btn{font-family:var(--lk-font-btn);border-radius:var(--lk-btn-radius)}
+#nav.scrolled{background:#fdfaff}
+.evt-card,.menu-card,.avis-card,.pres-img-wrap,.g-item,.formule-card{border-radius:var(--lk-radius)}
+.evt-card,.menu-card,.avis-card{box-shadow:var(--lk-shadow)}</style></head>
+<body class="">
+<!-- Loksite : blocage si compte suspendu -->
+<script>
+(function(){
+  var SB = "https://qhnofvfgutsdgbfwhupg.supabase.co";
+  var K = "sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY";
+  // Trouver l'email du client (utilisé comme identifiant dans profiles)
+  var cid = window.LOKSITE_CLIENT_ID || "";
+  if (!cid) return;
+  // Vérifier le statut actif du client (via la vue publique restreinte)
+  fetch(SB + "/rest/v1/rpc/lk_site_public", {
+    method: "POST",
+    headers: { apikey: K, Authorization: "Bearer " + K, "Content-Type": "application/json" },
+    body: JSON.stringify({ p_email: cid })
+  }).then(function(r){ return r.json(); }).then(function(data){
+    if (data && data.actif === false) {
+      document.body.innerHTML = '<div id="lk-site-blocked" style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f172a,#1e293b);font-family:-apple-system,Segoe UI,sans-serif">' +
+        '<div style="text-align:center;color:#fff;max-width:400px;padding:40px">' +
+        '<div style="font-size:48px;margin-bottom:20px">🔒</div>' +
+        '<h1 style="font-size:24px;font-weight:800;margin:0 0 12px">Site temporairement indisponible</h1>' +
+        '<p style="font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;margin:0">Ce site est actuellement en maintenance. Veuillez réessayer ultérieurement.</p>' +
+        '</div></div>';
+      document.title = 'Site en maintenance';
+    }
+  }).catch(function(){});
+})();
+</script>
+
+
+<!-- NAV -->
+<nav id="nav" role="navigation" aria-label="Navigation principale" class="">
+  <a href="#hero" class="nav-logo" aria-label="Itsy Bitsy accueil">
+    <div class="logo-mark" aria-hidden="true">itsy<br>bitsy<br><small>lille</small></div>
+    <span class="logo-name">Itsy Bitsy</span>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="#presentation" onclick="lkTrackClick('Histoire')">Histoire</a></li>
+    <li><a href="#menu" onclick="lkTrackClick('Carte')">Carte</a></li>
+    <li><a href="#galerie" onclick="lkTrackClick('Galerie')">Galerie</a></li>
+    <li><a href="#avis" onclick="lkTrackClick('Avis')">Avis</a></li>
+    <li><a href="#horaires" onclick="lkTrackClick('Horaires')">Horaires</a></li>
+    <li><a href="#localisation" onclick="lkTrackClick('Nous trouver')">Nous trouver</a></li>
+    <li><a href="#horaires" class="nav-cta" onclick="lkTrackClick('Réserver une table')">Réserver une table</a></li>
+  </ul>
+  <button class="hamburger" id="ham" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<nav class="mobile-nav" id="mobileNav" aria-label="Menu mobile">
+  <a href="#presentation">Notre histoire</a>
+  <a href="#menu">La carte</a>
+  <a href="#galerie">Galerie</a>
+  <a href="#avis">Avis clients</a>
+  <a href="#horaires">Horaires</a>
+  <a href="#localisation">Nous trouver</a>
+  <a href="#horaires" class="mob-cta">Réserver une table</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero" aria-label="Bienvenue Itsy Bitsy Cuisine Végétale Lille" style="position: relative;">
+  <div class="hero-bg" aria-hidden="true" style="background-image: url(&quot;assets/img/017a8bec1b.jpg&quot;); background-size: cover; background-position: center center; transform: translate(0px, 0px); transform-origin: left top;">
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-blob" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow" id="lk-hero-eyebrow" data-custom-pos="1" style="transform: translate(-3.07825px, -48px) scale(0.943047); transform-origin: left top;">Restaurant &amp; Traiteur · 100% Végétalien · Lille</p>
+    <h1 class="hero-title" id="lk-hero-titre"><span id="lk-hero-titre-span" class="" data-custom-pos="1" style="transform: translate(2.5px, -29px) scale(1); transform-origin: left top; display: inline-block;">Itsy Bitsy</span><em id="lk-hero-sous-titre" class="" style="transform: translate(0px, 0px); transform-origin: left top;">Cuisine Végétale</em></h1>
+    <p class="hero-tagline" id="lk-hero-tagline">De la terre à l'assiette — une cuisine vivante, colorée et généreuse, sans compromis sur le goût.</p>
+    <div class="hero-btns">
+      <a href="#menu" id="lk-btn-carte" class="btn-primary">Voir la carte</a>
+      <a href="#horaires" class="btn-ghost" id="lk-btn-resa">Réserver maintenant</a>
+    </div>
+  </div>
+  <div class="hero-badge" aria-label="Note 100% recommandé">
+    <div class="badge-stars">★★★★★</div>
+    <div id="lk-hero-badge-score" class="badge-score">100%</div>
+    <div id="lk-hero-badge-label" class="badge-label">56 avis recommandés</div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Découvrir</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- EVENEMENTS -->
+<section id="evenements" aria-label="Événements et offres spéciales" style="display: none; position: relative;">
+  <div class="evt-header">
+    <p id="lk-evt-label" class="section-label reveal visible">Ne manquez rien</p>
+    <h2 id="lk-evt-title" class="section-title reveal d1 visible">Événements <em>&amp; offres</em></h2>
+    <p class="section-lead reveal d2 visible" id="lk-evt-lead">Nos temps forts, soirées à thème et offres du moment.</p>
+  </div>
+  <div class="evt-grid" data-evt-visible="3">
+    <div class="evt-card reveal visible d1" data-evt-index="1">
+      <span id="lk-evt-1-badge" class="evt-badge">Offre du jour</span>
+      <div class="evt-body">
+        <p id="lk-evt-1-date" class="evt-date">Aujourd'hui</p>
+        <h3 id="lk-evt-1-title" class="evt-title">-50% sur votre repas</h3>
+        <p id="lk-evt-1-desc" class="evt-desc">Valable uniquement aujourd'hui, sur place. L'occasion parfaite de découvrir notre cuisine végétale.</p>
+        <a href="#horaires" id="lk-evt-1-cta" class="evt-cta">Réserver une table →</a>
+      </div>
+    </div>
+    <div class="evt-card reveal visible d2" data-evt-index="2">
+      <span id="lk-evt-2-badge" class="evt-badge">Soirée</span>
+      <div class="evt-body">
+        <p id="lk-evt-2-date" class="evt-date">Vendredi 14 novembre</p>
+        <h3 id="lk-evt-2-title" class="evt-title">Soirée dégustation d'automne</h3>
+        <p id="lk-evt-2-desc" class="evt-desc">Un menu unique en 5 services, accords mets &amp; boissons inclus. Places limitées.</p>
+        <a href="#horaires" id="lk-evt-2-cta" class="evt-cta">Réserver ma place →</a>
+      </div>
+    </div>
+    <div class="evt-card reveal visible d3" data-evt-index="3">
+      <span id="lk-evt-3-badge" class="evt-badge">Traiteur</span>
+      <div class="evt-body">
+        <p id="lk-evt-3-date" class="evt-date">Toute l'année</p>
+        <h3 id="lk-evt-3-title" class="evt-title">Formules événements sur mesure</h3>
+        <p id="lk-evt-3-desc" class="evt-desc">Anniversaires, mariages, séminaires — notre équipe traiteur végétalien s'occupe de tout.</p>
+        <a href="#localisation" id="lk-evt-3-cta" class="evt-cta">Demander un devis →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESENTATION -->
+<section id="presentation" aria-label="Notre histoire" style="position: relative; background-color: rgb(182, 119, 132);">
+  <div class="pres-grid sw">
+    <div class="pres-text">
+      <p id="lk-pres-label" class="section-label reveal visible" style="">Notre histoireeeeeeee....</p>
+      <h2 id="lk-pres-title" class="section-title reveal d1 visible">Une cuisine <em>végétale</em><br>qui fait du bien</h2>
+      <p class="section-lead reveal d2 visible" id="lk-presentation">Chez Itsy Bitsy, on croit que manger végétalien peut être une explosion de saveurs. Depuis notre ouverture rue Jeanne Maillotte, on cuisine avec passion des recettes colorées, créatives et 100% végétales.</p>
+      <p id="lk-pres-text2" class="reveal d3 visible" style="font-family:'Cormorant Garamond',serif;font-size:1.08rem;color:var(--c-slate);line-height:1.9;margin-top:1rem;">Produits de saison soigneusement sélectionnés, associations audacieuses, textures surprenantes — chaque plat est pensé pour régaler les vegans comme les curieux. Notre service traiteur végétalien propose des formules sur mesure pour vos événements.</p>
+      <div class="pres-badges reveal d4 visible">
+        <span id="lk-badge-0" class="badge-pill">🌱 100% Végétalien</span>
+        <span id="lk-badge-1" class="badge-pill">♻️ Produits locaux</span>
+        <span id="lk-badge-2" class="badge-pill">🧑‍🍳 Cuisine créative</span>
+        <span id="lk-badge-3" class="badge-pill">🎉 Service traiteur</span>
+        <span id="lk-badge-4" class="badge-pill">☀️ Terrasse</span>
+      </div>
+    </div>
+    <div class="pres-img-wrap reveal d2 visible" style="display: none;">
+      <div class="pres-img-frame" aria-hidden="true"></div>
+      <img width="98" height="106" id="lk-img-pres" class="pres-img" src="assets/img/a1c6fa1f56.png" style="">
+      <div class="pres-stat">
+        <div id="lk-stat-num" class="pres-stat-num">100%</div>
+        <div id="lk-stat-label" class="pres-stat-label">Recommandé · 56 avis</div>
+      </div>
+    </div>
+  </div>
+<div data-custom-pos="1" class="" style="position: absolute; top: 202px; left: 70.5205%; width: 25.993%; max-width: 100%; z-index: 5000; transform: translate(0px, 0px) scale(1); transform-origin: left top;"><img width="459" height="453" src="assets/img/34c2794eb3.png" alt="" style="display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: rgba(0, 0, 0, 0.25) 0px 8px 28px;"></div><div data-custom-pos="1" class="" style="position: absolute; top: 277px; left: 65.2091%; width: 280px; max-width: 90%; z-index: 5000; transform: translate(0px, 0px) scale(1.27143); transform-origin: left top; display: none;"><img width="453" height="449" src="assets/img/da45441b98.png" alt="" style="display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: rgba(0, 0, 0, 0.25) 0px 8px 28px;"></div><div data-custom-pos="1" class="" style="position: absolute; top: 362px; left: 65.5041%; width: 280px; max-width: 90%; z-index: 5000; transform: translate(0px, 0px) scale(1); transform-origin: left top; display: none;"><img width="453" height="449" src="assets/img/da45441b98.png" alt="" style="display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: rgba(0, 0, 0, 0.25) 0px 8px 28px;"></div></section>
+
+<!-- MENU -->
+<section id="menu" aria-label="La carte et le traiteur" style="position: relative;">
+
+  <!-- ── HEADER ── -->
+  <div class="menu-header reveal visible">
+    <p id="lk-menu-label" class="section-label">La carte &amp; Traiteur</p>
+    <h2 id="lk-menu-title" class="section-title">Une cuisine <em>de saison</em>,<br>végétale à 100%</h2>
+    <p class="section-lead" style="margin:0 auto;" id="lk-menu-lead">Chaque carte évolue avec les saisons. Disponible sur place et en formule traiteur pour vos événements (min. 10 pers.).</p>
+  </div>
+
+  <!-- ── SAISON SWITCHER ── -->
+  <div class="saison-switcher reveal visible">
+    <button id="lk-saison-btn-0" class="saison-btn active" data-saison="ete">☀️ Carte d'Été</button>
+    <button id="lk-saison-btn-1" class="saison-btn" data-saison="printemps">🌸 Carte de Printemps</button>
+    <button id="lk-saison-btn-2" class="saison-btn" data-saison="traiteur">🧾 Modalités Traiteur</button>
+  </div>
+
+  <!-- ══════════════════════ CARTE D'ÉTÉ ══════════════════════ -->
+  <div class="saison-panel active" id="saison-ete">
+
+    <div class="saison-header reveal visible">
+      <div id="lk-saison-badge-0" class="saison-badge ete">☀️ Carte d'Été — jusqu'au 20 septembre 2025</div>
+    </div>
+
+    <!-- Brunch dominical -->
+    <div class="brunch-card reveal visible">
+      <div class="brunch-price-block">
+        <div id="lk-ete-brunch-label" class="brunch-price-label">Brunch du dimanche</div>
+        <div id="lk-ete-brunch-prix" class="brunch-price">25€</div>
+        <div id="lk-ete-brunch-sub" class="brunch-price-sub">par personne</div>
+      </div>
+      <div class="brunch-divider" aria-hidden="true"></div>
+      <div class="brunch-info">
+        <h3 id="lk-ete-h3">Brunch Végétalien de Saison</h3>
+        <ul class="brunch-items">
+          <li id="lk-ete-li-0">Bun cream cheese, petits pois, avocat &amp; roquette</li>
+          <li id="lk-ete-li-1">Lentilles citronnées, légumes grillés &amp; roquette</li>
+          <li id="lk-ete-li-2">Parfait granola, yaourt vanillé &amp; pommes caramélisées</li>
+          <li id="lk-ete-li-3">Pancakes, mousse de cacahuète, banane &amp; caramel</li>
+          <li id="lk-ete-li-4">Cookie noix de pécan &amp; chocolat</li>
+          <li id="lk-ete-li-5">Pain &amp; confiture maison · Jus de pomme · Thé ou café</li>
+        </ul>
+        <p id="lk-ete-brunch-note" class="brunch-note">📅 Dimanche uniquement · 11h–13h ou 13h–15h · Sur réservation</p>
+      </div>
+    </div>
+
+    <!-- 3 formules traiteur été -->
+    <div class="formules-grid reveal visible">
+
+      <!-- Formule Buffet -->
+      <div class="formule-card" data-lk-drag="formule-card" data-lk-dragging-init="1" style="position: relative;">
+        <div class="formule-header buffet">
+          <span class="formule-icon">🥗</span>
+          <div>
+            <div id="lk-ete-fn-0" class="formule-name">Formule Buffet</div>
+            <div id="lk-ete-fp-0" class="formule-price">15€ / pers.</div>
+          </div>
+        </div>
+        <ul class="formule-items">
+          <li id="lk-ete-li-6">Quinoa, pois chiches grillés, courgettes, carotte, pomme &amp; graines de courge</li>
+          <li id="lk-ete-li-7">Pommes de terre grenailles, pickles, tomates confites, épinards, radis, salicorne &amp; noix</li>
+          <li id="lk-ete-li-8">Riz noir, chou rouge, carottes rôties, concombre, fèves, roquette, grenade &amp; sarrasin grillé</li>
+          <li id="lk-ete-li-9">Houmous au curry</li>
+          <li id="lk-ete-li-10">Cookie tomate &amp; romarin · Foccacia aux légumes d'été</li>
+        </ul>
+        <div class="formule-extras">
+          <span>+ Falafel 1€/pièce</span>
+          <span>+ Samosa 1,5€/pièce</span>
+          <span>+ Pièces sucrées 1,6€/pièce</span>
+        </div>
+      </div>
+
+      <!-- Formule Cocktail -->
+      <div class="formule-card" data-lk-drag="formule-card" data-lk-dragging-init="1" style="position: relative;">
+        <div class="formule-header cocktail">
+          <span class="formule-icon">🍢</span>
+          <div>
+            <div id="lk-ete-fn-1" class="formule-name">Formule Cocktail</div>
+            <div id="lk-ete-fp-1" class="formule-price">14€ / pers.</div>
+          </div>
+        </div>
+        <div id="lk-ete-fsub" class="formule-subtitle">8 pièces cocktail par personne</div>
+        <ul class="formule-items">
+          <li id="lk-ete-li-11">Roulé de concombre, avocat, pomme &amp; sésame</li>
+          <li id="lk-ete-li-12">Mini poivron farci</li>
+          <li id="lk-ete-li-13">Falafel de poivron grillé aux cornflakes</li>
+          <li id="lk-ete-li-14">Foccacia aux légumes d'été</li>
+          <li id="lk-ete-li-15">Aubergine rôtie au sumac &amp; crème aux herbes</li>
+          <li id="lk-ete-li-16">Mini financier aux courgettes &amp; pignons de pin</li>
+          <li id="lk-ete-li-17">Cookie salé tomate &amp; romarin</li>
+          <li id="lk-ete-li-18">Panna cotta de carotte au curry</li>
+        </ul>
+      </div>
+
+      <!-- Plateau Repas -->
+      <div class="formule-card" data-lk-drag="formule-card" data-lk-dragging-init="1" style="position: relative;">
+        <div class="formule-header plateau">
+          <span class="formule-icon">🍱</span>
+          <div>
+            <div id="lk-ete-fn-2" class="formule-name">Plateau Repas</div>
+            <div id="lk-ete-fp-2" class="formule-price">15€ / pers.</div>
+          </div>
+        </div>
+        <ul class="formule-items">
+          <li id="lk-ete-li-19"><strong>Entrée :</strong> Tartare de légumes croquants &amp; crème d'avocat</li>
+          <li id="lk-ete-li-20"><strong>Plat :</strong> Bowl d'été — Quinoa, légumes rôtis, falafels, houmous, crudités &amp; pesto + Pain</li>
+          <li id="lk-ete-li-21"><strong>Dessert :</strong> Cookie chocolat &amp; cacahuètes <em>ou</em> Financier matcha-framboise (+1€)</li>
+        </ul>
+        <div class="formule-extras">
+          <span>🥤 Jus de pomme 2€/pers.</span>
+          <span>Autres softs 3€/pers.</span>
+          <span>Alcools sur devis</span>
+        </div>
+      </div>
+
+    </div><!-- /formules-grid -->
+  </div><!-- /saison-ete -->
+
+  <!-- ══════════════════════ CARTE DE PRINTEMPS ══════════════════════ -->
+  <div class="saison-panel" id="saison-printemps">
+
+    <div class="saison-header reveal visible">
+      <div id="lk-saison-badge-1" class="saison-badge printemps">🌸 Carte de Printemps — jusqu'au 20 juin 2025</div>
+    </div>
+
+    <!-- Brunch -->
+    <div class="brunch-card reveal visible">
+      <div class="brunch-price-block">
+        <div id="lk-psp-brunch-label" class="brunch-price-label">Brunch du dimanche</div>
+        <div id="lk-psp-brunch-prix" class="brunch-price">25€</div>
+        <div id="lk-psp-brunch-sub" class="brunch-price-sub">par personne</div>
+      </div>
+      <div class="brunch-divider" aria-hidden="true"></div>
+      <div class="brunch-info">
+        <h3>Brunch Végétalien de Saison</h3>
+        <ul class="brunch-items">
+          <li id="lk-psp-li-0">Bun cream cheese, petits pois, avocat &amp; roquette</li>
+          <li id="lk-psp-li-1">Lentilles citronnées, légumes grillés &amp; roquette</li>
+          <li id="lk-psp-li-2">Parfait granola, yaourt vanillé &amp; pommes caramélisées</li>
+          <li id="lk-psp-li-3">Pancakes, mousse de cacahuète, banane &amp; caramel</li>
+          <li id="lk-psp-li-4">Cookie noix de pécan &amp; chocolat</li>
+          <li id="lk-psp-li-5">Pain &amp; confiture maison · Jus de pomme · Thé ou café</li>
+        </ul>
+        <p id="lk-psp-brunch-note" class="brunch-note">📅 Dimanche uniquement · 11h–13h ou 13h–15h · Sur réservation</p>
+      </div>
+    </div>
+
+    <!-- 3 formules traiteur printemps -->
+    <div class="formules-grid reveal visible">
+
+      <!-- Buffet Printemps -->
+      <div class="formule-card" data-lk-drag="formule-card" data-lk-dragging-init="1" style="position: relative;">
+        <div class="formule-header buffet">
+          <span class="formule-icon">🥗</span>
+          <div>
+            <div id="lk-psp-fn-0" class="formule-name">Formule Buffet</div>
+            <div id="lk-psp-fp-0" class="formule-price">15€ / pers.</div>
+          </div>
+        </div>
+        <ul class="formule-items">
+          <li id="lk-psp-li-6">Quinoa, pousses d'épinards, poireaux confits, pomme, pois chiches grillés, carotte &amp; cacahuète</li>
+          <li id="lk-psp-li-7">Pommes de terre grenailles, pickles d'oignon rouge, roquette, radis &amp; pignons de pin</li>
+          <li id="lk-psp-li-8">Salade moutarde, lentilles, concombre, carottes rôties, avocat, betterave, persil &amp; raisins secs</li>
+          <li id="lk-psp-li-9">Houmous au curry</li>
+          <li id="lk-psp-li-10">Cookie carotte, cumin &amp; cacahuètes · Mini cake aux olives</li>
+        </ul>
+        <div class="formule-extras">
+          <span>+ Falafel 1€/pièce</span>
+          <span>+ Samosa 1,5€/pièce</span>
+          <span>+ Pièces sucrées 1,6€/pièce</span>
+        </div>
+      </div>
+
+      <!-- Cocktail Printemps -->
+      <div class="formule-card" data-lk-drag="formule-card" data-lk-dragging-init="1" style="position: relative;">
+        <div class="formule-header cocktail">
+          <span class="formule-icon">🍢</span>
+          <div>
+            <div id="lk-psp-fn-1" class="formule-name">Formule Cocktail</div>
+            <div id="lk-psp-fp-1" class="formule-price">14€ / pers.</div>
+          </div>
+        </div>
+        <div id="lk-psp-fsub" class="formule-subtitle">8 pièces cocktail par personne</div>
+        <ul class="formule-items">
+          <li id="lk-psp-li-11">Tatin d'oignons rouges &amp; labneh</li>
+          <li id="lk-psp-li-12">Crème de radis, pointe d'asperge &amp; crumble aux herbes</li>
+          <li id="lk-psp-li-13">Falafel aux cornflakes &amp; crème au raifort</li>
+          <li id="lk-psp-li-14">Foccacia aux légumes de saison</li>
+          <li id="lk-psp-li-15">Chou fleur rôti aux épices &amp; pané au sésame</li>
+          <li id="lk-psp-li-16">Mini financier aux olives &amp; pignons de pin</li>
+          <li id="lk-psp-li-17">Poireau, sauce soja, houmous &amp; cacahuète grillée</li>
+          <li id="lk-psp-li-18">Panna cotta de carotte, curry &amp; pop-corn</li>
+        </ul>
+      </div>
+
+      <!-- Plateau Repas Printemps -->
+      <div class="formule-card" data-lk-drag="formule-card" data-lk-dragging-init="1" style="position: relative;">
+        <div class="formule-header plateau">
+          <span class="formule-icon">🍱</span>
+          <div>
+            <div id="lk-psp-fn-2" class="formule-name">Plateau Repas</div>
+            <div id="lk-psp-fp-2" class="formule-price">15€ / pers.</div>
+          </div>
+        </div>
+        <ul class="formule-items">
+          <li id="lk-psp-li-19"><strong>Entrée :</strong> Tatin d'oignon rouge &amp; roquette</li>
+          <li id="lk-psp-li-20"><strong>Plat :</strong> Bowl de printemps — Quinoa, légumes rôtis, falafels, houmous, crudités &amp; pesto + Pain</li>
+          <li id="lk-psp-li-21"><strong>Dessert :</strong> Cookie chocolat &amp; noix de pécan <em>ou</em> Gâteau aux pommes caramélisées (+1€)</li>
+        </ul>
+        <div class="formule-extras">
+          <span>🥤 Jus de pomme 2€/pers.</span>
+          <span>Autres softs 3€/pers.</span>
+          <span>Alcools sur devis</span>
+        </div>
+      </div>
+
+    </div><!-- /formules-grid -->
+  </div><!-- /saison-printemps -->
+
+  <!-- ══════════════════════ MODALITÉS TRAITEUR ══════════════════════ -->
+  <div class="saison-panel" id="saison-traiteur">
+    <div class="modalites-grid reveal visible">
+
+      <div class="modalite-card">
+        <div class="modalite-icon">⏰</div>
+        <div class="modalite-text">
+          <strong>Minimum 10 personnes</strong>
+          <span>Commande à passer au plus tard <strong>8 jours</strong> avant votre événement</span>
+        </div>
+      </div>
+
+      <div class="modalite-card">
+        <div class="modalite-icon">✉️</div>
+        <div class="modalite-text">
+          <strong>Une seule adresse</strong>
+          <span>Pour toutes vos commandes traiteur : <a href="mailto:itsybitsylille@gmail.com">itsybitsylille@gmail.com</a></span>
+        </div>
+      </div>
+
+      <div class="modalite-card">
+        <div class="modalite-icon">🚚</div>
+        <div class="modalite-text">
+          <strong>Livraison possible</strong>
+          <span>Jusqu'à 70 km environ — nous consulter</span>
+        </div>
+      </div>
+
+      <div class="modalite-card">
+        <div class="modalite-icon">♻️</div>
+        <div class="modalite-text">
+          <strong>Contenants écologiques</strong>
+          <span>La formule buffet est présentée dans <strong>nos contenants</strong>, à restituer la semaine suivant votre événement</span>
+        </div>
+      </div>
+
+      <div class="modalite-card">
+        <div class="modalite-icon">💳</div>
+        <div class="modalite-text">
+          <strong>Acompte de 30%</strong>
+          <span>Demandé pour valider votre commande</span>
+        </div>
+      </div>
+
+      <div class="modalite-card alert">
+        <div class="modalite-icon">🌿</div>
+        <div class="modalite-text">
+          <strong>Saisonnalité</strong>
+          <span>La saisonnalité des légumes étant très changeante, certains légumes peuvent changer selon l'arrivage.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modalites-cta reveal visible">
+      <p>Prêt à commander pour votre événement ?</p>
+      <a href="mailto:itsybitsylille@gmail.com" class="btn-primary">Demander un devis traiteur →</a>
+    </div>
+  </div><!-- /saison-traiteur -->
+
+</section>
+
+<!-- GALERIE -->
+<section id="galerie" aria-label="Galerie photos Itsy Bitsy" style="position: relative;">
+  <div class="galerie-header">
+    <div>
+      <p id="lk-gal-label" class="section-label">Galerie</p>
+      <h2 id="lk-gal-title" class="section-title reveal visible">La vie chez <em>Itsy Bitsy</em></h2>
+    </div>
+    <a href="https://www.instagram.com/itsybitsylille" id="lk-gal-insta" class="galerie-insta reveal visible" target="_blank" rel="noopener">📸 @itsybitsylille</a>
+  </div>
+  <div class="gallery-grid reveal visible" role="list">
+    <div class="g-item" tabindex="0" aria-label="Salade végétale signature" style="">
+      <img width="526" height="701" id="lk-img-gal-0" src="assets/img/017a8bec1b.jpg" alt="Salade végétale colorée Itsy Bitsy" loading="lazy">
+      <div class="g-item-overlay"><span id="lk-g0-cap">Plats signature</span></div>
+    </div>
+    <div class="g-item" tabindex="0" aria-label="Herbes fraîches du marché" style="">
+      <img width="526" height="701" id="lk-img-gal-1" src="assets/img/9d9df508a5.jpg" alt="Herbes et légumes frais de saison" loading="lazy">
+      <div class="g-item-overlay"><span id="lk-g1-cap">Produits frais</span></div>
+    </div>
+    <div class="g-item" tabindex="0" aria-label="L'équipe Itsy Bitsy" style="">
+      <img width="496" height="427" id="lk-img-gal-2" src="assets/img/05ab02991a.jpg" alt="L'équipe et l'ambiance Itsy Bitsy Lille" loading="lazy">
+      <div class="g-item-overlay"><span id="lk-g2-cap">Notre équipe</span></div>
+    </div>
+    <div class="g-item" tabindex="0" aria-label="Assiette végétale" style="">
+      <img width="526" height="701" id="lk-img-gal-3" src="assets/img/017a8bec1b.jpg" alt="Assiette végétale du chef" loading="lazy" style="object-position:bottom">
+      <div class="g-item-overlay"><span id="lk-g3-cap">Cuisine du chef</span></div>
+    </div>
+    <div class="g-item" tabindex="0" aria-label="Ingrédients de saison" style="">
+      <img width="526" height="701" id="lk-img-gal-4" src="assets/img/9d9df508a5.jpg" alt="Ingrédients frais de saison" loading="lazy" style="object-position:top">
+      <div class="g-item-overlay"><span id="lk-g4-cap">De saison</span></div>
+    </div>
+    <div class="g-item" tabindex="0" aria-label="Événements Itsy Bitsy" style="">
+      <img width="496" height="427" id="lk-img-gal-5" src="assets/img/05ab02991a.jpg" alt="Événements et brunch Itsy Bitsy" loading="lazy" style="object-position:top">
+      <div class="g-item-overlay"><span id="lk-g5-cap">Brunch &amp; événements</span></div>
+    </div>
+  </div>
+<div data-custom-pos="1" class="" style="position: absolute; top: 534px; left: 72.4216%; width: 20.4877%; max-width: 100%; z-index: 5000; transform: translate(0px, 0px) scale(1); transform-origin: left top;"><img width="459" height="453" src="assets/img/34c2794eb3.png" alt="" style="display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: rgba(0, 0, 0, 0.25) 0px 8px 28px;"></div></section>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie">
+  <button id="lightbox-close" aria-label="Fermer">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- AVIS -->
+<section id="avis" aria-label="Avis clients" style="position: relative;">
+  <div class="avis-header sw reveal visible">
+    <p id="lk-avis-label" class="section-label">Témoignages</p>
+    <h2 id="lk-avis-title" class="section-title">Ce que disent <em>nos clients</em></h2>
+    <div class="avis-score-row">
+      <div id="lk-avis-big-num" class="avis-big-num">100%</div>
+      <div class="avis-meta">
+        <div class="avis-stars">★★★★★</div>
+        <div id="lk-avis-count" class="avis-count">Recommandé · 56 avis Facebook</div>
+      </div>
+    </div>
+  </div>
+  <div class="avis-track-wrap sw reveal d1 visible">
+    <div class="avis-track" id="avisTrack" style="transform: translateX(-1224px);">
+      <div class="avis-card" data-lk-drag="avis-card" data-lk-dragging-init="1" style="position: relative;"><div class="avis-card-stars">★★★★★</div><p id="lk-avis-txt-0" class="avis-card-text">« Une cuisine végétale qui m'a totalement conquis ! Les plats sont colorés, frais et vraiment savoureux. Je recommande le bun avocat sans hésiter. »</p><div id="lk-avis-aut-0" class="avis-card-author">Marie L.</div></div>
+      <div class="avis-card" data-lk-drag="avis-card" data-lk-dragging-init="1" style="position: relative;"><div class="avis-card-stars">★★★★★</div><p id="lk-avis-txt-1" class="avis-card-text">« Le brunch du dimanche est une merveille ! Tout est fait maison, généreux et délicieux. L'équipe est accueillante et passionnée. »</p><div id="lk-avis-aut-1" class="avis-card-author">Thomas B.</div></div>
+      <div class="avis-card" data-lk-drag="avis-card" data-lk-dragging-init="1" style="position: relative;"><div class="avis-card-stars">★★★★★</div><p id="lk-avis-txt-2" class="avis-card-text">« J'y vais régulièrement depuis l'ouverture. La carte change avec les saisons, on est toujours surpris. Un bijou dans le Vieux-Lille. »</p><div id="lk-avis-aut-2" class="avis-card-author">Sophie M.</div></div>
+      <div class="avis-card" data-lk-drag="avis-card" data-lk-dragging-init="1" style="position: relative;"><div class="avis-card-stars">★★★★★</div><p id="lk-avis-txt-3" class="avis-card-text">« Même en n'étant pas végétalien, j'ai adoré ! Les saveurs sont au rendez-vous. Le cookie noix de pécan est à tomber. À tester absolument ! »</p><div id="lk-avis-aut-3" class="avis-card-author">Julien R.</div></div>
+      <div class="avis-card" data-lk-drag="avis-card" data-lk-dragging-init="1" style="position: relative;"><div class="avis-card-stars">★★★★★</div><p id="lk-avis-txt-4" class="avis-card-text">« Service traiteur impeccable pour notre événement d'entreprise. Les plateaux végétaliens ont fait l'unanimité. Merci à toute l'équipe ! »</p><div id="lk-avis-aut-4" class="avis-card-author">Camille D.</div></div>
+      <div class="avis-card" data-lk-drag="avis-card" data-lk-dragging-init="1" style="position: relative;"><div class="avis-card-stars">★★★★★</div><p id="lk-avis-txt-5" class="avis-card-text">« Enfin un resto végétalien chaleureux ! L'ambiance est super, les prix sont raisonnables. Je reviens chaque semaine sans hésiter. »</p><div id="lk-avis-aut-5" class="avis-card-author">Élise F.</div></div>
+    </div>
+  </div>
+  <div class="avis-dots" id="avisDots" role="group" aria-label="Navigation carrousel avis"><button class="avis-dot" aria-label="Avis 1"></button><button class="avis-dot active" aria-label="Avis 2"></button></div>
+</section>
+
+<!-- HORAIRES + RÉSERVATION -->
+<section id="horaires" aria-label="Horaires et réservation" style="position: relative;">
+  <div class="horaires-grid sw">
+    <div>
+      <p id="lk-hor-label" class="section-label reveal visible">Horaires</p>
+      <h2 id="lk-hor-title" class="section-title reveal d1 visible">Quand nous <em>trouver</em> ?</h2>
+      <div id="statusPill" class="status-pill closed"><span class="status-dot"></span><span id="statusText" class="lk-status-text">Fermé · Ouvre à 11h30</span></div>
+      <div class="hours-table reveal d3 visible" role="table" aria-label="Horaires d'ouverture">
+        <div class="hours-row" data-day="1"><span id="lk-h-lun-jour" class="hours-day">Lundi</span><span id="lk-h-lun" class="hours-time closed">Fermé</span></div>
+        <div class="hours-row" data-day="2"><span id="lk-h-mar-jour" class="hours-day">Mardi</span><span id="lk-h-mar" class="hours-time">11h30 – 15h00</span></div>
+        <div class="hours-row" data-day="3"><span id="lk-h-mer-jour" class="hours-day">Mercredi</span><span id="lk-h-mer" class="hours-time">11h30 – 15h00</span></div>
+        <div class="hours-row" data-day="4"><span id="lk-h-jeu-jour" class="hours-day">Jeudi</span><span id="lk-h-jeu" class="hours-time">11h30 – 15h00</span></div>
+        <div class="hours-row" data-day="5"><span id="lk-h-ven-jour" class="hours-day">Vendredi</span><span id="lk-h-ven" class="hours-time">11h30 – 15h00</span></div>
+        <div class="hours-row today" data-day="6"><span id="lk-h-sam-jour" class="hours-day">Samedi</span><span id="lk-h-sam" class="hours-time">11h30 – 15h00</span></div>
+        <div class="hours-row" data-day="0"><span id="lk-h-dim-jour" class="hours-day">Dimanche</span><span id="lk-h-dim" class="hours-time">Brunch 11h–15h · Sur réservation</span></div>
+      </div>
+    </div>
+    
+    <div class="resa-box reveal d2 visible">
+      <h3 id="lk-resa-title">Réserver une table</h3>
+      <p id="lk-resa-subtitle">Choisissez votre date et votre créneau — disponibilités en temps réel.</p>
+      <div class="form-grid" id="resaForm">
+        <div class="form-field"><label id="lk-label-nom" for="r-nom">Nom complet</label><input type="text" id="r-nom" placeholder="Votre nom" autocomplete="name"></div>
+        <div class="form-field"><label id="lk-label-email" for="r-email">Email</label><input type="email" id="r-email" placeholder="votre@email.fr" autocomplete="email"></div>
+        <div class="form-field"><label id="lk-label-tel" for="r-tel">Téléphone</label><input type="tel" id="r-tel" placeholder="06 00 00 00 00" autocomplete="tel"></div>
+        <div class="form-field"><label id="lk-label-couverts" for="r-cv">Couverts</label><select id="r-cv" onchange="resaRefreshSlots()"><option value="">Choisir…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+        <div class="form-field"><label id="lk-label-date" for="r-date">Date souhaitée</label><input type="date" id="r-date" onchange="resaRefreshSlots()" min="2026-08-08"></div>
+        <div class="form-field"><label id="lk-label-creneau" for="r-creneau">Créneau</label><select id="r-creneau" onfocus="resaMaybeRefresh()"><option value="">Choisir d'abord une date…</option></select></div>
+        <div class="form-field full" id="resa-dispo-hint" style="display:none"><div style="font-size:.8rem;color:var(--c-sage);background:rgba(78,128,96,.08);padding:.6rem .9rem;border-radius:9px" id="resa-dispo-hint-txt"></div></div>
+        <div class="form-field full"><label id="lk-label-msg" for="r-msg">Message (allergies, occasion…)</label><textarea id="r-msg" placeholder="Précisez toute demande particulière…"></textarea></div>
+        <div class="form-field full" id="resa-err" style="display:none"><div style="font-size:.82rem;color:var(--c-clay);background:rgba(196,113,74,.1);padding:.6rem .9rem;border-radius:9px" id="resa-err-txt"></div></div>
+        <button id="lk-resa-btn" class="btn-submit" onclick="resaSubmit()">Envoyer ma réservation →</button>
+      </div>
+      <div id="resaOk" style="display:none;padding:1.5rem;background:#e8f5e9;border-radius:12px;color:#1e6b2e;text-align:center;margin-top:1rem;">✅ <strong>Merci !</strong> <span id="resaOkMsg">Votre réservation est confirmée.</span><br><button onclick="resaFormReset()" style="margin-top:.8rem;background:none;border:1.5px solid #1e6b2e;color:#1e6b2e;padding:.5rem 1.2rem;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit">Nouvelle réservation</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCALISATION -->
+<section id="localisation" aria-label="Nous trouver" style="position: relative;">
+  <div style="text-align:center;margin-bottom:3rem;" class="sw">
+    <p id="lk-loc-label" class="section-label reveal visible">Nous trouver</p>
+    <h2 id="lk-loc-title" class="section-title reveal d1 visible">Au cœur de <em>Lille</em></h2>
+  </div>
+  <div class="loc-grid sw">
+    <div class="loc-info reveal visible">
+      <div class="loc-block"><div class="loc-icon">📍</div><div class="loc-block-text"><strong>Adresse</strong><span id="lk-loc-adresse" class="lk-adresse">10 rue Jeanne Maillotte<br>59000 Lille, France</span></div></div>
+      <div class="loc-block"><div class="loc-icon">📞</div><div class="loc-block-text"><strong>Téléphone</strong><a href="tel:+33320875764" id="lk-loc-telephone" class="lk-telephone">03 20 87 57 64</a></div></div>
+      <div class="loc-block"><div class="loc-icon">✉️</div><div class="loc-block-text"><strong>Email</strong><a href="mailto:itsybitsylille@gmail.com" id="lk-loc-email" class="lk-email">itsybitsylille@gmail.com</a></div></div>
+      <div class="loc-block"><div class="loc-icon">🚇</div><div class="loc-block-text"><strong>Accès</strong><span id="lk-loc-acces">Métro Rihour (M1/M2)<br>Terrasse en été · Sur place · Retrait</span></div></div>
+      <div class="loc-block"><div class="loc-icon">💼</div><div class="loc-block-text"><strong>Service Traiteur</strong><span id="lk-loc-traiteur-desc">Plateaux végétaliens pour vos événements</span><br><a href="mailto:itsybitsylille@gmail.com" id="lk-loc-traiteur-cta">Nous contacter pour un devis</a></div></div>
+      <a id="lk-loc-btn" class="loc-btn">🗺️ Voir l'itinéraire</a>
+    </div>
+    <div class="map-wrap reveal d2 visible">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1265.8!2d3.0610!3d50.6302!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d57e07c1d1f1%3A0xbe1e4a8c9f6bfb0c!2s10%20Rue%20Jeanne%20Maillotte%2C%2059000%20Lille!5e0!3m2!1sfr!2sfr!4v1700000000001!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Itsy Bitsy 10 rue Jeanne Maillotte Lille"></iframe>
+    </div>
+  </div>
+</section>
+
+
+
+<footer role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-mark-f" aria-hidden="true">itsy<br>bitsy<br><small>lille</small></div>
+      <h4 id="lk-footer-name">Itsy Bitsy</h4>
+      <p id="lk-footer-desc">Restaurant &amp; traiteur 100% végétalien · Lille</p>
+      <div class="footer-social" aria-label="Réseaux sociaux">
+        <a href="https://www.facebook.com/itsybitsylille" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+        <a href="https://www.instagram.com/itsybitsylille" target="_blank" rel="noopener" aria-label="Instagram">▣</a>
+      </div>
+    </div>
+    <div class="footer-center">
+      <h5>Contact</h5>
+      <address><span id="lk-footer-adresse" class="lk-adresse">10 rue Jeanne Maillotte<br>59000 Lille, France</span><a href="tel:+33320875764" id="lk-footer-tel" class="ft-tel lk-telephone">03 20 87 57 64</a><a href="mailto:itsybitsylille@gmail.com" id="lk-footer-email" class="lk-email" style="display:block;color:var(--c-fern);margin-top:4px;font-size:.84rem;">itsybitsylille@gmail.com</a></address>
+    </div>
+    <div class="footer-nav-col">
+      <h5>Navigation</h5>
+      <ul>
+        <li><a href="#presentation">Notre histoire</a></li>
+        <li><a href="#menu">La carte</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#avis">Avis clients</a></li>
+        <li><a href="#horaires">Horaires &amp; réservation</a></li>
+        <li><a href="#localisation">Nous trouver</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span id="lk-footer-copy">© 2024 Itsy Bitsy — Cuisine Végétale · Lille</span>
+    <span style="display:flex;gap:1.2rem;flex-wrap:wrap;"><a href="mentions-legales.html">Mentions légales</a><a href="politique-confidentialite.html">Confidentialité</a><a href="cookies.html">Cookies</a><a href="mailto:itsybitsylille@gmail.com">Contact</a></span>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav'),ham=document.getElementById('ham'),mob=document.getElementById('mobileNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+ham.addEventListener('click',()=>{const o=ham.classList.toggle('open');mob.classList.toggle('open',o);ham.setAttribute('aria-expanded',o);});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open');ham.setAttribute('aria-expanded','false');}));
+document.addEventListener('click',e=>{if(mob.classList.contains('open')&&!nav.contains(e.target)&&!mob.contains(e.target)){ham.classList.remove('open');mob.classList.remove('open');}});
+
+document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tab-btn').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-selected','false');});
+  document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');b.setAttribute('aria-selected','true');
+  document.getElementById('tab-'+b.dataset.tab).classList.add('active');
+}));
+
+const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightbox-img');
+document.querySelectorAll('.g-item').forEach(item=>{
+  const open=()=>{lbImg.src=item.querySelector('img').src;lbImg.alt=item.querySelector('img').alt;lb.classList.add('open');document.body.style.overflow='hidden';};
+  item.addEventListener('click',open);
+  item.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')open();});
+});
+const closeLB=()=>{lb.classList.remove('open');document.body.style.overflow='';};
+document.getElementById('lightbox-close').addEventListener('click',closeLB);
+lb.addEventListener('click',e=>{if(e.target===lb)closeLB();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();});
+
+const track=document.getElementById('avisTrack'),dotsEl=document.getElementById('avisDots');
+const cards=[...track.querySelectorAll('.avis-card')];
+let cur=0,timer;
+const vis=()=>window.innerWidth<560?1:window.innerWidth<860?1:3;
+const total=()=>Math.ceil(cards.length/vis());
+function buildDots(){dotsEl.innerHTML='';for(let i=0;i<total();i++){const d=document.createElement('button');d.className='avis-dot'+(i===0?' active':'');d.setAttribute('aria-label','Avis '+(i+1));d.addEventListener('click',()=>go(i));dotsEl.appendChild(d);}}
+function go(i){cur=(i+total())%total();const w=cards[0].offsetWidth+24;track.style.transform=`translateX(-${cur*w*vis()}px)`;dotsEl.querySelectorAll('.avis-dot').forEach((d,j)=>d.classList.toggle('active',j===cur));}
+const startTimer=()=>{clearInterval(timer);timer=setInterval(()=>go(cur+1),4500);};
+buildDots();startTimer();
+track.addEventListener('mouseenter',()=>clearInterval(timer));
+track.addEventListener('mouseleave',startTimer);
+window.addEventListener('resize',()=>{buildDots();go(0);},{passive:true});
+
+(function(){
+  const now=new Date(),day=now.getDay(),h=now.getHours(),m=now.getMinutes(),t=h+m/60;
+  document.querySelectorAll('.hours-row').forEach(r=>r.classList.toggle('today',+r.dataset.day===day));
+  const pill=document.getElementById('statusPill'),txt=document.getElementById('statusText');
+  const open=(day>=2&&day<=6&&t>=11.5&&t<15)||(day===0&&t>=11&&t<15);
+  if(day===1){pill.className='status-pill closed';txt.textContent="Fermé aujourd'hui (lundi)";}
+  else if(open){pill.className='status-pill open';const rem=Math.round((15-t)*60);txt.textContent=rem<60?`Ouvert · Ferme dans ${rem} min`:'Ouvert maintenant';}
+  else{pill.className='status-pill closed';txt.textContent=day===0?'Fermé · Brunch sur réservation uniquement':'Fermé · Ouvre à 11h30';}
+})();
+
+// Reveal system - fire immediately and on scroll
+function triggerReveals(){
+  document.querySelectorAll('.reveal:not(.visible)').forEach(function(el){
+    var r=el.getBoundingClientRect();
+    if(r.top < window.innerHeight + 80) el.classList.add('visible');
+  });
+}
+triggerReveals();
+setTimeout(triggerReveals, 50);
+setTimeout(triggerReveals, 200);
+setTimeout(triggerReveals, 500);
+window.addEventListener('scroll', triggerReveals, {passive:true});
+window.addEventListener('load', function(){ triggerReveals(); setTimeout(triggerReveals,100); });
+</script>
+<style id="reveal-fallback">
+</style>
+<script>
+// Saison switcher
+document.querySelectorAll('.saison-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.saison-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.saison-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('saison-'+btn.dataset.saison).classList.add('active');
+    // Trigger reveals for newly visible panel
+    setTimeout(triggerReveals, 50);
+  });
+});
+
+// Force all reveals visible at multiple intervals
+[0, 100, 300, 700, 1500].forEach(function(t){
+  setTimeout(function(){
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
+  }, t);
+});
+</script>
+
+<!-- Loksite live editing listener -->
+
+
+
+<!-- ═══ BOUTON MODE ÉDITION ═══════════════════════════════════ -->
+
+
+
+
+
+
+
+<script>
+
+// ═══════════════════════════════════════════════════════
+//  RÉSERVATION — formulaire classique avec dispos dynamiques
+// ═══════════════════════════════════════════════════════
+(function() {
+var SB_URL = 'https://qhnofvfgutsdgbfwhupg.supabase.co';
+var SB_KEY = 'sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY';
+var CLIENT = window.LOKSITE_CLIENT_ID || '';
+var SETTINGS = null;
+var SETTINGS_AT = 0;
+var JOUR_KEYS = ['dim','lun','mar','mer','jeu','ven','sam'];
+
+function sbHeaders() {
+  return { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY };
+}
+
+async function loadSettings() {
+  try {
+    // RPC SECURITY DEFINER : ne renvoie que le bloc `settings` de CE
+    // client_id, jamais la liste ni les emails (cf. res_settings n'est
+    // plus lisible en direct par anon — migration 20260832).
+    var r = await fetch(SB_URL + '/rest/v1/rpc/lk_res_settings_public', {
+      method: 'POST',
+      headers: Object.assign({ 'Content-Type': 'application/json' }, sbHeaders()),
+      body: JSON.stringify({ p_client_id: CLIENT })
+    });
+    if (r.ok) { var d = await r.json(); if (d) { SETTINGS = d; SETTINGS_AT = Date.now(); } }
+  } catch(e) { console.warn('[RESA] settings', e); }
+}
+
+function genSlots(debut, fin, duree) {
+  function toMin(t){ var p=(t||'').split(':'); return parseInt(p[0]||0)*60+parseInt(p[1]||0); }
+  function toStr(m){ return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'); }
+  var out=[], cur=toMin(debut), end=toMin(fin);
+  while (cur + duree <= end) { out.push(toStr(cur)); cur += duree; }
+  return out;
+}
+
+var _lastRefresh = 0;
+window.resaMaybeRefresh = function() {
+  // Rafraîchit les dispos à l'ouverture du menu (max 1x / 3s)
+  if (Date.now() - _lastRefresh > 3000) window.resaRefreshSlots();
+};
+
+window.resaRefreshSlots = async function() {
+  _lastRefresh = Date.now();
+  var dateEl = document.getElementById('r-date');
+  var selEl = document.getElementById('r-creneau');
+  var hintEl = document.getElementById('resa-dispo-hint');
+  var hintTxt = document.getElementById('resa-dispo-hint-txt');
+  if (!dateEl || !selEl || !dateEl.value) return;
+  var dateStr = dateEl.value;
+  if (!SETTINGS || Date.now() - SETTINGS_AT > 60000) await loadSettings();
+  var s = SETTINGS || {};
+  var dt = new Date(dateStr + 'T00:00:00');
+  var horaire = s.horaires && s.horaires[JOUR_KEYS[dt.getDay()]];
+
+  // Fermé ou bloqué ?
+  var blocked = s.dates_bloquees && s.dates_bloquees.indexOf(dateStr) !== -1;
+  if (!horaire || !horaire.open || blocked) {
+    selEl.innerHTML = '<option value="">Fermé ce jour</option>';
+    if (hintEl) { hintEl.style.display=''; hintTxt.textContent = blocked ? 'Le restaurant est exceptionnellement fermé ce jour.' : 'Le restaurant est fermé ce jour. Choisissez une autre date.'; }
+    return;
+  }
+
+  selEl.innerHTML = '<option value="">Chargement…</option>';
+
+  // Réservations existantes du jour
+  var dayRDVs = [];
+  try {
+    var r = await fetch(SB_URL + '/rest/v1/rpc/lk_reservations_jour', {
+      method: 'POST',
+      headers: Object.assign({ 'Content-Type': 'application/json' }, sbHeaders()),
+      body: JSON.stringify({ p_client_id: CLIENT, p_date: dateStr })
+    });
+    if (r.ok) dayRDVs = await r.json();
+  } catch(e) { console.warn('[RESA] rdvs', e); }
+
+  var slots = genSlots(horaire.debut, horaire.fin, s.duree || 30);
+  var couvertsMax = s.couverts_max || 10;
+  var demandes = parseInt((document.getElementById('r-cv')||{}).value) || 1;
+  var now = new Date();
+  var delai = (s.delai_min || 2) * 3600000;
+
+  var opts = ['<option value="">Choisir…</option>'];
+  var freeCount = 0, fullCount = 0, pastCount = 0;
+  slots.forEach(function(h) {
+    var pris = dayRDVs.filter(function(x){ return x.heure === h; })
+      .reduce(function(sum,x){ return sum + (parseInt(x.couverts)||0); }, 0);
+    var restant = couvertsMax - pris;
+    var past = new Date(dateStr + 'T' + h + ':00').getTime() < now.getTime() + delai;
+    if (past) { pastCount++; return; }
+    if (restant < demandes) { fullCount++; return; }
+    freeCount++;
+    var info = ' — ' + restant + ' place' + (restant > 1 ? 's' : '') + ' rest.';
+    opts.push('<option value="' + h + '">' + h + info + '</option>');
+  });
+
+  var emptyLbl = 'Complet ce jour';
+  var emptyHint = 'Plus aucune disponibilité ce jour — essayez une autre date.';
+  if (!freeCount && pastCount && !fullCount) {
+    emptyLbl = 'Trop tard pour ce jour';
+    emptyHint = 'Les réservations pour ce jour sont closes — choisissez une date ultérieure.';
+  } else if (!freeCount && fullCount && demandes > 1) {
+    emptyHint = 'Plus assez de places pour ' + demandes + ' personnes — essayez moins de couverts ou une autre date.';
+  }
+
+  selEl.innerHTML = freeCount ? opts.join('') : '<option value="">' + emptyLbl + '</option>';
+  selEl.disabled = !freeCount;
+  if (hintEl) {
+    hintEl.style.display = '';
+    hintTxt.textContent = freeCount
+      ? freeCount + ' créneau' + (freeCount>1?'x':'') + ' disponible' + (freeCount>1?'s':'') + ' ce jour.'
+      : emptyHint;
+  }
+};
+
+window.resaSubmit = async function() {
+  var get = function(id){ return (document.getElementById(id)||{}).value || ''; };
+  var nom = get('r-nom').trim(), email = get('r-email').trim(), tel = get('r-tel').trim();
+  var cv = parseInt(get('r-cv')) || 0, date = get('r-date'), heure = get('r-creneau'), msg = get('r-msg').trim();
+  var errEl = document.getElementById('resa-err'), errTxt = document.getElementById('resa-err-txt');
+  function showErr(m){ if(errEl){ errEl.style.display=''; errTxt.textContent=m; setTimeout(function(){ errEl.style.display='none'; }, 5000);} }
+
+  if (!nom || !tel || !cv || !date || !heure) { showErr('Merci de remplir : nom, téléphone, couverts, date et créneau.'); return; }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('Email invalide.'); return; }
+
+  var btn = document.getElementById('lk-resa-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+
+  try {
+    var notifConfirm = SETTINGS && SETTINGS.notif_confirm;
+    var resp = await fetch(SB_URL + '/rest/v1/reservations_creneaux', {
+      method: 'POST',
+      headers: Object.assign({ 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, sbHeaders()),
+      body: JSON.stringify({
+        client_id: CLIENT, nom_client: nom, tel: tel, email: email,
+        couverts: cv, date: date, heure: heure,
+        statut: notifConfirm ? 'pending' : 'confirmed', notes: msg
+      })
+    });
+    if (!resp.ok) {
+      var body = await resp.text();
+      console.error('[RESA] insert failed', resp.status, body);
+      throw new Error('HTTP ' + resp.status);
+    }
+    document.getElementById('resaForm').style.display = 'none';
+    var ok = document.getElementById('resaOk');
+    if (ok) {
+      ok.style.display = 'block';
+      var okMsg = document.getElementById('resaOkMsg'); if (okMsg && SETTINGS && SETTINGS.msg_confirm) okMsg.textContent = SETTINGS.msg_confirm;
+    }
+  } catch(e) {
+    showErr('Une erreur est survenue. Veuillez réessayer.');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Confirmer ma réservation →'; }
+  }
+};
+
+window.resaFormReset = function() {
+  var ok = document.getElementById('resaOk');
+  var form = document.getElementById('resaForm');
+  if (ok) ok.style.display = 'none';
+  if (form) form.style.display = '';
+  ['r-nom','r-email','r-tel','r-msg'].forEach(function(id){
+    var el = document.getElementById(id); if (el) el.value = '';
+  });
+  var sel = document.getElementById('r-creneau');
+  if (sel) { sel.innerHTML = '<option value="">Choisissez d\'abord une date</option>'; sel.disabled = true; }
+  var di = document.getElementById('r-date');
+  if (di) di.value = '';
+  var hint = document.getElementById('resa-dispo-hint');
+  if (hint) hint.style.display = 'none';
+};
+
+// Init : date min = aujourd'hui + précharger settings
+document.addEventListener('DOMContentLoaded', function() {
+  var di = document.getElementById('r-date');
+  if (di) di.min = new Date().toISOString().split('T')[0];
+  loadSettings();
+});
+if (document.readyState !== 'loading') {
+  var di = document.getElementById('r-date');
+  if (di) di.min = new Date().toISOString().split('T')[0];
+  loadSettings();
+}
+})();
+
+</script>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     ÉDITEUR TACTILE — support du doigt pour l'édition mobile.
+     L'éditeur d'origine n'écoutait que la souris (mousedown /
+     mousemove / mouseup) : déplacer ou redimensionner un élément
+     était donc strictement impossible sur un téléphone. Ce module
+     traduit les gestes tactiles en événements souris et adapte la
+     barre d'outils au petit écran. Le rendu bureau est inchangé.
+══════════════════════════════════════════════════════════════ -->
+
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     LOKSITE — MODULE DESIGN (thèmes · guides d'alignement · polices)
+     ═══════════════════════════════════════════════════════════════════════
+     ▸ À COLLER DANS vitrine-preview.html, JUSTE AVANT </body>
+       (donc après toutes les balises script existantes de l'éditeur).
+
+     ▸ RÈGLE CRITIQUE — pourquoi ce bloc n'a PAS :
+       lkeSave() (espace.html) clone le document, supprime tout
+       [data-lke-ui], puis RÉÉCRIT le résultat dans vitrine-preview.html.
+       Un script marqué data-lke-ui s'auto-détruirait au 1er enregistrement.
+       → Le SCRIPT est conservé (comme les scripts éditeur existants).
+       → Tout ce qu'il GÉNÈRE (overlay de guides, popup de polices) porte
+         et disparaît donc à la publication.
+       → Le <style id="lk-theme"> et le <link id="lk-theme-fonts"> ne portent
+         PAS ce marqueur : ils voyagent avec le HTML, donc l'aperçu et le
+         site publié utilisent exactement les mêmes valeurs.
+     ═══════════════════════════════════════════════════════════════════════ -->
+
+
+
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     LKEAnchor — adaptation responsive des elements ancres
+     ══════════════════════════════════════════════════════════════════
+     Ce script fait partie du RENDU du site, pas de l'interface
+     d'edition : il ne doit JAMAIS porter, sinon le
+     balayage de nettoyage le supprime au moment de la publication.
+
+     Deux comportements, un seul point de rupture :
+       > 768px : position libre conservee, avec un CLAMP horizontal qui
+                 rend tout debordement impossible (left + largeur ne
+                 peut plus depasser 100% de la section).
+       <= 768px : retour dans le flux normal, en bas de la section, dans
+                 l'ordre vertical d'origine.
+
+     Les valeurs de reference desktop (left %, top px, largeur %) sont
+     figees une fois pour toutes dans des data-* : elles survivent au
+     passage en flux, qui ecrase les styles inline.
+     ═══════════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════════════
+     MIGRATION : IMAGE LIBRE DEPOSEE DANS LA GALERIE -> CASE DE GRILLE
+     ═══════════════════════════════════════════════════════════════════
+     Une image ajoutee dans la section #galerie AVANT le correctif de
+     l'editeur y a ete posee en element libre (position:absolute,
+     left/top). Elle se superpose donc a la grille au lieu d'y prendre
+     place : elle recouvre les photos existantes, garde son ratio propre
+     (donc une taille differente de toutes les autres) et flotte au
+     mauvais endroit des que la largeur de fenetre change.
+     On la reintegre ici dans .gallery-grid comme une case .g-item
+     normale : meme dimensions que les autres, recadrage automatique par
+     object-fit:cover, et plus aucun chevauchement.
+     Doit tourner AVANT le module d'ancrage ci-dessous, pour que celui-ci
+     ne traite plus ces elements comme des elements libres.
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  var gal = document.getElementById('galerie');
+  if (!gal) return;
+  var grid = gal.querySelector('.gallery-grid');
+  if (!grid) return;
+
+  var floating = gal.querySelectorAll('[data-custom-pos],[data-lke-anchored],[data-lke-anchor="1"]');
+  var n = 0;
+
+  Array.prototype.forEach.call(floating, function (el) {
+    // On ne touche qu'aux elements reellement detaches du flux.
+    var pos = el.style.position || '';
+    if (pos !== 'absolute' && !el.hasAttribute('data-lke-anchored')) return;
+    // Une case de grille deja correcte ne doit surtout pas etre migree.
+    if (el.classList.contains('g-item')) return;
+
+    var img = el.querySelector('img');
+    if (!img || !img.getAttribute('src')) return;
+
+    var item = document.createElement('div');
+    item.className = 'g-item reveal visible';
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('aria-label', el.getAttribute('aria-label') || 'Photo galerie');
+
+    var ni = document.createElement('img');
+    ni.src = img.getAttribute('src');
+    ni.alt = img.getAttribute('alt') || '';
+    item.appendChild(ni);
+
+    var ov = document.createElement('div');
+    ov.className = 'g-item-overlay';
+    var sp = document.createElement('span');
+    sp.textContent = '';
+    ov.appendChild(sp);
+    item.appendChild(ov);
+
+    grid.appendChild(item);
+    el.parentNode.removeChild(el);
+    n++;
+  });
+
+  if (n) console.log('[LK] ' + n + ' image(s) flottante(s) reintegree(s) dans la grille de la galerie');
+})();
+</script>
+
+<script>
+(function () {
+  var BP = 768;
+  window.LKE_ANCHOR_BP = BP;
+
+  function num(v, d) { var n = parseFloat(v); return isNaN(n) ? d : n; }
+
+  /* Les elements concernes. data-lke-anchored est le marqueur pose par
+     l'editeur ; le repli sur data-custom-pos + position:absolute inline
+     rattrape les elements des sites deja publies avant ce correctif. */
+  /* Empreinte d'un element cree par le systeme d'ancrage : top (px) +
+     left (%) + z-index:5000, tous trois toujours ecrits ensemble par
+     lkeAddImageFromFile / lkeAddTextZone / lkeNormalizeFreePos. Ces
+     trois valeurs, PRISES ENSEMBLE, ne se produisent jamais sur le
+     systeme distinct des « elements d'origine deplaces » (qui n'a ni
+     top ni left inline, seulement un transform:translate). On peut
+     donc reconnaitre un element ancre meme si :
+       - data-lke-anchor / data-lke-anchored ont ete retires (c'est le
+         cas de TOUT element une fois publie : seul data-custom-pos
+         survit) ;
+       - son style inline est corrompu (position:relative au lieu
+         d'absolute — bug constate en aout 2026 sur une image ajoutee
+         juste apres une autre, cause exacte non confirmee malgre
+         investigation : cf. echange du 08/08). Se fier uniquement a
+         « position:absolute » pour la detection revenait donc a
+         ignorer precisement les elements casses qu'il fallait reparer.
+     Un element ainsi detecte est repare : sa position est reaffirmee
+     en absolute, quelle que soit la valeur trouvee. Operation neutre
+     et sans risque pour un element deja correct. */
+  function looksAnchored(el) {
+    var s = el.style;
+    // z-index de reference d'un element ancre : 50 depuis le correctif de
+    // superposition (l'ancienne valeur 5000 passait AU-DESSUS de #nav, qui
+    // est a 900 — une image deplacee recouvrait donc la barre de
+    // navigation). 5000 reste accepte : les sites publies avant le
+    // correctif portent encore cette valeur dans leur HTML enregistre.
+    var zAnchor = (s.zIndex === '50' || s.zIndex === '5000');
+    return !!(s.top && /%$/.test(s.left || '') && (zAnchor || el.getAttribute('data-lke-anchor') === '1'));
+  }
+
+  function anchored() {
+    var out = [], seen = [];
+    document.querySelectorAll('[data-lke-anchored],[data-lke-anchor],[data-custom-pos]').forEach(function (el) {
+      if (seen.indexOf(el) !== -1) return;
+      if (el.closest('[data-lke-ui]')) return;
+      var isAnchored = el.hasAttribute('data-lke-anchored') || looksAnchored(el);
+      if (!isAnchored) {
+        var inline = el.getAttribute('style') || '';
+        isAnchored = /position\s*:\s*absolute/i.test(inline);
+      }
+      if (!isAnchored) return;
+      // Auto-reparation : un element identifie comme ancre DOIT etre en
+      // position absolute. S'il ne l'est pas (corruption), on corrige
+      // avant meme la capture desktop, pour que celle-ci mesure un
+      // rendu deja correct.
+      if (el.style.position !== 'absolute') {
+        console.warn('[LKEAnchor] position corrompue reparee sur', el.getAttribute('data-lke-wrap') || el.id || el, '(etait:', el.style.position || 'non definie', ')');
+        el.style.position = 'absolute';
+      }
+      seen.push(el); out.push(el);
+    });
+    return out;
+  }
+
+  /* Capture (une seule fois, et uniquement en desktop pour que la
+     mesure soit faite dans la mise en page de reference). */
+  /* Largeur VISUELLE de l'element. getBoundingClientRect inclut deja le
+     scale(), mais renvoie 0 sur un element non rendu : image pas encore
+     chargee, ou element masque (display:none) — cas bien reel, il y en a
+     un dans les pages existantes. Sans repli, data-lke-w n'etait jamais
+     ecrit et le clamp restait inerte. */
+  function measure(el, hw) {
+    var r = el.getBoundingClientRect().width;
+    if (r) return r;
+    var s = 1, m = /scale\(\s*([\d.]+)\s*\)/.exec(el.style.transform || '');
+    if (m) s = parseFloat(m[1]) || 1;
+    var wv = el.style.width || '';
+    if (/%\s*$/.test(wv)) return (parseFloat(wv) / 100) * hw * s;
+    var px = parseFloat(wv);
+    return isNaN(px) ? 0 : px * s;
+  }
+
+  function capture(el) {
+    if (el.hasAttribute('data-lke-w')) return;
+    var host = el.offsetParent || el.parentElement;
+    var hw = host ? host.clientWidth : window.innerWidth;
+    if (!hw) return;
+    var w = measure(el, hw);
+    if (!w) return;   /* pas mesurable pour l'instant : on reessaiera au prochain resize/load */
+    el.setAttribute('data-lke-w', ((w / hw) * 100).toFixed(4));
+    if (!el.hasAttribute('data-lke-left')) el.setAttribute('data-lke-left', el.style.left || '0%');
+    if (!el.hasAttribute('data-lke-top'))  el.setAttribute('data-lke-top',  el.style.top  || '0px');
+    if (!el.hasAttribute('data-lke-tr'))   el.setAttribute('data-lke-tr',   el.style.transform || '');
+    el.setAttribute('data-lke-anchored', '1');
+  }
+
+  /* Un element ne peut plus sortir de sa section, a aucune largeur.
+
+     CORRECTIF (image geante en desktop) : jusqu'ici seule la position
+     (« left ») etait reclampee a chaque resize/apply, jamais la largeur.
+     Un « width » fige en px (ou un « width » en % capture a un instant
+     ou le rapport image/section ne correspondait pas exactement a celui
+     du rendu final publie) restait donc tel quel pour toujours, sans
+     jamais etre revalide contre la largeur REELLE du conteneur hote.
+     Sur mobile ce n'etait jamais visible car .lke-anchor-flow ecrase
+     tout avec width:100%!important. Sur desktop, rien ne rattrapait un
+     width devenu incoherent : d'ou des images qui debordaient largement
+     de leur section.
+     On fixe donc explicitement el.style.width en PX, recalcule a partir
+     du pourcentage de reference (data-lke-w) et de la largeur live du
+     conteneur, a chaque appel — exactement le meme principe que pour
+     « left », applique a la taille. */
+  function clamp(el) {
+    var w = num(el.getAttribute('data-lke-w'), NaN);
+    if (isNaN(w)) return;
+
+    var host = el.offsetParent || el.parentElement;
+    var hw = host ? host.clientWidth : 0;
+    if (hw) {
+      var pxWidth = (w / 100) * hw;
+      // Filet de securite absolu : quoi qu'il arrive, un element ancre
+      // ne peut jamais depasser la largeur de son conteneur.
+      pxWidth = Math.min(pxWidth, hw);
+      var wanted = pxWidth.toFixed(2) + 'px';
+      if (el.style.width !== wanted) el.style.width = wanted;
+    }
+
+    var l  = num(el.getAttribute('data-lke-left'), num(el.style.left, 0));
+    var nl = Math.min(Math.max(l, 0), Math.max(100 - w, 0));
+    if (Math.abs(nl - num(el.style.left, l)) > 0.01) el.style.left = nl.toFixed(4) + '%';
+  }
+
+  function toFlow(el) { el.classList.add('lke-anchor-flow'); }
+
+  function toFree(el) {
+    if (el.classList.contains('lke-anchor-flow')) {
+      el.classList.remove('lke-anchor-flow');
+      if (el.hasAttribute('data-lke-left')) el.style.left = el.getAttribute('data-lke-left');
+      if (el.hasAttribute('data-lke-top'))  el.style.top  = el.getAttribute('data-lke-top');
+      var tr = el.getAttribute('data-lke-tr'); if (tr) el.style.transform = tr;
+    }
+    clamp(el);
+  }
+
+  /* En flux, l'ordre de lecture doit rester celui du desktop : on empile
+     les elements ancres en bas de leur section, tries par leur position
+     verticale d'origine. */
+  function reorder(list) {
+    var hosts = [], groups = [];
+    list.forEach(function (el) {
+      var h = el.parentElement; if (!h) return;
+      var i = hosts.indexOf(h);
+      if (i === -1) { hosts.push(h); groups.push([el]); } else groups[i].push(el);
+    });
+    groups.forEach(function (els, i) {
+      els.sort(function (a, b) {
+        return num(a.getAttribute('data-lke-top'), 0) - num(b.getAttribute('data-lke-top'), 0);
+      });
+      els.forEach(function (el) { hosts[i].appendChild(el); });
+    });
+  }
+
+  var lastMode = null;
+  function apply() {
+    var list = anchored();
+    if (!list.length) return;
+    var mobile = window.innerWidth <= BP;
+    if (!mobile) list.forEach(capture);
+    list.forEach(mobile ? toFlow : toFree);
+    if (mobile && lastMode !== 'mobile') reorder(list);
+    lastMode = mobile ? 'mobile' : 'desktop';
+  }
+  window.LKEAnchorRefresh = apply;
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply);
+  else apply();
+  window.addEventListener('load', apply);
+  var t;
+  window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(apply, 120); });
+})();
+</script>
+
+</body></html>

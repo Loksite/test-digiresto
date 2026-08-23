@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<script>
+// ── Loksite Client ID (même établissement que la vitrine) ──
+window.LOKSITE_CLIENT_ID = "axel.merlot59@gmail.com";
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Mentions légales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --vio:#6D5DFC; --text:#0f172a; --text-dim:#475569; --text-light:#94a3b8; --border:#e2e8f0; --bg:#f8fafc; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: 'Sora',-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--text); background:var(--bg); line-height:1.7; }
+  .wrap { max-width:720px; margin:0 auto; padding:48px 24px 80px; }
+  a { color:var(--vio); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .back { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--text-dim); margin-bottom:32px; }
+  h1 { font-size:26px; font-weight:800; margin:0 0 6px; }
+  .updated { font-size:13px; color:var(--text-light); margin-bottom:36px; }
+  h2 { font-size:17px; font-weight:700; margin:36px 0 10px; color:var(--text); }
+  p,li { font-size:14.5px; color:var(--text-dim); }
+  ul { padding-left:20px; margin:8px 0; }
+  li { margin-bottom:6px; }
+  .box { background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px 20px; margin:16px 0; }
+  .box p { margin:4px 0; }
+  .todo { background:#fff6e5; border:1px solid #e6c884; border-radius:6px; padding:.1rem .45rem; color:#8a6d1e; font-weight:600; font-size:.82rem; }
+  footer { margin-top:56px; padding-top:20px; border-top:1px solid var(--border); font-size:12px; color:var(--text-light); text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="vitrine.html">&larr; Retour au site</a>
+
+  <h1>Mentions légales</h1>
+  <div class="updated">Dernière mise à jour : <span id="lk-date">—</span></div>
+
+  <h2>1. Éditeur du site</h2>
+  <div class="box">
+    <p>Ce site est édité par l'établissement <strong class="lk-nom">cet établissement</strong>.</p>
+    <p>Adresse : <span class="lk-adresse">—</span></p>
+    <p>Téléphone : <a href="#" class="lk-telephone">—</a></p>
+    <p>SIRET : <span class="todo">[À COMPLÉTER par l'établissement]</span></p>
+    <p>Responsable de la publication : <span class="todo">[À COMPLÉTER : nom du gérant]</span></p>
+  </div>
+
+  <h2>2. Conception et hébergement technique</h2>
+  <p>
+    Ce site est conçu, maintenu et hébergé par <strong>Loksite</strong>, prestataire technique agissant
+    pour le compte de l'établissement. Les données du site (contenus, réservations, mesure d'audience)
+    sont stockées chez l'hébergeur de base de données <strong>Supabase</strong>
+    (Supabase Inc.). Pour toute question technique : <a href="mailto:merlot.axeltk@gmail.com">merlot.axeltk@gmail.com</a>.
+  </p>
+
+  <h2>3. Propriété intellectuelle</h2>
+  <p>
+    Les contenus propres à l'établissement (nom, textes, photos, menu) restent la propriété de
+    l'établissement. La structure technique, le design et le code du site sont la propriété de Loksite.
+    Toute reproduction non autorisée est interdite.
+  </p>
+
+  <h2>4. Données personnelles</h2>
+  <p>
+    Le traitement des données personnelles (réservations, mesure d'audience) est détaillé dans la
+    <a href="politique-confidentialite.html">politique de confidentialité</a>, qui précise également
+    la gestion des cookies et vos droits (RGPD).
+  </p>
+
+  <h2>5. Responsabilité</h2>
+  <p>
+    L'établissement s'efforce d'assurer l'exactitude des informations publiées (horaires, menu, prix)
+    mais ne peut en garantir l'absence d'erreur. Les informations sont données à titre indicatif et
+    peuvent évoluer.
+  </p>
+
+  <h2>6. Droit applicable</h2>
+  <p>Les présentes mentions sont soumises au droit français.</p>
+
+  <footer>Site géré par Loksite pour le compte de l'établissement.</footer>
+</div>
+
+<!-- Loksite site_config loader (nom/adresse/téléphone) -->
+<script>
+(function() {
+  var SUPABASE_URL = "https://qhnofvfgutsdgbfwhupg.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY";
+  var CLIENT_ID = window.LOKSITE_CLIENT_ID || "";
+
+  document.getElementById('lk-date').textContent = new Date().toLocaleDateString('fr-FR', { year:'numeric', month:'long', day:'numeric' });
+
+  if (!CLIENT_ID) return;
+  fetch(SUPABASE_URL + "/rest/v1/rpc/lk_site_public", {
+    method: "POST",
+    headers: { "apikey": SUPABASE_KEY, "Authorization": "Bearer " + SUPABASE_KEY, "Content-Type": "application/json" },
+    body: JSON.stringify({ p_email: CLIENT_ID })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    var cfg = data && data.site_config;
+    if (!cfg) return;
+    if (cfg.hero_titre) document.querySelectorAll(".lk-nom").forEach(function(el){ el.textContent = cfg.hero_titre; });
+    if (cfg.adresse)    document.querySelectorAll(".lk-adresse").forEach(function(el){ el.textContent = cfg.adresse; });
+    if (cfg.telephone)  document.querySelectorAll(".lk-telephone").forEach(function(el){
+      el.textContent = cfg.telephone; el.setAttribute('href','tel:'+cfg.telephone.replace(/\s+/g,''));
+    });
+  })
+  .catch(function(e){ console.log("site_config non chargé:", e); });
+})();
+</script>
+
+</body>
+</html>
