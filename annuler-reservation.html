@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<!-- Le jeton d'annulation voyage dans l'URL : sans cette ligne, il partirait
+     dans l'en-tete Referer de la moindre requete sortante (polices Google,
+     clic sur « Retour au site »). -->
+<meta name="referrer" content="no-referrer">
+<title>Annulation de votre réservation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Même charte que cookies.html / mentions-legales.html : ce sont les
+     pages publiques que Loksite sert pour le compte de l'établissement. */
+  :root { --vio:#6D5DFC; --text:#0f172a; --text-dim:#475569; --text-light:#94a3b8; --border:#e2e8f0; --bg:#f8fafc; --green:#16a34a; --amber:#d97706; --red:#dc2626; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:'Sora',-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--text); background:var(--bg); line-height:1.7;
+         display:flex; align-items:center; justify-content:center; min-height:100vh; padding:24px; }
+  .card { max-width:460px; width:100%; background:#fff; border:1px solid var(--border); border-radius:16px; padding:36px 30px 30px; text-align:center; }
+  .ico { width:56px; height:56px; border-radius:16px; display:flex; align-items:center; justify-content:center; margin:0 auto 22px; }
+  .ico.ok   { background:rgba(22,163,74,.10);  color:var(--green); }
+  .ico.info { background:rgba(109,93,252,.10); color:var(--vio); }
+  .ico.warn { background:rgba(217,119,6,.10);  color:var(--amber); }
+  .ico.err  { background:rgba(220,38,38,.10);  color:var(--red); }
+  h1 { font-size:20px; font-weight:800; margin:0 0 10px; letter-spacing:-.01em; line-height:1.4; }
+  p  { font-size:14.5px; color:var(--text-dim); margin:0 0 8px; }
+  .recap { text-align:left; background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin:22px 0 4px; }
+  .recap div { display:flex; justify-content:space-between; gap:16px; font-size:13.5px; padding:3px 0; }
+  .recap span:first-child { color:var(--text-light); }
+  .recap span:last-child  { color:var(--text); font-weight:600; text-align:right; }
+  .back { display:inline-block; margin-top:26px; font-size:13.5px; font-weight:700; color:var(--vio); text-decoration:none; }
+  .back:hover { text-decoration:underline; }
+  footer { margin-top:22px; font-size:12px; color:var(--text-light); }
+  .spin { width:26px; height:26px; border-radius:50%; border:2.5px solid rgba(109,93,252,.22); border-top-color:var(--vio); margin:0 auto 20px; animation:t .7s linear infinite; }
+  @keyframes t { to { transform:rotate(360deg); } }
+  @media (prefers-reduced-motion:reduce) { .spin { animation:none; } }
+</style>
+</head>
+<body>
+
+<div class="card" id="card" role="status" aria-live="polite">
+  <div class="spin" id="spin"></div>
+  <h1 id="titre">Annulation en cours…</h1>
+  <p id="texte">Merci de patienter un instant.</p>
+  <div class="recap" id="recap" style="display:none"></div>
+  <a class="back" id="back" href="vitrine.html" style="display:none">← Retour au site</a>
+  <footer>Cette page est gérée par Loksite pour le compte de l'établissement.</footer>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   ANNULATION DEPUIS L'E-MAIL DU CONVIVE
+   ───────────────────────────────────────────────────────────────────
+   Le convive n'a pas de compte : la seule preuve qu'il détient est le
+   jeton reçu dans son e-mail. On l'échange contre une annulation via la
+   RPC SECURITY DEFINER `lk_reservation_annuler` — même patron que le
+   widget de réservation de vitrine.html (lk_res_settings_public,
+   lk_reservations_jour) : clé publishable, aucune session requise.
+
+   Pourquoi l'annulation part d'un script et non d'un simple lien GET :
+   les antivirus de messagerie et les aperçus de lien PRÉ-CHARGENT les
+   URLs des e-mails. Un GET qui annule serait déclenché avant même que
+   le convive ait ouvert son message. Un POST lancé en JavaScript n'est
+   jamais exécuté par ces robots.
+   ═══════════════════════════════════════════════════════════════════ */
+(function () {
+  var SB_URL = 'https://qhnofvfgutsdgbfwhupg.supabase.co';
+  var SB_KEY = 'sb_publishable_fJ-oHwhpaB0pBRwMgdwFXQ_GY2Ad9GY';
+
+  var MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  var JOURS = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+
+  var ICONES = {
+    ok:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M20 6 9 17l-5-5"/></svg>',
+    info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>',
+    warn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+    err:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>'
+  };
+
+  function esc(v) {
+    return String(v == null ? '' : v)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  function dateFr(iso) {
+    if (!iso) return '';
+    var p = String(iso).split('-');
+    if (p.length !== 3) return iso;
+    var d = new Date(Date.UTC(+p[0], +p[1] - 1, +p[2], 12));
+    if (isNaN(d.getTime())) return iso;
+    return JOURS[d.getUTCDay()] + ' ' + d.getUTCDate() + ' ' + MOIS[d.getUTCMonth()] + ' ' + d.getUTCFullYear();
+  }
+
+  /* Un seul endroit qui écrit dans la page : tous les cas passent par ici,
+     donc aucun état ne peut oublier de cacher le spinner ou le récap. */
+  function afficher(icone, titre, texte, infos) {
+    var spin = document.getElementById('spin');
+    if (spin) spin.remove();
+
+    var card = document.getElementById('card');
+    if (!card.querySelector('.ico')) {
+      var el = document.createElement('div');
+      el.className = 'ico ' + icone;
+      el.innerHTML = ICONES[icone] || ICONES.info;
+      card.insertBefore(el, card.firstChild);
+    }
+
+    document.getElementById('titre').textContent = titre;
+    document.getElementById('texte').textContent = texte;
+
+    var recap = document.getElementById('recap');
+    if (infos && infos.date) {
+      var lignes = [
+        ['Établissement', infos.resto],
+        ['Au nom de',     infos.nom],
+        ['Date',          dateFr(infos.date)],
+        ['Heure',         infos.heure],
+        ['Couverts',      infos.couverts]
+      ].filter(function (l) { return l[1] !== undefined && l[1] !== null && l[1] !== ''; });
+      recap.innerHTML = lignes.map(function (l) {
+        return '<div><span>' + esc(l[0]) + '</span><span>' + esc(l[1]) + '</span></div>';
+      }).join('');
+      recap.style.display = '';
+    }
+
+    document.getElementById('back').style.display = '';
+  }
+
+  /* Le jeton ne doit pas rester dans l'historique du navigateur ni dans
+     une capture d'écran partagée : on le retire de la barre d'adresse
+     dès qu'il est lu. Un rechargement de page retombe alors proprement
+     sur « lien invalide » plutôt que de rejouer l'annulation. */
+  function lireJeton() {
+    var m = /[?&](?:token|t)=([0-9a-fA-F]{48})(?:&|$)/.exec(window.location.search);
+    var jeton = m ? m[1].toLowerCase() : null;
+    if (jeton && window.history && window.history.replaceState) {
+      try { window.history.replaceState({}, '', window.location.pathname); } catch (e) {}
+    }
+    return jeton;
+  }
+
+  var ETATS = {
+    ok: function (d) {
+      afficher('ok',
+        'Votre rendez-vous a été supprimé avec succès.',
+        'Le restaurant a été prévenu. Vous n\'avez rien d\'autre à faire.', d);
+    },
+    deja_annule: function (d) {
+      afficher('info',
+        'Votre rendez-vous a été supprimé avec succès.',
+        'Cette réservation avait déjà été annulée — elle ne sera pas rétablie. Vous pouvez fermer cette page.', d);
+    },
+    expire: function (d) {
+      afficher('warn',
+        'Ce rendez-vous est déjà passé',
+        'La date de cette réservation est dépassée : il n\'y a plus rien à annuler. Contactez directement le restaurant si vous avez un doute.', d);
+    },
+    introuvable: function () {
+      afficher('err',
+        'Ce lien d\'annulation n\'est plus valide',
+        'La réservation n\'existe plus, ou le lien est incomplet. Si vous souhaitez annuler, contactez directement le restaurant.');
+    },
+    erreur: function () {
+      afficher('err',
+        'Annulation impossible pour le moment',
+        'Une erreur technique nous empêche de traiter votre demande. Réessayez dans quelques minutes, ou contactez directement le restaurant.');
+    }
+  };
+
+  async function annuler() {
+    var jeton = lireJeton();
+
+    // Lien tronqué par le client de messagerie, ou page ouverte à la main.
+    if (!jeton) { ETATS.introuvable(); return; }
+
+    try {
+      var r = await fetch(SB_URL + '/rest/v1/rpc/lk_reservation_annuler', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SB_KEY,
+          'Authorization': 'Bearer ' + SB_KEY
+        },
+        body: JSON.stringify({ p_token: jeton })
+      });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      var d = await r.json();
+      (ETATS[d && d.etat] || ETATS.erreur)(d);
+    } catch (e) {
+      console.warn('[annulation]', e);
+      ETATS.erreur();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', annuler);
+  } else {
+    annuler();
+  }
+})();
+</script>
+</body>
+</html>
